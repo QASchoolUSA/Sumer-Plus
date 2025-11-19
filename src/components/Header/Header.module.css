@@ -1,0 +1,133 @@
+.header {
+    background-color: var(--color-background);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: var(--spacing-sm) 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: -0.5px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.navList {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.navLink {
+    font-weight: 500;
+    color: var(--color-text-main);
+    transition: color var(--transition-fast);
+}
+
+.navLink:hover {
+    color: var(--color-primary);
+}
+
+.mobileToggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    z-index: 101;
+}
+
+.hamburger {
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-primary);
+    position: relative;
+    transition: all var(--transition-normal);
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: all var(--transition-normal);
+}
+
+.hamburger::before {
+    transform: translateY(-8px);
+}
+
+.hamburger::after {
+    transform: translateY(8px);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .mobileToggle {
+        display: flex;
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: var(--color-background);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        padding: var(--spacing-xxl) var(--spacing-md);
+        transition: right var(--transition-normal);
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navOpen {
+        right: 0;
+    }
+
+    .navList {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: var(--spacing-md);
+    }
+
+    .navLink {
+        font-size: 1.25rem;
+        display: block;
+        padding: var(--spacing-xs) 0;
+    }
+
+    /* Hamburger Animation */
+    .open {
+        background-color: transparent;
+    }
+
+    .open::before {
+        transform: rotate(45deg);
+    }
+
+    .open::after {
+        transform: rotate(-45deg);
+    }
+}

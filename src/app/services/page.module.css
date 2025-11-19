@@ -1,0 +1,118 @@
+.container {
+    padding: var(--spacing-xl) 0;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+}
+
+.title {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+}
+
+.section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xxl);
+    align-items: center;
+    margin-bottom: var(--spacing-xxl);
+    padding: var(--spacing-xl) 0;
+}
+
+.reversed {
+    direction: rtl;
+    /* Simple way to reverse grid, but need to reset text direction */
+}
+
+.reversed .sectionContent,
+.reversed .visual {
+    direction: ltr;
+}
+
+.sectionContent {
+    max-width: 500px;
+    margin: 0 auto;
+    /* Center in grid cell if needed */
+}
+
+.sectionTitle {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.sectionDescription {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+}
+
+.featureList {
+    list-style: none;
+    margin-bottom: var(--spacing-lg);
+}
+
+.featureList li {
+    margin-bottom: var(--spacing-sm);
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.featureList li::before {
+    content: '✓';
+    color: var(--color-success);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.visual {
+    height: 400px;
+}
+
+.placeholderImage {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    position: relative;
+    overflow: hidden;
+}
+
+.personalImage {
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+}
+
+.businessImage {
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+}
+
+@media (max-width: 768px) {
+    .section {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        text-align: center;
+    }
+
+    .reversed {
+        direction: ltr;
+    }
+
+    .sectionContent {
+        margin: 0 auto;
+    }
+
+    .featureList {
+        text-align: left;
+        display: inline-block;
+    }
+}

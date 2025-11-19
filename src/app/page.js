@@ -1,66 +1,36 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Hero from '@/components/Hero/Hero';
+import ServiceCard from '@/components/ServiceCard/ServiceCard';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      <Hero />
+
+      <section className={styles.servicesSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Our Services</h2>
+          <p className={styles.sectionSubtitle}>Comprehensive financial solutions for every stage of life and business.</p>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className={styles.servicesGrid}>
+          <ServiceCard
+            title="Personal Taxes"
+            description="Maximize your refund with our expert personal tax preparation services. We handle complex situations with ease."
+            href="/services#personal"
+          />
+          <ServiceCard
+            title="Business Taxes"
+            description="Strategic tax planning and filing for small businesses and corporations. Stay compliant and optimize your liability."
+            href="/services#business"
+          />
+          <ServiceCard
+            title="Consultation"
+            description="One-on-one sessions to discuss your financial goals, tax strategies, and business planning."
+            href="/book"
+          />
         </div>
-      </main>
+      </section>
     </div>
   );
 }
