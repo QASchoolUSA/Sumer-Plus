@@ -17,7 +17,7 @@ export default function BookingEmbed() {
 
     return (
         <Cal
-            calLink="rick" // REPLACE WITH YOUR CAL.COM LINK e.g., "sumer-plus/consultation"
+            calLink="sumerplus" // REPLACE WITH YOUR CAL.COM LINK e.g., "sumer-plus/consultation"
             style={{ width: "100%", height: "100%", overflow: "scroll" }}
             config={{ layout: "month_view" }}
         />
