@@ -1,0 +1,83 @@
+{
+    "navigation": {
+        "home": "Home",
+        "services": "Services",
+        "contact": "Contact",
+        "book": "Book Now"
+    },
+    "hero": {
+        "title_prefix": "Your outsourced",
+        "title_highlight": "Chief Financial Officer",
+        "subtitle": "CFO and accounting services under the supervision of certified US CPAs and lawyers.",
+        "cta_primary": "Schedule a Consultation",
+        "cta_secondary": "Download templates and tools"
+    },
+    "value_advantage": {
+        "title": "Value and Advantage",
+        "compliance": "GAAP and IRS standards compliance",
+        "audit": "Readiness for audit",
+        "cfo": "Certified CFO on outsource",
+        "tools": "Templates and Excel Tools verified by CPAs and lawyers"
+    },
+    "services_section": {
+        "title": "Our Services",
+        "subtitle": "Comprehensive financial solutions for every stage of life and business.",
+        "personal_title": "Personal Taxes",
+        "personal_desc": "Maximize your refund with our expert personal tax preparation services. We handle complex situations with ease.",
+        "business_title": "Business Taxes",
+        "business_desc": "Strategic tax planning and filing for small businesses and corporations. Stay compliant and optimize your liability.",
+        "consultation_title": "Consultation",
+        "consultation_desc": "One-on-one sessions to discuss your financial goals, tax strategies, and business planning.",
+        "learn_more": "Learn more"
+    },
+    "cta_section": {
+        "title": "Ready to take your business to the next level of financial control and compliance with US standards?",
+        "button": "Schedule a call"
+    },
+    "footer": {
+        "tagline": "Professional Tax & Business Services",
+        "quick_links": "Quick Links",
+        "contact": "Contact",
+        "rights": "All rights reserved."
+    },
+    "services_page": {
+        "title": "Our Services",
+        "subtitle": "Tailored financial solutions for individuals and businesses.",
+        "personal_title": "Personal Tax Services",
+        "personal_desc": "Navigating personal taxes can be complex. We ensure you get the maximum refund possible while staying fully compliant.",
+        "personal_list": [
+            "Individual Tax Return Preparation (1040)",
+            "State & Local Tax Filing",
+            "Tax Planning & Advisory",
+            "IRS Audit Representation",
+            "Estate & Trust Tax Services"
+        ],
+        "personal_cta": "Book Personal Consultation",
+        "business_title": "Business Tax Services",
+        "business_desc": "From startups to established corporations, we provide strategic tax planning to help your business grow.",
+        "business_list": [
+            "Corporate Tax Filings (1120, 1120S)",
+            "Partnership Tax Filings (1065)",
+            "Bookkeeping & Payroll Services",
+            "New Business Formation",
+            "Quarterly Estimated Tax Planning"
+        ],
+        "business_cta": "Book Business Consultation"
+    },
+    "contact_page": {
+        "title": "Contact Us",
+        "subtitle": "Have questions? We're here to help.",
+        "email": "Email",
+        "phone": "Phone",
+        "office": "Office",
+        "form_name": "Name",
+        "form_email": "Email",
+        "form_message": "Message",
+        "form_submit": "Send Message",
+        "success_message": "Thank you for your message! We will get back to you soon."
+    },
+    "book_page": {
+        "title": "Book a Consultation",
+        "subtitle": "Select a time that works for you. We look forward to speaking with you."
+    }
+}

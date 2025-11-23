@@ -2,23 +2,23 @@ import Image from 'next/image';
 import Button from '../Button/Button';
 import styles from './Hero.module.css';
 
-export default function Hero() {
+export default function Hero({ dict, lang }) {
     return (
         <section className={styles.hero}>
             <div className={styles.content}>
                 <h1 className={styles.title}>
-                    Your outsourced <br />
-                    <span className={styles.highlight}>Chief Financial Officer</span>
+                    {dict.title_prefix} <br />
+                    <span className={styles.highlight}>{dict.title_highlight}</span>
                 </h1>
                 <p className={styles.subtitle}>
-                    CFO and accounting services under the supervision of certified US CPAs and lawyers.
+                    {dict.subtitle}
                 </p>
                 <div className={styles.actions}>
-                    <Button href="/book" variant="primary">
-                        Schedule a Consultation
+                    <Button href={`/${lang}/book`} variant="primary">
+                        {dict.cta_primary}
                     </Button>
-                    <Button href="/resources" variant="outline">
-                        Download templates and tools
+                    <Button href={`/${lang}/resources`} variant="outline">
+                        {dict.cta_secondary}
                     </Button>
                 </div>
             </div>

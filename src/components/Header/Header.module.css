@@ -45,6 +45,31 @@
     color: var(--color-primary);
 }
 
+.langSwitcher {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.langLink {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.langLink:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface);
+}
+
+.activeLang {
+    color: var(--color-primary);
+    background-color: rgba(212, 175, 55, 0.2);
+    /* Gold tint */
+}
+
 .mobileToggle {
     display: none;
     flex-direction: column;

@@ -1,0 +1,83 @@
+{
+    "navigation": {
+        "home": "Inicio",
+        "services": "Servicios",
+        "contact": "Contacto",
+        "book": "Reservar"
+    },
+    "hero": {
+        "title_prefix": "Su Director Financiero",
+        "title_highlight": "Externalizado (CFO)",
+        "subtitle": "Servicios de CFO y contabilidad bajo la supervisión de contadores públicos certificados (CPA) y abogados de EE. UU.",
+        "cta_primary": "Programar una Consulta",
+        "cta_secondary": "Descargar plantillas y herramientas"
+    },
+    "value_advantage": {
+        "title": "Valor y Ventaja",
+        "compliance": "Cumplimiento de normas GAAP e IRS",
+        "audit": "Preparación para auditorías",
+        "cfo": "CFO certificado externalizado",
+        "tools": "Plantillas y herramientas de Excel verificadas por CPA y abogados"
+    },
+    "services_section": {
+        "title": "Nuestros Servicios",
+        "subtitle": "Soluciones financieras integrales para cada etapa de la vida y los negocios.",
+        "personal_title": "Impuestos Personales",
+        "personal_desc": "Maximice su reembolso con nuestros servicios expertos de preparación de impuestos personales. Manejamos situaciones complejas con facilidad.",
+        "business_title": "Impuestos Comerciales",
+        "business_desc": "Planificación fiscal estratégica y presentación de declaraciones para pequeñas empresas y corporaciones. Manténgase en cumplimiento y optimice su responsabilidad.",
+        "consultation_title": "Consulta",
+        "consultation_desc": "Sesiones individuales para discutir sus objetivos financieros, estrategias fiscales y planificación comercial.",
+        "learn_more": "Más información"
+    },
+    "cta_section": {
+        "title": "¿Listo para llevar su negocio al siguiente nivel de control financiero y cumplimiento con las normas de EE. UU.?",
+        "button": "Programar una llamada"
+    },
+    "footer": {
+        "tagline": "Servicios Profesionales de Impuestos y Negocios",
+        "quick_links": "Enlaces Rápidos",
+        "contact": "Contacto",
+        "rights": "Todos los derechos reservados."
+    },
+    "services_page": {
+        "title": "Nuestros Servicios",
+        "subtitle": "Soluciones financieras a medida para individuos y empresas.",
+        "personal_title": "Servicios de Impuestos Personales",
+        "personal_desc": "Navegar por los impuestos personales puede ser complejo. Nos aseguramos de que obtenga el máximo reembolso posible mientras cumple plenamente con las normas.",
+        "personal_list": [
+            "Preparación de Declaración de Impuestos Individual (1040)",
+            "Presentación de Impuestos Estatales y Locales",
+            "Planificación y Asesoramiento Fiscal",
+            "Representación en Auditorías del IRS",
+            "Servicios de Impuestos de Sucesiones y Fideicomisos"
+        ],
+        "personal_cta": "Reservar Consulta Personal",
+        "business_title": "Servicios de Impuestos Comerciales",
+        "business_desc": "Desde startups hasta corporaciones establecidas, brindamos planificación fiscal estratégica para ayudar a que su negocio crezca.",
+        "business_list": [
+            "Declaraciones de Impuestos Corporativos (1120, 1120S)",
+            "Declaraciones de Impuestos de Sociedades (1065)",
+            "Servicios de Teneduría de Libros y Nómina",
+            "Formación de Nuevos Negocios",
+            "Planificación de Impuestos Estimados Trimestrales"
+        ],
+        "business_cta": "Reservar Consulta Comercial"
+    },
+    "contact_page": {
+        "title": "Contáctenos",
+        "subtitle": "¿Tiene preguntas? Estamos aquí para ayudar.",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "office": "Oficina",
+        "form_name": "Nombre",
+        "form_email": "Correo electrónico",
+        "form_message": "Mensaje",
+        "form_submit": "Enviar Mensaje",
+        "success_message": "¡Gracias por su mensaje! Nos pondremos en contacto con usted pronto."
+    },
+    "book_page": {
+        "title": "Reservar una Consulta",
+        "subtitle": "Seleccione un horario que le convenga. Esperamos hablar con usted."
+    }
+}
