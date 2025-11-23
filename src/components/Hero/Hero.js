@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Button from '../Button/Button';
 import styles from './Hero.module.css';
 
@@ -6,25 +7,31 @@ export default function Hero() {
         <section className={styles.hero}>
             <div className={styles.content}>
                 <h1 className={styles.title}>
-                    Expert Tax & <br />
-                    <span className={styles.highlight}>Business Solutions</span>
+                    Your outsourced <br />
+                    <span className={styles.highlight}>Chief Financial Officer</span>
                 </h1>
                 <p className={styles.subtitle}>
-                    Maximize your returns and streamline your business finances with Sumer Plus.
-                    Professional guidance tailored to your unique needs.
+                    CFO and accounting services under the supervision of certified US CPAs and lawyers.
                 </p>
                 <div className={styles.actions}>
                     <Button href="/book" variant="primary">
-                        Book a Consultation
+                        Schedule a Consultation
                     </Button>
-                    <Button href="/services" variant="outline">
-                        Explore Services
+                    <Button href="/resources" variant="outline">
+                        Download templates and tools
                     </Button>
                 </div>
             </div>
             <div className={styles.visual}>
-                {/* Placeholder for a hero image or illustration */}
-                <div className={styles.placeholderImage}></div>
+                <div className={styles.imageWrapper}>
+                    <Image
+                        src="/hero-image.png"
+                        alt="Financial Growth Illustration"
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        priority
+                    />
+                </div>
             </div>
         </section>
     );

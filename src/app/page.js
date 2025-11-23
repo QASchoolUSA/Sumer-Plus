@@ -1,11 +1,14 @@
 import Hero from '@/components/Hero/Hero';
+import ValueAdvantage from '@/components/ValueAdvantage/ValueAdvantage';
 import ServiceCard from '@/components/ServiceCard/ServiceCard';
+import CTASection from '@/components/CTASection/CTASection';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <Hero />
+      <ValueAdvantage />
 
       <section className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
@@ -31,6 +34,8 @@ export default function Home() {
           />
         </div>
       </section>
+
+      <CTASection />
     </div>
   );
 }
