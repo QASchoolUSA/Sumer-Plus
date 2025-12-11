@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
 export default function StatementGeneratorClient({ lang }) {
   const [file, setFile] = useState(null);
@@ -8,12 +8,6 @@ export default function StatementGeneratorClient({ lang }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [results, setResults] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-
-  const selected = useMemo(() => {
-    if (selectedIndex == null) return null;
-    return results[selectedIndex] || null;
-  }, [selectedIndex, results]);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -42,7 +36,6 @@ export default function StatementGeneratorClient({ lang }) {
         return { name: f.name, url };
       });
       setResults(files);
-      setSelectedIndex(files.length ? 0 : null);
     } catch (err) {
       setError(String(err));
     } finally {
@@ -101,43 +94,56 @@ export default function StatementGeneratorClient({ lang }) {
         </button>
       </form>
       {error ? <div style={{ color: "red", marginTop: 8 }}>{error}</div> : null}
-      <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: 16, marginTop: 24 }}>
-        <div>
-          <h3 style={{ marginBottom: 8 }}>Results</h3>
-          <div style={{ border: "1px solid #eee", borderRadius: 8, maxHeight: 400, overflow: "auto" }}>
-            {results.length === 0 ? (
-              <div style={{ padding: 12, color: "#666" }}>No files yet</div>
-            ) : (
-              results.map((f, i) => (
-                <div
-                  key={f.name}
-                  onClick={() => setSelectedIndex(i)}
-                  style={{
-                    padding: 10,
-                    borderBottom: "1px solid #f2f2f2",
-                    background: selectedIndex === i ? "#f7f7f7" : "#fff",
-                    cursor: "pointer",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>{f.name}</span>
-                  <a href={f.url} download={f.name} style={{ fontSize: 12 }}>Download</a>
+      <div style={{ marginTop: 24 }}>
+        <h3 style={{ marginBottom: 8 }}>Results</h3>
+        <div style={{ border: "1px solid #eee", borderRadius: 8, maxHeight: 500, overflow: "auto" }}>
+          {results.length === 0 ? (
+            <div style={{ padding: 12, color: "#666" }}>No files yet</div>
+          ) : (
+            results.map((f) => (
+              <div
+                key={f.name}
+                style={{
+                  padding: 12,
+                  borderBottom: "1px solid #f2f2f2",
+                  display: "flex",
+                  gap: 12,
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <span style={{ flex: 1, minWidth: 200 }}>{f.name}</span>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <a
+                    href={f.url}
+                    download={f.name}
+                    style={{
+                      padding: "8px 12px",
+                      borderRadius: 6,
+                      border: "1px solid #ddd",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Download
+                  </a>
+                  <a
+                    href={f.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      padding: "8px 12px",
+                      borderRadius: 6,
+                      border: "1px solid #ddd",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Preview
+                  </a>
                 </div>
-              ))
-            )}
-          </div>
-        </div>
-        <div>
-          <h3 style={{ marginBottom: 8 }}>Preview</h3>
-          <div style={{ border: "1px solid #eee", borderRadius: 8, height: 600, overflow: "hidden" }}>
-            {selected ? (
-              <iframe src={selected.url} title={selected.name} style={{ width: "100%", height: "100%", border: "none" }} />
-            ) : (
-              <div style={{ padding: 12, color: "#666" }}>Select a file to preview</div>
-            )}
-          </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
