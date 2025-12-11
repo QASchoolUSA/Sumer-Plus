@@ -1,13 +1,13 @@
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function POST(req) {
   try {
     const body = await req.json();
-    const base =
-      process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${base}/api/statement_generator`, {
+    const host = req.headers.get('host');
+    const protocol = host && host.includes('localhost') ? 'http' : 'https';
+    const url = `${protocol}://${host}/api/statement_generator`;
+    const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(body),
