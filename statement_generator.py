@@ -34,7 +34,7 @@ DRIVER_PERCENTAGE = 0.65           # 0.65 per mile for driver (like right pic)
 
 # fixed deductions for example – edit as needed
 DEDUCTIONS = {
-    "ELD (weekly)": 110.00,
+    "ELD (weekly)": 150.00,
     "Cargo insurance (weekly)": 400.00,
     "Trailer (weekly)": 200.00,
 }
@@ -625,7 +625,7 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
         base = total_gross * (owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE)
         label = "CHECK AMOUNT TO THE OWNER"
     else:
-        rpm = driver_rate_per_mile if driver_rate_per_mile is not None else DRIVER_PERCENTAGE
+        rpm = driver_rate_per_mile if driver_rate_per_mile is not None else 0.0
         base = total_miles * rpm
         label = "CHECK AMOUNT TO THE DRIVER"
     check_amount = base - total_ded
@@ -739,7 +739,7 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
                 f"{owner_pay:,.2f}",
             ])
         else:
-            rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
+            rate = driver_rate_per_mile if driver_rate_per_mile is not None else 0.0
             driver_pay = miles * rate
             data.append([
                 str(r.get("Load Number", "")),
@@ -761,7 +761,7 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
                      f"{pct*100:.2f}%",
                      f"{owner_total:,.2f}"])
     else:
-        avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
+        avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else 0.0
         data.append(["", "TOTAL",
                      f"{total_miles:,.0f}",
                      f"{avg_rate:.2f}",
