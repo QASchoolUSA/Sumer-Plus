@@ -165,18 +165,31 @@ def parse_terms_drivers(df: pd.DataFrame):
     return mapping
 
 def parse_terms_owners(df: pd.DataFrame):
+    headers = [str(c).strip().lower() for c in df.columns]
+    def find_col(*cands, default_index=None):
+        for cand in cands:
+            cand = cand.lower()
+            if cand in headers:
+                return df.columns[headers.index(cand)]
+        if default_index is not None and default_index < len(df.columns):
+            return df.columns[default_index]
+        return None
+    unit_col = find_col("unit number", "unit", default_index=0)
+    perc_col = find_col("percentage", "%", default_index=2)
+    dname_col = find_col("driver name", "driver", default_index=3)
     mapping = {}
     for _, r in df.iterrows():
-        # columns: A unit, C per mile, D driver name
-        cols = list(df.columns)
-        unit = r.get(cols[0]) if len(cols) > 0 else None
-        rate = r.get(cols[2]) if len(cols) > 2 else None
-        dname = r.get(cols[3]) if len(cols) > 3 else None
+        unit = r.get(unit_col) if unit_col is not None else None
+        perc = r.get(perc_col) if perc_col is not None else None
+        dname = r.get(dname_col) if dname_col is not None else None
         key = _norm_id(unit)
         if key:
-            rpm = _to_amount(rate)
+            val = _to_amount(perc)
+            pct = None
+            if isinstance(val, (int, float)):
+                pct = val / 100.0 if val > 1 else val
             mapping[key] = {
-                "per_mile": float(rpm or 0.0) if rpm is not None else None,
+                "percentage": pct,
                 "driver_name": str(dname).strip() if pd.notna(dname) else "",
             }
     return mapping
@@ -217,14 +230,15 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         # names and rates
         dcfg = drivers_map.get(key, {})
         ocfg = owners_map.get(key, {})
-        driver_rpm = dcfg.get("rate_per_mile")  # strictly from Drivers sheet
+        driver_rpm = dcfg.get("rate_per_mile")
         driver_name = (dcfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
         owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
+        owner_pct = ocfg.get("percentage")
         # fuel total
         fuel_total = float(rows["Fuel"].sum()) if "Fuel" in rows.columns else 0.0
         base_name = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
-        owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm)
-        driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm)
+        owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
+        driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
         files.append({"name": f"OWNER_{base_name}.pdf", "bytes": owner_bytes})
         files.append({"name": f"DRIVER_{base_name}.pdf", "bytes": driver_bytes})
     return files
@@ -412,7 +426,8 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
                              start: datetime, end: datetime,
                              for_owner: bool,
                              fuel_amount: float,
-                             driver_rate_per_mile: float | None = None):
+                             driver_rate_per_mile: float | None = None,
+                             owner_percentage: float | None = None):
     buf = io.BytesIO()
     doc = SimpleDocTemplate(
         buf,
@@ -464,8 +479,12 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
     story.append(header)
     story.append(Spacer(1, 0.15 * inch))
     story.append(Paragraph("Loads", hdr_style))
-    loads_header = ["Pick Up Date", "Load Number", "ROUTE",
-                    "Miles", "$ Per Mile", "Gross Pay"]
+    if for_owner:
+        loads_header = ["Pick Up Date", "Load Number", "Pickup location",
+                        "Delivery location", "Gross", "Percentage", "Owner Pay"]
+    else:
+        loads_header = ["Pick Up Date", "Load Number", "ROUTE",
+                        "Miles", "$ Per Mile", "Gross Pay"]
     data = [loads_header]
     total_miles = 0.0
     total_gross = 0.0
@@ -475,29 +494,50 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
             pu_txt = pu.strftime("%m/%d/%Y")
         else:
             pu_txt = str(pu)
-        route = f"{r.get('Pickup location','')} - {r.get('Delivery location','')}"
         miles = _to_amount(r.get("Total miles", 0)) or 0.0
         gross = _to_amount(r.get("Gross", 0)) or 0.0
         if not isinstance(miles, (int, float)):
             miles = 0.0
         if not isinstance(gross, (int, float)):
             gross = 0.0
-        rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
-        data.append([
-            pu_txt,
-            str(r.get("Load Number", "")),
-            route,
-            f"{miles:,.0f}",
-            f"{rate:.2f}",
-            f"{gross:,.2f}",
-        ])
+        if for_owner:
+            pct = owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE
+            owner_pay = gross * pct
+            data.append([
+                pu_txt,
+                str(r.get("Load Number", "")),
+                str(r.get("Pickup location", "")),
+                str(r.get("Delivery location", "")),
+                f"{gross:,.2f}",
+                f"{pct*100:.2f}%",
+                f"{owner_pay:,.2f}",
+            ])
+        else:
+            route = f"{r.get('Pickup location','')} - {r.get('Delivery location','')}"
+            rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
+            data.append([
+                pu_txt,
+                str(r.get("Load Number", "")),
+                route,
+                f"{miles:,.0f}",
+                f"{rate:.2f}",
+                f"{gross:,.2f}",
+            ])
         total_miles += miles
         total_gross += gross
-    avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
-    data.append(["", "", "TOTAL",
-                 f"{total_miles:,.0f}",
-                 f"{avg_rate:.2f}",
-                 f"{total_gross:,.2f}"])
+    if for_owner:
+        pct = owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE
+        owner_total = total_gross * pct
+        data.append(["", "", "", "TOTAL",
+                     f"{total_gross:,.2f}",
+                     f"{pct*100:.2f}%",
+                     f"{owner_total:,.2f}"])
+    else:
+        avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
+        data.append(["", "", "TOTAL",
+                     f"{total_miles:,.0f}",
+                     f"{avg_rate:.2f}",
+                     f"{total_gross:,.2f}"])
     tbl = Table(
         data,
         colWidths=[0.9 * inch, 0.95 * inch, 2.7 * inch,
@@ -582,7 +622,8 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
                        start: datetime, end: datetime,
                        for_owner: bool,
                        fuel_amount: float,
-                       driver_rate_per_mile: float | None = None):
+                       driver_rate_per_mile: float | None = None,
+                       owner_percentage: float | None = None):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     doc = SimpleDocTemplate(
@@ -642,45 +683,65 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
 
     # loads table
     story.append(Paragraph("Loads", hdr_style))
-
-    loads_header = ["Pick Up Date", "Load Number", "ROUTE",
-                    "Miles", "$ Per Mile", "Gross Pay"]
+    if for_owner:
+        loads_header = ["Pick Up Date", "Load Number", "Pickup location",
+                        "Delivery location", "Gross", "Percentage", "Owner Pay"]
+    else:
+        loads_header = ["Pick Up Date", "Load Number", "ROUTE",
+                        "Miles", "$ Per Mile", "Gross Pay"]
     data = [loads_header]
-
     total_miles = 0.0
     total_gross = 0.0
-
     for _, r in rows.iterrows():
         pu = r.get("PU date", "")
         if isinstance(pu, (datetime, pd.Timestamp)):
             pu_txt = pu.strftime("%m/%d/%Y")
         else:
             pu_txt = str(pu)
-        route = f"{r.get('Pickup location','')} - {r.get('Delivery location','')}"
         miles = _to_amount(r.get("Total miles", 0)) or 0.0
         gross = _to_amount(r.get("Gross", 0)) or 0.0
         if not isinstance(miles, (int, float)):
             miles = 0.0
         if not isinstance(gross, (int, float)):
             gross = 0.0
-        rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
-
-        data.append([
-            pu_txt,
-            str(r.get("Load Number", "")),
-            route,
-            f"{miles:,.0f}",
-            f"{rate:.2f}",
-            f"{gross:,.2f}",
-        ])
+        if for_owner:
+            pct = owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE
+            owner_pay = gross * pct
+            data.append([
+                pu_txt,
+                str(r.get("Load Number", "")),
+                str(r.get("Pickup location", "")),
+                str(r.get("Delivery location", "")),
+                f"{gross:,.2f}",
+                f"{pct*100:.2f}%",
+                f"{owner_pay:,.2f}",
+            ])
+        else:
+            route = f"{r.get('Pickup location','')} - {r.get('Delivery location','')}"
+            rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
+            data.append([
+                pu_txt,
+                str(r.get("Load Number", "")),
+                route,
+                f"{miles:,.0f}",
+                f"{rate:.2f}",
+                f"{gross:,.2f}",
+            ])
         total_miles += miles
         total_gross += gross
-
-    avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
-    data.append(["", "", "TOTAL",
-                 f"{total_miles:,.0f}",
-                 f"{avg_rate:.2f}",
-                 f"{total_gross:,.2f}"])
+    if for_owner:
+        pct = owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE
+        owner_total = total_gross * pct
+        data.append(["", "", "", "TOTAL",
+                     f"{total_gross:,.2f}",
+                     f"{pct*100:.2f}%",
+                     f"{owner_total:,.2f}"])
+    else:
+        avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
+        data.append(["", "", "TOTAL",
+                     f"{total_miles:,.0f}",
+                     f"{avg_rate:.2f}",
+                     f"{total_gross:,.2f}"])
 
     tbl = Table(
         data,
