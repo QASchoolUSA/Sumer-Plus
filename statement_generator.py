@@ -134,19 +134,31 @@ def parse_loads_sheet(df: pd.DataFrame):
     return pd.DataFrame(rows)
 
 def parse_terms_drivers(df: pd.DataFrame):
+    # Robust header-based parsing with positional fallback
+    headers = [str(c).strip().lower() for c in df.columns]
+    def find_col(*cands, default_index=None):
+        for cand in cands:
+            cand = cand.lower()
+            if cand in headers:
+                return df.columns[headers.index(cand)]
+        if default_index is not None and default_index < len(df.columns):
+            return df.columns[default_index]
+        return None
+    unit_col = find_col("unit number", "unit", default_index=0)
+    rate_col = find_col("rate per mile", "per mile", default_index=2)
+    dname_col = find_col("driver name", "driver", default_index=3)
+    company_col = find_col("llc name", "llc", "company", default_index=6)
     mapping = {}
     for _, r in df.iterrows():
-        # columns: A unit, C rate per mile, D driver name, G LLC name
-        cols = list(df.columns)
-        unit = r.get(cols[0]) if len(cols) > 0 else None
-        rate = r.get(cols[2]) if len(cols) > 2 else None
-        dname = r.get(cols[3]) if len(cols) > 3 else None
-        company = r.get(cols[6]) if len(cols) > 6 else None
+        unit = r.get(unit_col) if unit_col is not None else None
+        rate = r.get(rate_col) if rate_col is not None else None
+        dname = r.get(dname_col) if dname_col is not None else None
+        company = r.get(company_col) if company_col is not None else None
         key = _norm_id(unit)
         if key:
             rpm = _to_amount(rate)
             mapping[key] = {
-                "rate_per_mile": float(rpm or 0.0) if rpm is not None else None,
+                "rate_per_mile": float(rpm) if isinstance(rpm, (int, float)) else None,
                 "driver_name": str(dname).strip() if pd.notna(dname) else "",
                 "company": str(company).strip() if pd.notna(company) else "",
             }
@@ -205,9 +217,9 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         # names and rates
         dcfg = drivers_map.get(key, {})
         ocfg = owners_map.get(key, {})
-        driver_rpm = dcfg.get("rate_per_mile") or ocfg.get("per_mile") or None
-        driver_name = dcfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or ocfg.get("driver_name") or "Driver"
-        owner_name = dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner"
+        driver_rpm = dcfg.get("rate_per_mile")  # strictly from Drivers sheet
+        driver_name = (dcfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
+        owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
         # fuel total
         fuel_total = float(rows["Fuel"].sum()) if "Fuel" in rows.columns else 0.0
         base_name = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
@@ -470,7 +482,7 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
             miles = 0.0
         if not isinstance(gross, (int, float)):
             gross = 0.0
-        rate = gross / miles if miles else 0
+        rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
         data.append([
             pu_txt,
             str(r.get("Load Number", "")),
@@ -481,7 +493,7 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
         ])
         total_miles += miles
         total_gross += gross
-    avg_rate = total_gross / total_miles if total_miles else 0
+    avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
     data.append(["", "", "TOTAL",
                  f"{total_miles:,.0f}",
                  f"{avg_rate:.2f}",
@@ -651,7 +663,7 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
             miles = 0.0
         if not isinstance(gross, (int, float)):
             gross = 0.0
-        rate = gross / miles if miles else 0
+        rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
 
         data.append([
             pu_txt,
@@ -664,7 +676,7 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
         total_miles += miles
         total_gross += gross
 
-    avg_rate = total_gross / total_miles if total_miles else 0
+    avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
     data.append(["", "", "TOTAL",
                  f"{total_miles:,.0f}",
                  f"{avg_rate:.2f}",
