@@ -78,6 +78,144 @@ def get_sheet_names_from_bytes(data: bytes):
     except Exception:
         return []
 
+def parse_loads_sheet(df: pd.DataFrame):
+    col_map = {}
+    for c in df.columns:
+        name = str(c).strip().lower()
+        col_map[name] = c
+    def get_col(*names):
+        for n in names:
+            key = n.lower()
+            if key in col_map:
+                return col_map[key]
+        return None
+    period_col = get_col("period")
+    truck_col = get_col("unit number", "truck", "unit", "truck number")
+    owner_col = get_col("owner name", "owner", "llc", "llc name")
+    driver_col = get_col("driver name", "driver")
+    loadnum_col = get_col("load number", "load #", "load")
+    pu_col = get_col("pick up location", "pickup location", "pick up", "pickup")
+    del_col = get_col("delivery location", "delivery")
+    gross_col = get_col("gross")
+    miles_col = get_col("miles", "total miles")
+    fuel_col = get_col("fuel")
+    rows = []
+    period_val = None
+    for _, r in df.iterrows():
+        # capture period first non-empty
+        if period_col:
+            val = r.get(period_col)
+            if pd.notna(val) and not period_val:
+                period_val = str(val).strip()
+        truck = r.get(truck_col) if truck_col else None
+        owner = r.get(owner_col) if owner_col else None
+        driver = r.get(driver_col) if driver_col else None
+        loadnum = r.get(loadnum_col) if loadnum_col else None
+        pu = r.get(pu_col) if pu_col else None
+        dl = r.get(del_col) if del_col else None
+        gross = _to_amount(r.get(gross_col)) if gross_col else None
+        miles = _to_amount(r.get(miles_col)) if miles_col else None
+        fuel = _to_amount(r.get(fuel_col)) if fuel_col else 0.0
+        tk = _norm_id(truck)
+        if tk and (pd.notna(loadnum) or (isinstance(gross, (int, float)) or isinstance(miles, (int, float)))):
+            rows.append({
+                "Week": period_val or "",
+                "Truck": tk,
+                "Driver/Carrier": str(owner).strip() if pd.notna(owner) else "",
+                "DriverName": str(driver).strip() if pd.notna(driver) else "",
+                "Load Number": str(loadnum).strip() if pd.notna(loadnum) else "",
+                "Pickup location": str(pu).strip() if pd.notna(pu) else "",
+                "Delivery location": str(dl).strip() if pd.notna(dl) else "",
+                "Gross": float(gross or 0.0),
+                "Total miles": float(miles or 0.0),
+                "Fuel": float(fuel or 0.0),
+                "PU date": "",  # not provided
+            })
+    return pd.DataFrame(rows)
+
+def parse_terms_drivers(df: pd.DataFrame):
+    mapping = {}
+    for _, r in df.iterrows():
+        # columns: A unit, C rate per mile, D driver name, G LLC name
+        cols = list(df.columns)
+        unit = r.get(cols[0]) if len(cols) > 0 else None
+        rate = r.get(cols[2]) if len(cols) > 2 else None
+        dname = r.get(cols[3]) if len(cols) > 3 else None
+        company = r.get(cols[6]) if len(cols) > 6 else None
+        key = _norm_id(unit)
+        if key:
+            rpm = _to_amount(rate)
+            mapping[key] = {
+                "rate_per_mile": float(rpm or 0.0) if rpm is not None else None,
+                "driver_name": str(dname).strip() if pd.notna(dname) else "",
+                "company": str(company).strip() if pd.notna(company) else "",
+            }
+    return mapping
+
+def parse_terms_owners(df: pd.DataFrame):
+    mapping = {}
+    for _, r in df.iterrows():
+        # columns: A unit, C per mile, D driver name
+        cols = list(df.columns)
+        unit = r.get(cols[0]) if len(cols) > 0 else None
+        rate = r.get(cols[2]) if len(cols) > 2 else None
+        dname = r.get(cols[3]) if len(cols) > 3 else None
+        key = _norm_id(unit)
+        if key:
+            rpm = _to_amount(rate)
+            mapping[key] = {
+                "per_mile": float(rpm or 0.0) if rpm is not None else None,
+                "driver_name": str(dname).strip() if pd.notna(dname) else "",
+            }
+    return mapping
+
+def generate_statements_from_two_excels(loads_excel_bytes: bytes,
+                                        loads_sheet: str | None,
+                                        terms_excel_bytes: bytes,
+                                        drivers_sheet: str | None,
+                                        owners_sheet: str | None):
+    xls_loads = pd.ExcelFile(io.BytesIO(loads_excel_bytes))
+    sheet_loads = loads_sheet if (loads_sheet and loads_sheet in xls_loads.sheet_names) else xls_loads.sheet_names[0]
+    df_loads_raw = pd.read_excel(xls_loads, sheet_name=sheet_loads)
+    df_loads = parse_loads_sheet(df_loads_raw)
+    # period parsing
+    period = ""
+    if "Week" in df_loads.columns and not df_loads.empty:
+        period = str(df_loads.iloc[0].get("Week") or "")
+    start, end = parse_week_period(period)
+    # group by truck
+    trucks = []
+    for truck in df_loads["Truck"].dropna().unique():
+        rows = df_loads[df_loads["Truck"] == truck].copy()
+        owner = str(rows.iloc[0].get("Driver/Carrier", "Owner")).strip() or "Owner"
+        trucks.append({"truck": truck, "owner": owner, "rows": rows})
+    # terms
+    xls_terms = pd.ExcelFile(io.BytesIO(terms_excel_bytes))
+    drivers_sheet_name = drivers_sheet if (drivers_sheet and drivers_sheet in xls_terms.sheet_names) else ("Drivers" if "Drivers" in xls_terms.sheet_names else xls_terms.sheet_names[0])
+    owners_sheet_name = owners_sheet if (owners_sheet and owners_sheet in xls_terms.sheet_names) else ("Owner" if "Owner" in xls_terms.sheet_names else xls_terms.sheet_names[-1])
+    df_drivers = pd.read_excel(xls_terms, sheet_name=drivers_sheet_name)
+    df_owners = pd.read_excel(xls_terms, sheet_name=owners_sheet_name)
+    drivers_map = parse_terms_drivers(df_drivers)
+    owners_map = parse_terms_owners(df_owners)
+    files = []
+    for t in trucks:
+        truck = t["truck"]
+        rows = t["rows"]
+        key = _norm_id(truck)
+        # names and rates
+        dcfg = drivers_map.get(key, {})
+        ocfg = owners_map.get(key, {})
+        driver_rpm = dcfg.get("rate_per_mile") or ocfg.get("per_mile") or None
+        driver_name = dcfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or ocfg.get("driver_name") or "Driver"
+        owner_name = dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner"
+        # fuel total
+        fuel_total = float(rows["Fuel"].sum()) if "Fuel" in rows.columns else 0.0
+        base_name = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
+        owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm)
+        driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm)
+        files.append({"name": f"OWNER_{base_name}.pdf", "bytes": owner_bytes})
+        files.append({"name": f"DRIVER_{base_name}.pdf", "bytes": driver_bytes})
+    return files
 def _to_amount(x):
     try:
         return float(x)

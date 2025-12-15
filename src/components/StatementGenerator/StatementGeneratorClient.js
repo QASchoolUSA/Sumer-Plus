@@ -3,34 +3,52 @@
 import { useState } from "react";
 
 export default function StatementGeneratorClient({ lang }) {
-  const [file, setFile] = useState(null);
-  const [sheet, setSheet] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [results, setResults] = useState([]);
-  const [sheets, setSheets] = useState([]);
-  const [selectedSheet, setSelectedSheet] = useState("");
-  const [sheetsLoading, setSheetsLoading] = useState(false);
-  const [sheetsError, setSheetsError] = useState("");
+
+  const [loadsFile, setLoadsFile] = useState(null);
+  const [loadsSheets, setLoadsSheets] = useState([]);
+  const [selectedLoadsSheet, setSelectedLoadsSheet] = useState("");
+  const [loadsSheetsLoading, setLoadsSheetsLoading] = useState(false);
+  const [loadsSheetsError, setLoadsSheetsError] = useState("");
+
+  const [termsFile, setTermsFile] = useState(null);
+  const [termsSheets, setTermsSheets] = useState([]);
+  const [selectedDriversSheet, setSelectedDriversSheet] = useState("");
+  const [selectedOwnersSheet, setSelectedOwnersSheet] = useState("");
+  const [termsSheetsLoading, setTermsSheetsLoading] = useState(false);
+  const [termsSheetsError, setTermsSheetsError] = useState("");
 
   async function onSubmit(e) {
     e.preventDefault();
     setError("");
-    if (!file) {
-      setError("Please select an Excel file");
+    if (!loadsFile || !termsFile) {
+      setError("Please select both Loads and Drivers/Owners files");
       return;
     }
-    if (sheets.length > 0 && !selectedSheet) {
-      setError("Please select a sheet to generate statements");
+    if (!selectedLoadsSheet) {
+      setError("Please select a sheet for the Loads file");
+      return;
+    }
+    if (!selectedDriversSheet || !selectedOwnersSheet) {
+      setError("Please select Drivers and Owner sheets for the Terms file");
       return;
     }
     setLoading(true);
     try {
-      const base64 = await readFileAsBase64(file);
+      const loadsB64 = await readFileAsBase64(loadsFile);
+      const termsB64 = await readFileAsBase64(termsFile);
       const res = await fetch(`/api/generate-statements`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ excel_base64: base64, sheet: selectedSheet || sheet }),
+        body: JSON.stringify({
+          loads_excel_base64: loadsB64,
+          loads_sheet: selectedLoadsSheet,
+          terms_excel_base64: termsB64,
+          drivers_sheet: selectedDriversSheet,
+          owners_sheet: selectedOwnersSheet,
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
@@ -51,11 +69,11 @@ export default function StatementGeneratorClient({ lang }) {
     }
   }
 
-  async function fetchSheetsForFile(f) {
+  async function fetchSheets(file, setList, setSelected, setLoading, setError) {
     try {
-      setSheetsLoading(true);
-      setSheetsError("");
-      const base64 = await readFileAsBase64(f);
+      setLoading(true);
+      setError("");
+      const base64 = await readFileAsBase64(file);
       const res = await fetch(`/api/generate-statements`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,19 +81,19 @@ export default function StatementGeneratorClient({ lang }) {
       });
       const data = await res.json();
       if (res.ok && data.ok && Array.isArray(data.sheets)) {
-        setSheets(data.sheets);
-        setSelectedSheet(data.sheets[0] || "");
+        setList(data.sheets);
+        setSelected(data.sheets[0] || "");
       } else {
-        setSheets([]);
-        setSelectedSheet("");
-        setSheetsError("Could not read sheet names. Enter manually.");
+        setList([]);
+        setSelected("");
+        setError("Could not read sheet names.");
       }
     } catch {
-      setSheets([]);
-      setSelectedSheet("");
-      setSheetsError("Failed to read sheet names.");
+      setList([]);
+      setSelected("");
+      setError("Failed to read sheet names.");
     } finally {
-      setSheetsLoading(false);
+      setLoading(false);
     }
   }
 
@@ -105,66 +123,130 @@ export default function StatementGeneratorClient({ lang }) {
   return (
     <div style={{ padding: "24px", maxWidth: 1200, margin: "0 auto" }}>
       <h1 style={{ marginBottom: 12 }}>Statement Generator</h1>
-      <form onSubmit={onSubmit} style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-        <input
-          type="file"
-          accept=".xls,.xlsx"
-          onChange={async (e) => {
-            const f = e.target.files?.[0] || null;
-            setFile(f);
-            setResults([]);
-            setError("");
-            setSheets([]);
-            setSelectedSheet("");
-            if (f) {
-              await fetchSheetsForFile(f);
-            }
-          }}
-        />
-        {sheetsLoading ? (
-          <div style={{ padding: "8px 10px" }}>Loading sheets…</div>
-        ) : sheets.length > 0 ? (
-          sheets.length <= 8 ? (
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {sheets.map((name) => (
-                <label key={name} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <input
-                    type="radio"
-                    name="sheet"
-                    value={name}
-                    checked={selectedSheet === name}
-                    onChange={(e) => setSelectedSheet(e.target.value)}
-                  />
-                  {name}
-                </label>
-              ))}
-            </div>
-          ) : (
-            <select
-              value={selectedSheet}
-              onChange={(e) => setSelectedSheet(e.target.value)}
-              style={{ padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6 }}
-            >
-              {sheets.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          )
-        ) : (
+      <form onSubmit={onSubmit} style={{ display: "grid", gap: 16 }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <strong>Loads file</strong>
           <input
-            type="text"
-            placeholder="Sheet name (optional)"
-            value={sheet}
-            onChange={(e) => setSheet(e.target.value)}
-            style={{ padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6 }}
+            type="file"
+            accept=".xls,.xlsx"
+            onChange={async (e) => {
+              const f = e.target.files?.[0] || null;
+              setLoadsFile(f);
+              setResults([]);
+              setError("");
+              setLoadsSheets([]);
+              setSelectedLoadsSheet("");
+              if (f) {
+                await fetchSheets(f, setLoadsSheets, setSelectedLoadsSheet, setLoadsSheetsLoading, setLoadsSheetsError);
+              }
+            }}
           />
-        )}
-        {sheetsError ? <div style={{ color: "red" }}>{sheetsError}</div> : null}
+          {loadsSheetsLoading ? (
+            <div style={{ padding: "8px 10px" }}>Loading sheets…</div>
+          ) : loadsSheets.length > 0 ? (
+            loadsSheets.length <= 8 ? (
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                {loadsSheets.map((name) => (
+                  <label key={name} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    <input
+                      type="radio"
+                      name="loads_sheet"
+                      value={name}
+                      checked={selectedLoadsSheet === name}
+                      onChange={(e) => setSelectedLoadsSheet(e.target.value)}
+                    />
+                    {name}
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <select
+                value={selectedLoadsSheet}
+                onChange={(e) => setSelectedLoadsSheet(e.target.value)}
+                style={{ padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6 }}
+              >
+                {loadsSheets.map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            )
+          ) : null}
+          {loadsSheetsError ? <div style={{ color: "red" }}>{loadsSheetsError}</div> : null}
+        </div>
+
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <strong>Drivers/Owners terms file</strong>
+          <input
+            type="file"
+            accept=".xls,.xlsx"
+            onChange={async (e) => {
+              const f = e.target.files?.[0] || null;
+              setTermsFile(f);
+              setResults([]);
+              setError("");
+              setTermsSheets([]);
+              setSelectedDriversSheet("");
+              setSelectedOwnersSheet("");
+              if (f) {
+                await fetchSheets(f, setTermsSheets, (first) => {
+                  const driversDefault =
+                    f && first
+                      ? first
+                      : "";
+                  setSelectedDriversSheet(driversDefault);
+                  setSelectedOwnersSheet(driversDefault);
+                }, setTermsSheetsLoading, setTermsSheetsError);
+                if (Array.isArray(termsSheets) && termsSheets.length > 0) {
+                  const driversDefault = termsSheets.find((n) => String(n).toLowerCase() === "drivers") || termsSheets[0] || "";
+                  const ownersDefault = termsSheets.find((n) => String(n).toLowerCase() === "owner") || termsSheets[1] || termsSheets[0] || "";
+                  setSelectedDriversSheet(driversDefault);
+                  setSelectedOwnersSheet(ownersDefault);
+                }
+              }
+            }}
+          />
+          {termsSheetsLoading ? (
+            <div style={{ padding: "8px 10px" }}>Loading sheets…</div>
+          ) : termsSheets.length > 0 ? (
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span>Drivers:</span>
+                <select
+                  value={selectedDriversSheet}
+                  onChange={(e) => setSelectedDriversSheet(e.target.value)}
+                  style={{ padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6 }}
+                >
+                  {termsSheets.map((name) => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span>Owner:</span>
+                <select
+                  value={selectedOwnersSheet}
+                  onChange={(e) => setSelectedOwnersSheet(e.target.value)}
+                  style={{ padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6 }}
+                >
+                  {termsSheets.map((name) => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ) : null}
+          {termsSheetsError ? <div style={{ color: "red" }}>{termsSheetsError}</div> : null}
+        </div>
+
         <button
           type="submit"
-          disabled={loading || !file}
+          disabled={loading || !loadsFile || !termsFile}
           style={{
             padding: "10px 16px",
             borderRadius: 6,
@@ -177,6 +259,7 @@ export default function StatementGeneratorClient({ lang }) {
           {loading ? "Processing..." : "Generate"}
         </button>
       </form>
+
       {error ? <div style={{ color: "red", marginTop: 8 }}>{error}</div> : null}
       <div style={{ marginTop: 24 }}>
         <h3 style={{ marginBottom: 8 }}>Results</h3>

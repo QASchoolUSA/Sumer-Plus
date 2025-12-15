@@ -37,15 +37,28 @@ class handler(BaseHTTPRequestHandler):
             excel_b64 = payload.get("excel_base64") or ""
             sheet = payload.get("sheet") or None
             driver_configs = payload.get("driver_configs") or None
+            loads_b64 = payload.get("loads_excel_base64") or ""
+            loads_sheet = payload.get("loads_sheet") or None
+            terms_b64 = payload.get("terms_excel_base64") or ""
+            drivers_sheet = payload.get("drivers_sheet") or None
+            owners_sheet = payload.get("owners_sheet") or None
             if not excel_b64:
-                self._respond(400, {"ok": False, "error": "excel_base64 required"})
-                return
-            excel_bytes = base64.b64decode(excel_b64)
-            if action == "sheets":
-                names = sg.get_sheet_names_from_bytes(excel_bytes)
-                self._respond(200, {"ok": True, "sheets": names})
-                return
-            files = sg.generate_statements_from_excel_bytes(excel_bytes, sheet, driver_configs=driver_configs)
+                if loads_b64 and terms_b64:
+                    loads_bytes = base64.b64decode(loads_b64)
+                    terms_bytes = base64.b64decode(terms_b64)
+                    files = sg.generate_statements_from_two_excels(
+                        loads_bytes, loads_sheet, terms_bytes, drivers_sheet, owners_sheet
+                    )
+                else:
+                    self._respond(400, {"ok": False, "error": "excel_base64 required"})
+                    return
+            else:
+                excel_bytes = base64.b64decode(excel_b64)
+                if action == "sheets":
+                    names = sg.get_sheet_names_from_bytes(excel_bytes)
+                    self._respond(200, {"ok": True, "sheets": names})
+                    return
+                files = sg.generate_statements_from_excel_bytes(excel_bytes, sheet, driver_configs=driver_configs)
             out = []
             for f in files:
                 out.append({

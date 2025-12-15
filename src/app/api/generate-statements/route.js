@@ -8,11 +8,12 @@ export async function POST(req) {
     const protocol = host && host.includes('localhost') ? 'http' : 'https';
     const url = `${protocol}://${host}/api/statement_generator`;
     const isSheetsRequest = body && body.action === 'sheets';
-    const driverConfigs = isSheetsRequest ? null : await fetchAllDriverConfigs();
+    const isTwoFile = body && (body.loads_excel_base64 && body.terms_excel_base64);
+    const driverConfigs = (isSheetsRequest || isTwoFile) ? null : await fetchAllDriverConfigs();
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(isSheetsRequest ? body : { ...body, driver_configs: driverConfigs }),
+      body: JSON.stringify(isSheetsRequest || isTwoFile ? body : { ...body, driver_configs: driverConfigs }),
       cache: 'no-store',
     });
     const text = await res.text();
