@@ -598,28 +598,29 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
     ]))
     story.append(add_tbl)
     story.append(Spacer(1, 0.1 * inch))
-    story.append(Paragraph("DEDUCTIONS", hdr_style))
-    ded_data = [["Description", "Amount"]]
     total_ded = 0.0
-    for name, val in DEDUCTIONS.items():
-        ded_data.append([name, f"{val:,.2f}"])
-        total_ded += val
-    if fuel_amount:
-        ded_data.append(["Fuel", f"{fuel_amount:,.2f}"])
-        total_ded += fuel_amount
-    ded_data.append(["TOTAL DEDUCTIONS", f"{total_ded:,.2f}"])
-    ded_tbl = Table(ded_data, colWidths=[4.0 * inch, 1.5 * inch])
-    ded_tbl.setStyle(TableStyle([
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
-        ("BACKGROUND", (0, 0), (-1, 0), colors.yellow),
-        ("BACKGROUND", (0, -1), (-1, -1), colors.yellow),
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold"),
-        ("ALIGN", (1, 1), (1, -1), "RIGHT"),
-        ("FONTSIZE", (0, 0), (-1, -1), 8),
-    ]))
-    story.append(ded_tbl)
-    story.append(Spacer(1, 0.15 * inch))
+    if for_owner:
+        story.append(Paragraph("DEDUCTIONS", hdr_style))
+        ded_data = [["Description", "Amount"]]
+        for name, val in DEDUCTIONS.items():
+            ded_data.append([name, f"{val:,.2f}"])
+            total_ded += val
+        if fuel_amount:
+            ded_data.append(["Fuel", f"{fuel_amount:,.2f}"])
+            total_ded += fuel_amount
+        ded_data.append(["TOTAL DEDUCTIONS", f"{total_ded:,.2f}"])
+        ded_tbl = Table(ded_data, colWidths=[4.0 * inch, 1.5 * inch])
+        ded_tbl.setStyle(TableStyle([
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+            ("BACKGROUND", (0, 0), (-1, 0), colors.yellow),
+            ("BACKGROUND", (0, -1), (-1, -1), colors.yellow),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold"),
+            ("ALIGN", (1, 1), (1, -1), "RIGHT"),
+            ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ]))
+        story.append(ded_tbl)
+        story.append(Spacer(1, 0.15 * inch))
     if for_owner:
         base = total_gross * (owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE)
         label = "CHECK AMOUNT TO THE OWNER"
@@ -806,28 +807,29 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
     story.append(add_tbl)
     story.append(Spacer(1, 0.1 * inch))
 
-    story.append(Paragraph("DEDUCTIONS", hdr_style))
-    ded_data = [["Description", "Amount"]]
     total_ded = 0.0
-    for name, val in DEDUCTIONS.items():
-        ded_data.append([name, f"{val:,.2f}"])
-        total_ded += val
-    if fuel_amount:
-        ded_data.append(["Fuel", f"{fuel_amount:,.2f}"])
-        total_ded += fuel_amount
-    ded_data.append(["TOTAL DEDUCTIONS", f"{total_ded:,.2f}"])
-    ded_tbl = Table(ded_data, colWidths=[4.0 * inch, 1.5 * inch])
-    ded_tbl.setStyle(TableStyle([
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
-        ("BACKGROUND", (0, 0), (-1, 0), colors.yellow),
-        ("BACKGROUND", (0, -1), (-1, -1), colors.yellow),
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold"),
-        ("ALIGN", (1, 1), (1, -1), "RIGHT"),
-        ("FONTSIZE", (0, 0), (-1, -1), 8),
-    ]))
-    story.append(ded_tbl)
-    story.append(Spacer(1, 0.15 * inch))
+    if for_owner:
+        story.append(Paragraph("DEDUCTIONS", hdr_style))
+        ded_data = [["Description", "Amount"]]
+        for name, val in DEDUCTIONS.items():
+            ded_data.append([name, f"{val:,.2f}"])
+            total_ded += val
+        if fuel_amount:
+            ded_data.append(["Fuel", f"{fuel_amount:,.2f}"])
+            total_ded += fuel_amount
+        ded_data.append(["TOTAL DEDUCTIONS", f"{total_ded:,.2f}"])
+        ded_tbl = Table(ded_data, colWidths=[4.0 * inch, 1.5 * inch])
+        ded_tbl.setStyle(TableStyle([
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+            ("BACKGROUND", (0, 0), (-1, 0), colors.yellow),
+            ("BACKGROUND", (0, -1), (-1, -1), colors.yellow),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold"),
+            ("ALIGN", (1, 1), (1, -1), "RIGHT"),
+            ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ]))
+        story.append(ded_tbl)
+        story.append(Spacer(1, 0.15 * inch))
 
     # check amount
     if for_owner:
