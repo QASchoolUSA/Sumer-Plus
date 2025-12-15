@@ -239,7 +239,7 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         # names and rates
         dcfg = drivers_map.get(key, {})
         ocfg = owners_map.get(key, {})
-        driver_rpm = dcfg.get("rate_per_mile")
+        driver_rpm = dcfg.get("rate_per_mile") or ocfg.get("per_mile")
         driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
         owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
         owner_pct = None
@@ -264,8 +264,18 @@ def _to_amount(x):
 
 def _norm_id(x):
     s = str(x).strip()
-    s = "".join(ch for ch in s if ch.isdigit())
-    return str(int(float(s))) if s else ""
+    filtered = "".join(ch for ch in s if ch.isdigit() or ch == ".")
+    if not filtered:
+        return ""
+    try:
+        if "." in filtered:
+            return str(int(float(filtered)))
+        return str(int(filtered))
+    except Exception:
+        try:
+            return str(int(float(filtered)))
+        except Exception:
+            return ""
 
 def extract_fuel_map(df: pd.DataFrame):
     if df.empty:
