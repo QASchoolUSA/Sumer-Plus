@@ -156,7 +156,11 @@ def parse_terms_drivers(df: pd.DataFrame):
         company = r.get(company_col) if company_col is not None else None
         key = _norm_id(unit)
         if key:
-            rpm = _to_amount(rate)
+            # normalize textual rpm values like "0.65", "65", "65¢", "0.65 per mile"
+            raw = rate
+            if pd.notna(raw):
+                raw = str(raw).lower().replace("per mile", "").replace("¢", "").replace("$", "").strip()
+            rpm = _to_amount(raw)
             if isinstance(rpm, (int, float)):
                 if rpm > 10:
                     rpm = rpm / 100.0
@@ -234,16 +238,17 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         dcfg = drivers_map.get(key, {})
         ocfg = owners_map.get(key, {})
         driver_rpm = dcfg.get("rate_per_mile")
-        driver_name = (dcfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
+        driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
         owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
         owner_pct = ocfg.get("percentage")
         # fuel total
         fuel_total = float(rows["Fuel"].sum()) if "Fuel" in rows.columns else 0.0
-        base_name = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
+        owner_base = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
+        driver_base = f"{driver_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
         driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
-        files.append({"name": f"OWNER_{base_name}.pdf", "bytes": owner_bytes})
-        files.append({"name": f"DRIVER_{base_name}.pdf", "bytes": driver_bytes})
+        files.append({"name": f"OWNER_{owner_base}.pdf", "bytes": owner_bytes})
+        files.append({"name": f"DRIVER_{driver_base}.pdf", "bytes": driver_bytes})
     return files
 def _to_amount(x):
     try:
@@ -897,7 +902,7 @@ def generate_statements_from_excel_bytes(excel_bytes: bytes, sheet_override: str
         if any(ch.isdigit() for ch in str(owner)) or ("," in str(owner)):
             owner = "Owner"
         rows = t["rows"]
-        base_name = f"{owner.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
+        base_name_owner = f"{owner.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         key = _norm_id(truck)
         fuel_amt = fuel_map.get(key, 0.0)
         cfg = None
@@ -908,8 +913,8 @@ def generate_statements_from_excel_bytes(excel_bytes: bytes, sheet_override: str
         owner_name = (cfg.get("company") if cfg and cfg.get("company") else owner)
         owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_amt, driver_rate_per_mile=driver_rpm)
         driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_amt, driver_rate_per_mile=driver_rpm)
-        files.append({"name": f"OWNER_{base_name}.pdf", "bytes": owner_bytes})
-        files.append({"name": f"DRIVER_{base_name}.pdf", "bytes": driver_bytes})
+        files.append({"name": f"OWNER_{base_name_owner}.pdf", "bytes": owner_bytes})
+        files.append({"name": f"DRIVER_{(driver_name or 'Driver').replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}.pdf", "bytes": driver_bytes})
     return files
 
 
