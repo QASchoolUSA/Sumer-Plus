@@ -33,13 +33,19 @@ class handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", "0"))
             raw = self.rfile.read(length) if length > 0 else b"{}"
             payload = json.loads(raw.decode("utf-8"))
+            action = payload.get("action") or ""
             excel_b64 = payload.get("excel_base64") or ""
             sheet = payload.get("sheet") or None
+            driver_configs = payload.get("driver_configs") or None
             if not excel_b64:
                 self._respond(400, {"ok": False, "error": "excel_base64 required"})
                 return
             excel_bytes = base64.b64decode(excel_b64)
-            files = sg.generate_statements_from_excel_bytes(excel_bytes, sheet)
+            if action == "sheets":
+                names = sg.get_sheet_names_from_bytes(excel_bytes)
+                self._respond(200, {"ok": True, "sheets": names})
+                return
+            files = sg.generate_statements_from_excel_bytes(excel_bytes, sheet, driver_configs=driver_configs)
             out = []
             for f in files:
                 out.append({

@@ -7,7 +7,6 @@ Reads load data from Excel, generates owner & driver PDFs per truck
 import os
 from datetime import datetime, timedelta
 import io
-import psycopg
 
 import pandas as pd
 from reportlab.lib import colors
@@ -71,6 +70,13 @@ def load_data_from_bytes(data: bytes, sheet_override: str | None = None):
         )
     df = pd.read_excel(xls, sheet_name=sheet)
     return df, sheet
+
+def get_sheet_names_from_bytes(data: bytes):
+    try:
+        xls = pd.ExcelFile(io.BytesIO(data))
+        return list(xls.sheet_names)
+    except Exception:
+        return []
 
 def _to_amount(x):
     try:
@@ -653,7 +659,7 @@ def main():
         make_statement_pdf(owner_pdf, rows, owner_name, truck, start, end, for_owner=True, fuel_amount=fuel_amt, driver_rate_per_mile=driver_rpm)
         make_statement_pdf(driver_pdf, rows, driver_name, truck, start, end, for_owner=False, fuel_amount=fuel_amt, driver_rate_per_mile=driver_rpm)
 
-def generate_statements_from_excel_bytes(excel_bytes: bytes, sheet_override: str | None = None):
+def generate_statements_from_excel_bytes(excel_bytes: bytes, sheet_override: str | None = None, driver_configs: dict | None = None):
     df_raw, sheet_name = load_data_from_bytes(excel_bytes, sheet_override)
     fuel_map = extract_fuel_map(df_raw)
     owner_map = extract_owner_map_from_bytes(excel_bytes)
@@ -674,39 +680,17 @@ def generate_statements_from_excel_bytes(excel_bytes: bytes, sheet_override: str
         base_name = f"{owner.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         key = _norm_id(truck)
         fuel_amt = fuel_map.get(key, 0.0)
-        cfg = fetch_driver_config(key)
-        driver_rpm = cfg.get("rate_per_mile") if cfg else None
-        driver_name = cfg.get("driver_name") if cfg else owner
-        owner_name = cfg.get("company") if cfg and cfg.get("company") else owner
+        cfg = None
+        if driver_configs and isinstance(driver_configs, dict):
+            cfg = driver_configs.get(key) or driver_configs.get(int(key)) if key else None
+        driver_rpm = (cfg.get("rate_per_mile") if cfg else None)
+        driver_name = (cfg.get("driver_name") if cfg else owner)
+        owner_name = (cfg.get("company") if cfg and cfg.get("company") else owner)
         owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_amt, driver_rate_per_mile=driver_rpm)
         driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_amt, driver_rate_per_mile=driver_rpm)
         files.append({"name": f"OWNER_{base_name}.pdf", "bytes": owner_bytes})
         files.append({"name": f"DRIVER_{base_name}.pdf", "bytes": driver_bytes})
     return files
-
-def fetch_driver_config(unit_number: str):
-    try:
-        dsn = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL") or os.environ.get("VERCEL_POSTGRES_URL")
-        if not dsn:
-            return None
-        with psycopg.connect(dsn) as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                    "SELECT unit_number, driver_name, driver_email, company, rate_per_mile FROM driver_config WHERE unit_number = %s",
-                    (int(unit_number),)
-                )
-                row = cur.fetchone()
-                if not row:
-                    return None
-                return {
-                    "unit_number": row[0],
-                    "driver_name": row[1],
-                    "driver_email": row[2],
-                    "company": row[3],
-                    "rate_per_mile": float(row[4]) if row[4] is not None else None,
-                }
-    except Exception:
-        return None
 
 
 if __name__ == "__main__":
