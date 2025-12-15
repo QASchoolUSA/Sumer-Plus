@@ -243,8 +243,8 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
         owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
         owner_pct = None
-        # fuel total
-        fuel_total = float(rows["Fuel"].sum()) if "Fuel" in rows.columns else 0.0
+        # fuel total: use per-truck total (do not multiply by loads)
+        fuel_total = float(rows["Fuel"].max()) if "Fuel" in rows.columns and not rows["Fuel"].empty else 0.0
         owner_base = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         driver_base = f"{driver_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
@@ -719,6 +719,7 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
     data = [loads_header]
     total_miles = 0.0
     total_gross = 0.0
+    total_driver_pay = 0.0
     for _, r in rows.iterrows():
         miles = _to_amount(r.get("Total miles", 0)) or 0.0
         gross = _to_amount(r.get("Gross", 0)) or 0.0
@@ -739,16 +740,19 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
             ])
         else:
             rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
+            driver_pay = miles * rate
             data.append([
                 str(r.get("Load Number", "")),
                 str(r.get("Pickup location", "")),
                 str(r.get("Delivery location", "")),
                 f"{miles:,.0f}",
                 f"{rate:.2f}",
-                f"{gross:,.2f}",
+                f"{driver_pay:,.2f}",
             ])
         total_miles += miles
         total_gross += gross
+        if not for_owner:
+            total_driver_pay += driver_pay
     if for_owner:
         pct = owner_percentage if owner_percentage is not None else OWNER_PERCENTAGE
         owner_total = total_gross * pct
@@ -761,7 +765,11 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
         data.append(["", "TOTAL",
                      f"{total_miles:,.0f}",
                      f"{avg_rate:.2f}",
-                     f"{total_gross:,.2f}"])
+                     f"{total_driver_pay:,.2f}"])
+        data.append(["", "TOTAL",
+                     f"{total_miles:,.0f}",
+                     f"{avg_rate:.2f}",
+                     f"{total_driver_pay:,.2f}"])
 
     if for_owner:
         tbl = Table(
