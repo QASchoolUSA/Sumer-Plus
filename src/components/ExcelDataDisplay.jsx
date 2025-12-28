@@ -53,8 +53,8 @@ export default function ExcelDataDisplay() {
 
   const EmptyState = ({ title }) => (
     <div className="p-8 text-center bg-gray-50 rounded-xl border border-gray-100">
-      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 mb-4">
-        <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 mb-4">
+        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       </div>
@@ -71,29 +71,32 @@ export default function ExcelDataDisplay() {
     const headers = Object.keys(items[0]);
 
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8 transition-all hover:shadow-md duration-300">
-        <div className="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-          <h3 className="text-xl font-bold text-[#001f3f]">{title}</h3>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+          <h3 className="text-lg font-bold text-[#001f3f] tracking-tight">{title}</h3>
+          <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800">
+            {items.length} records
+          </span>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full">
-            <thead>
-              <tr className="bg-[#001f3f] text-white">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-[#001f3f]">
+              <tr>
                 {headers.map((header) => (
-                  <th key={header} scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">
+                  <th key={header} scope="col" className="px-6 py-4 text-left text-xs font-medium text-blue-100 uppercase tracking-wider">
                     {header}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="bg-white divide-y divide-gray-100">
               {items.map((row, index) => (
                 <tr
                   key={index}
-                  className="hover:bg-blue-50/50 transition-colors duration-150"
+                  className="hover:bg-blue-50/30 transition-colors duration-150"
                 >
                   {headers.map((header) => (
-                    <td key={`${index}-${header}`} className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    <td key={`${index}-${header}`} className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
                       {row[header]}
                     </td>
                   ))}
@@ -114,7 +117,7 @@ export default function ExcelDataDisplay() {
           <label
             htmlFor="file-upload"
             className={`
-                relative flex flex-col items-center justify-center w-full h-48 
+                relative flex flex-col items-center justify-center w-full h-32 
                 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer
                 ${fileName
                 ? 'border-green-500 bg-green-50/30'
@@ -125,8 +128,8 @@ export default function ExcelDataDisplay() {
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               {fileName ? (
                 <>
-                  <div className="w-12 h-12 mb-3 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 mb-3 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -135,8 +138,8 @@ export default function ExcelDataDisplay() {
                 </>
               ) : (
                 <>
-                  <div className="w-12 h-12 mb-3 rounded-full bg-blue-100 flex items-center justify-center text-[#001f3f]">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 mb-3 rounded-full bg-blue-100 flex items-center justify-center text-[#001f3f]">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
                   </div>
