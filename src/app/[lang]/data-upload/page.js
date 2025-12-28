@@ -8,20 +8,20 @@ export default async function DataUploadPage({ params }) {
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Professional Minimal Header */}
-            <div className="bg-white border-b border-gray-100 pb-16 pt-32 px-4 relative">
-                <div className="container mx-auto max-w-5xl relative z-10 text-center">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+            {/* Simple, Professional Header */}
+            <div className="border-b border-slate-200">
+                <div className="container mx-auto px-4 py-8 pt-24">
+                    <h1 className="text-2xl font-bold tracking-tight text-slate-900">
                         Data Management
                     </h1>
-                    <p className="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
-                        Upload and view driver and owner compensation terms.
+                    <p className="text-slate-500 mt-1">
+                        Manage terms for drivers and owners.
                     </p>
                 </div>
             </div>
 
             {/* Main Content */}
-            <main className="container mx-auto px-4 -mt-8 pb-20 relative z-20">
+            <main className="container mx-auto px-4 py-8">
                 <ExcelDataDisplay />
             </main>
         </div>
