@@ -21,12 +21,14 @@ export default function StatementGeneratorClient({ lang }) {
   const [error, setError] = useState("");
   const [results, setResults] = useState([]);
 
+  // Loads File
   const [loadsFile, setLoadsFile] = useState(null);
   const [loadsSheets, setLoadsSheets] = useState([]);
   const [selectedLoadsSheet, setSelectedLoadsSheet] = useState("");
   const [loadsSheetsLoading, setLoadsSheetsLoading] = useState(false);
   const [loadsSheetsError, setLoadsSheetsError] = useState("");
 
+  // Terms (Drivers/Owners) File
   const [termsFile, setTermsFile] = useState(null);
   const [termsSheets, setTermsSheets] = useState([]);
   const [selectedDriversSheet, setSelectedDriversSheet] = useState("");
@@ -34,8 +36,24 @@ export default function StatementGeneratorClient({ lang }) {
   const [termsSheetsLoading, setTermsSheetsLoading] = useState(false);
   const [termsSheetsError, setTermsSheetsError] = useState("");
 
+  // Optional: Tolls File
+  const [tollsFile, setTollsFile] = useState(null);
+  const [tollsSheets, setTollsSheets] = useState([]);
+  const [selectedTollsSheet, setSelectedTollsSheet] = useState("");
+  const [tollsSheetsLoading, setTollsSheetsLoading] = useState(false);
+  const [tollsSheetsError, setTollsSheetsError] = useState("");
+
+  // Optional: Deductions File
+  const [deductionsFile, setDeductionsFile] = useState(null);
+  const [deductionsSheets, setDeductionsSheets] = useState([]);
+  const [selectedDeductionsSheet, setSelectedDeductionsSheet] = useState("");
+  const [deductionsSheetsLoading, setDeductionsSheetsLoading] = useState(false);
+  const [deductionsSheetsError, setDeductionsSheetsError] = useState("");
+
   const loadsInputRef = useRef(null);
   const termsInputRef = useRef(null);
+  const tollsInputRef = useRef(null);
+  const deductionsInputRef = useRef(null);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -52,20 +70,43 @@ export default function StatementGeneratorClient({ lang }) {
       setError("Please select Drivers and Owner sheets for the Terms file");
       return;
     }
+    // Optional validations can go here if needed (e.g., if file selected but no sheet picked)
+    if (tollsFile && !selectedTollsSheet) {
+      setError("Please select a sheet for the Tolls file");
+      return;
+    }
+    if (deductionsFile && !selectedDeductionsSheet) {
+      setError("Please select a sheet for the Deductions file");
+      return;
+    }
+
     setLoading(true);
     try {
       const loadsB64 = await readFileAsBase64(loadsFile);
       const termsB64 = await readFileAsBase64(termsFile);
+
+      const payload = {
+        loads_excel_base64: loadsB64,
+        loads_sheet: selectedLoadsSheet,
+        terms_excel_base64: termsB64,
+        drivers_sheet: selectedDriversSheet,
+        owners_sheet: selectedOwnersSheet,
+      };
+
+      if (tollsFile) {
+        payload.tolls_excel_base64 = await readFileAsBase64(tollsFile);
+        payload.tolls_sheet = selectedTollsSheet;
+      }
+
+      if (deductionsFile) {
+        payload.deductions_excel_base64 = await readFileAsBase64(deductionsFile);
+        payload.deductions_sheet = selectedDeductionsSheet;
+      }
+
       const res = await fetch(`/api/generate-statements`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          loads_excel_base64: loadsB64,
-          loads_sheet: selectedLoadsSheet,
-          terms_excel_base64: termsB64,
-          drivers_sheet: selectedDriversSheet,
-          owners_sheet: selectedOwnersSheet,
-        }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
@@ -103,7 +144,7 @@ export default function StatementGeneratorClient({ lang }) {
           if (sheetNames && sheetNames.length > 0) {
             setList(sheetNames);
             if (setSelected) {
-              // If it's a simple setSelected (loads), set the first one
+              // If it's a simple setSelected (loads, tolls, deductions), set the first one
               if (typeof setSelected === 'function') {
                 setSelected(sheetNames[0]);
               }
@@ -164,18 +205,34 @@ export default function StatementGeneratorClient({ lang }) {
     });
   }
 
-  const FileUploadBox = ({ title, file, setFile, onFileChange, loading, error, sheets, selectedSheet, setSelectedSheet, inputRef, type }) => (
-    <Card className={cn("relative transition-all duration-200", file ? "border-slate-200" : "border-dashed hover:bg-slate-50/50")}>
-      <CardContent className="p-6">
+  const FileUploadBox = ({
+    title,
+    file,
+    setFile,
+    onFileChange,
+    loading,
+    error,
+    sheets,
+    selectedSheet,
+    setSelectedSheet,
+    inputRef,
+    type,
+    optional = false
+  }) => (
+    <Card className={cn("relative transition-all duration-200 h-full", file ? "border-slate-200" : "border-dashed hover:bg-slate-50/50")}>
+      <CardContent className="p-6 h-full flex flex-col">
         <div
-          className="flex flex-col items-center justify-center text-center cursor-pointer"
+          className="flex flex-col items-center justify-center text-center cursor-pointer flex-grow"
           onClick={() => !file && inputRef.current?.click()}
         >
           <div className={cn("p-3 rounded-full mb-3", file ? "bg-green-50 text-green-600" : "bg-slate-50 text-slate-400")}>
             {file ? <CheckCircle2 className="h-6 w-6" /> : <UploadCloud className="h-6 w-6" />}
           </div>
 
-          <h3 className="font-semibold text-slate-900 mb-1">{title}</h3>
+          <h3 className="font-semibold text-slate-900 mb-1">
+            {title}
+            {optional && <span className="text-xs font-normal text-slate-400 ml-1">(Optional)</span>}
+          </h3>
 
           {!file && (
             <p className="text-sm text-slate-500 mb-4">Click to select file</p>
@@ -189,7 +246,8 @@ export default function StatementGeneratorClient({ lang }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   setFile(null);
-                  setResults([]);
+                  // We don't reset all results on optional file clear, just the file state
+                  if (type === 'loads' || type === 'terms') setResults([]);
                 }}
                 className="ml-1 hover:text-red-500"
               >
@@ -253,7 +311,7 @@ export default function StatementGeneratorClient({ lang }) {
                     </div>
                   </div>
                 ) : (
-                  // Loads File - Single Sheet
+                  // Generic Single Sheet Selection (Loads, Tolls, Deductions)
                   <div className="space-y-1.5 text-left">
                     <label className="text-xs font-medium text-slate-500 uppercase">Select Sheet</label>
                     {sheets.length <= 8 ? (
@@ -346,17 +404,61 @@ export default function StatementGeneratorClient({ lang }) {
                     const driversDefault = f && first ? first : "";
                     setSelectedDriversSheet(driversDefault);
                     setSelectedOwnersSheet(driversDefault);
-
-                    // Logic to try and auto-find best sheet match after names are loaded
-                    // But since names are loaded asynchronously inside parseSheets, we rely on the list result being set.
-                    // We'll move the complex auto-select logic to after parse if needed, but for now basic is fine.
                   }
                 }, setTermsSheetsLoading, setTermsSheetsError);
 
-                // Note: Auto-select smart defaults relies on `termsSheets` state which updates async.
-                // Ideally we should return the sheets from parseSheets promise to handle this.
-                // For now, let's just rely on the user or the callback defaulting to the first one.
+                // Auto-select smart defaults
+                if (Array.isArray(termsSheets) && termsSheets.length > 0) {
+                  const driversDefault = termsSheets.find((n) => String(n).toLowerCase() === "drivers") || termsSheets[0] || "";
+                  const ownersDefault = termsSheets.find((n) => String(n).toLowerCase() === "owner") || termsSheets[1] || termsSheets[0] || "";
+                  setSelectedDriversSheet(driversDefault);
+                  setSelectedOwnersSheet(ownersDefault);
+                }
               }
+            }}
+          />
+
+          <FileUploadBox
+            title="Tolls"
+            file={tollsFile}
+            setFile={setTollsFile}
+            inputRef={tollsInputRef}
+            loading={tollsSheetsLoading}
+            error={tollsSheetsError}
+            sheets={tollsSheets}
+            selectedSheet={selectedTollsSheet}
+            setSelectedSheet={setSelectedTollsSheet}
+            type="tolls"
+            optional={true}
+            onFileChange={async (e) => {
+              const f = e.target.files?.[0] || null;
+              setTollsFile(f);
+              setError("");
+              setTollsSheets([]);
+              setSelectedTollsSheet("");
+              if (f) await parseSheets(f, setTollsSheets, setSelectedTollsSheet, setTollsSheetsLoading, setTollsSheetsError);
+            }}
+          />
+
+          <FileUploadBox
+            title="Deductions"
+            file={deductionsFile}
+            setFile={setDeductionsFile}
+            inputRef={deductionsInputRef}
+            loading={deductionsSheetsLoading}
+            error={deductionsSheetsError}
+            sheets={deductionsSheets}
+            selectedSheet={selectedDeductionsSheet}
+            setSelectedSheet={setSelectedDeductionsSheet}
+            type="deductions"
+            optional={true}
+            onFileChange={async (e) => {
+              const f = e.target.files?.[0] || null;
+              setDeductionsFile(f);
+              setError("");
+              setDeductionsSheets([]);
+              setSelectedDeductionsSheet("");
+              if (f) await parseSheets(f, setDeductionsSheets, setSelectedDeductionsSheet, setDeductionsSheetsLoading, setDeductionsSheetsError);
             }}
           />
         </div>
