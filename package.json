@@ -11,16 +11,17 @@
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
     "@formatjs/intl-localematcher": "^0.6.2",
+    "mssql": "^9.3.0",
     "negotiator": "^1.0.0",
     "next": "16.0.9",
-    "mssql": "^9.3.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "babel-plugin-react-compiler": "1.0.0",
+    "baseline-browser-mapping": "latest",
     "eslint": "^9",
-    "eslint-config-next": "latest",
-    "baseline-browser-mapping": "latest"
+    "eslint-config-next": "latest"
   }
 }
