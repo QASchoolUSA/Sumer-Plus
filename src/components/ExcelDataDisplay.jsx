@@ -18,11 +18,30 @@ export default function ExcelDataDisplay() {
       const bstr = evt.target.result;
       const wb = validXlsx.read(bstr, { type: 'binary' });
 
+      // Parse Drivers Sheet
       const driversSheet = wb.Sheets['Drivers'];
-      const ownerSheet = wb.Sheets['Owner'];
+      let driversData = [];
+      if (driversSheet) {
+        const rawDrivers = validXlsx.utils.sheet_to_json(driversSheet);
+        driversData = rawDrivers.map(row => ({
+          'Unit Number': row['Unit Number'] || '',
+          'Driver Name': row['Driver'] || '',
+          'Driver Email': row['Driver E-mail'] || '',
+          'Terms': row['Per Mile'] ? `${row['Per Mile']} per mile` : ''
+        })).filter(row => row['Unit Number'] || row['Driver Name']); // Basic filtering for empty rows
+      }
 
-      const driversData = driversSheet ? validXlsx.utils.sheet_to_json(driversSheet) : [];
-      const ownersData = ownerSheet ? validXlsx.utils.sheet_to_json(ownerSheet) : [];
+      // Parse Owners Sheet
+      const ownerSheet = wb.Sheets['Owner'];
+      let ownersData = [];
+      if (ownerSheet) {
+        const rawOwners = validXlsx.utils.sheet_to_json(ownerSheet);
+        ownersData = rawOwners.map(row => ({
+          'Owner Name': row['Owner'] || '',
+          'Company': row['Firma'] || '',
+          'Terms': row['Per Mile'] ? `${row['Per Mile']} per mile` : ''
+        })).filter(row => row['Owner Name'] || row['Company']);
+      }
 
       setData({
         drivers: driversData,
@@ -32,43 +51,50 @@ export default function ExcelDataDisplay() {
     reader.readAsBinaryString(file);
   };
 
+  const EmptyState = ({ title }) => (
+    <div className="p-8 text-center bg-gray-50 rounded-xl border border-gray-100">
+      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 mb-4">
+        <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <h3 className="text-lg font-medium text-gray-900 mb-1">No {title} Data</h3>
+      <p className="text-gray-500 text-sm">Upload a valid Excel file to view {title.toLowerCase()} information.</p>
+    </div>
+  );
+
   const renderTable = (title, items) => {
     if (!items || items.length === 0) {
-      return (
-        <div className="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-          <p className="text-gray-500 italic">No data found in {title} sheet or sheet is missing.</p>
-        </div>
-      );
+      return <EmptyState title={title} />;
     }
 
     const headers = Object.keys(items[0]);
 
     return (
-      <div className="mb-12">
-        <h3 className="text-2xl font-bold mb-4 text-[#001f3f] border-b pb-2">{title}</h3>
-        <div className="overflow-x-auto shadow-md rounded-lg">
-          <table className="min-w-full bg-white text-sm text-left text-gray-500">
-            <thead className="text-xs text-white uppercase bg-[#001f3f]">
-              <tr>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8 transition-all hover:shadow-md duration-300">
+        <div className="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+          <h3 className="text-xl font-bold text-[#001f3f]">{title}</h3>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead>
+              <tr className="bg-[#001f3f] text-white">
                 {headers.map((header) => (
-                  <th key={header} scope="col" className="px-6 py-3 whitespace-nowrap">
+                  <th key={header} scope="col" className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider">
                     {header}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-gray-100">
               {items.map((row, index) => (
                 <tr
                   key={index}
-                  className={`border-b hover:bg-gray-50 ${
-                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                  }`}
+                  className="hover:bg-blue-50/50 transition-colors duration-150"
                 >
                   {headers.map((header) => (
-                    <td key={`${index}-${header}`} className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      {row[header] !== undefined && row[header] !== null ? String(row[header]) : ''}
+                    <td key={`${index}-${header}`} className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                      {row[header]}
                     </td>
                   ))}
                 </tr>
@@ -81,37 +107,61 @@ export default function ExcelDataDisplay() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="mb-8 text-center">
-        <label
-          htmlFor="file-upload"
-          className="cursor-pointer inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-          </svg>
-          Upload Excel File
-        </label>
-        <input
-          id="file-upload"
-          type="file"
-          accept=".xlsx, .xls"
-          onChange={handleFileUpload}
-          className="hidden"
-        />
-        {fileName && (
-          <p className="mt-2 text-sm text-gray-600">
-            Selected file: <span className="font-medium">{fileName}</span>
-          </p>
-        )}
+    <div className="w-full">
+      {/* Upload Area */}
+      <div className="mb-12">
+        <div className="max-w-2xl mx-auto">
+          <label
+            htmlFor="file-upload"
+            className={`
+                relative flex flex-col items-center justify-center w-full h-48 
+                rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer
+                ${fileName
+                ? 'border-green-500 bg-green-50/30'
+                : 'border-blue-200 hover:border-[#001f3f] hover:bg-blue-50/30'
+              }
+            `}
+          >
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              {fileName ? (
+                <>
+                  <div className="w-12 h-12 mb-3 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="mb-2 text-sm font-semibold text-green-600">File Selected</p>
+                  <p className="text-xs text-green-500">{fileName}</p>
+                </>
+              ) : (
+                <>
+                  <div className="w-12 h-12 mb-3 rounded-full bg-blue-100 flex items-center justify-center text-[#001f3f]">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                  </div>
+                  <p className="mb-2 text-sm text-gray-500">
+                    <span className="font-semibold text-[#001f3f]">Click to upload</span> or drag and drop
+                  </p>
+                  <p className="text-xs text-gray-400">Excel files (.xlsx, .xls)</p>
+                </>
+              )}
+            </div>
+            <input
+              id="file-upload"
+              type="file"
+              accept=".xlsx, .xls"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+          </label>
+        </div>
       </div>
 
-      {(data.drivers.length > 0 || data.owners.length > 0) && (
-        <div className="animate-fade-in">
-          {renderTable('Drivers', data.drivers)}
-          {renderTable('Owners', data.owners)}
-        </div>
-      )}
+      <div className="space-y-12 animate-fade-in">
+        {renderTable('Drivers', data.drivers)}
+        {renderTable('Owners', data.owners)}
+      </div>
     </div>
   );
 }
