@@ -210,10 +210,12 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
                                         owners_sheet: str | None):
     xls_loads = pd.ExcelFile(io.BytesIO(loads_excel_bytes))
     sheet_loads = loads_sheet if (loads_sheet and loads_sheet in xls_loads.sheet_names) else xls_loads.sheet_names[0]
-    df_loads_raw = pd.read_excel(xls_loads, sheet_name=sheet_loads)
+    df_loads_raw = pd.read_excel(xls_loads, sheet_name=sheet_loads, header=None)
     df_loads, fuel_map = parse_loads_sheet(df_loads_raw)
     # period parsing
     period = ""
+    # With header=None, we don't have column names in df_loads.columns yet unless we set them.
+    # Actually parse_loads_sheet returns a structured DF now.
     if "Week" in df_loads.columns and not df_loads.empty:
         period = str(df_loads.iloc[0].get("Week") or "")
     start, end = parse_week_period(period)
@@ -243,7 +245,6 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
         owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
         owner_pct = None
-        owner_pct = None
         # fuel total: lookup from map using normalized truck id/driver id
         # The fuel map keys are normalized IDs. We check if the truck ID matches or if we need to map via driver.
         # But realistically, the Fuel table has "Driver Id" which matches the unit number usually.
@@ -257,6 +258,7 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
     return files
 def _to_amount(x):
     try:
+        if pd.isna(x): return None
         return float(x)
     except Exception:
         s = str(x).replace("$", "").replace(",", "").strip()
@@ -270,66 +272,58 @@ def _norm_id(x):
     if pd.isna(x):
         return ""
     s = str(x).strip()
+    # Remove .0 if it exists
     if s.endswith(".0"):
-        return s[:-2]
+        s = s[:-2]
     return s
 
 def parse_loads_sheet(df: pd.DataFrame):
-    # The sheet likely has "FUEL" table on the left and "DISPATCH BOARD" on the right.
-    # We'll scan the first few rows to find the headers.
+    # The sheet is read with header=None, so it is a raw grid.
+    # We'll scan the first 20 rows to find header candidates.
     
     fuel_start_col = None
     dispatch_start_col = None
     header_row_idx = 0
     
     # Locate headers
-    # We look for "Driver Id" for Fuel and "PU date" or "Load Number" for Dispatch
-    for r_idx, row in df.head(10).iterrows():
+    # We look for "Driver Id" (Fuel) and "Load Number" (Dispatch)
+    for r_idx, row in df.head(20).iterrows():
         row_vals = [str(v).strip().lower() for v in row.values]
         if "driver id" in row_vals:
             fuel_start_col = row_vals.index("driver id")
-            header_row_idx = r_idx
         if "load number" in row_vals:
             dispatch_start_col = row_vals.index("load number")
-            # If dispatch starts before load number (e.g. PU Date), try to find that
-            if "pu date" in row_vals:
-                dispatch_start_col = min(dispatch_start_col, row_vals.index("pu date"))
-                
-    if fuel_start_col is None and dispatch_start_col is None:
-        # Fallback to standard parsing if we can't find specific separate tables
-        return _parse_loads_sheet_standard(df), {}
+        
+        # If both found or at least Load Number is determine
+        if dispatch_start_col is not None:
+             header_row_idx = r_idx
+             break
+        # Fallback: check for "Truck" in column L (index 11) ?
+        if "truck" in row_vals and dispatch_start_col is None:
+             header_row_idx = r_idx
+             
+    # If detection completely failed, try row 2 (index 2) as per screenshot
+    if dispatch_start_col is None and fuel_start_col is None:
+         header_row_idx = 2
 
     # Extract Fuel Data
     fuel_map = {}
+    fuel_driver_idx = 1 # Default Column B
+    fuel_total_idx = 2  # Default Column C
     
-    # Heuristic: if we didn't find "driver id" header, look at column B (index 1)
-    # The user says Fuel is columns B and C.
-    fuel_driver_idx = fuel_start_col if fuel_start_col is not None else 1
-    
-    # We need to find where the data starts. If we found a header row, start after it. 
-    # If not, guess row 2 (index 1) or 3 (index 2)? Screenshot looks like Row 3 is data (4th row).
-    # Let's rely on finding a header row first. If header_row_idx is 0 (default), it might be wrong if headers are lower.
-    
-    # If we identified a header row, check valid Fuel data
-    valid_fuel_start_row = header_row_idx + 1
-    
-    # Try to find Fuel Total column
-    fuel_total_idx = None
     if fuel_start_col is not None:
-        # Search right of Driver Id
-        for c in range(fuel_start_col + 1, len(df.columns)):
-            h_val = str(df.iloc[header_row_idx, c]).strip().lower()
-            if "total" in h_val or "sum of" in h_val:
+        fuel_driver_idx = fuel_start_col
+        # Find total column
+        row_vals = [str(v).strip().lower() for v in df.iloc[header_row_idx]]
+        for c in range(fuel_driver_idx + 1, len(df.columns)):
+            h = row_vals[c] if c < len(row_vals) else ""
+            if "total" in h or "sum of" in h:
                 fuel_total_idx = c
                 break
     
-    # Fallback to Column C (index 2) if B (1) is Driver ID
-    if fuel_total_idx is None and fuel_driver_idx == 1:
-        fuel_total_idx = 2
-
-    if fuel_total_idx is not None and fuel_total_idx < len(df.columns):
-        # scan rows
-        for r_idx in range(valid_fuel_start_row, len(df)):
+    # scan for fuel
+    if fuel_total_idx < len(df.columns):
+         for r_idx in range(header_row_idx + 1, len(df)):
             d_id = df.iloc[r_idx, fuel_driver_idx]
             amt = df.iloc[r_idx, fuel_total_idx]
             norm_d = _norm_id(d_id)
@@ -341,71 +335,79 @@ def parse_loads_sheet(df: pd.DataFrame):
     # Extract Dispatch Data
     loads_rows = []
     
-    # Mapping logic
-    # If dispatch headers found
-    if dispatch_start_col is not None:
-        dispatch_headers = df.iloc[header_row_idx]
-        col_map = {}
-        for c in range(dispatch_start_col, len(df.columns)):
-            h_val = str(dispatch_headers.iloc[c]).strip().lower()
-            col_map[h_val] = c
+    # Map columns based on header row
+    col_map = {}
+    if header_row_idx < len(df):
+        row_vals = [str(v).strip().lower() for v in df.iloc[header_row_idx]]
+        for c, v in enumerate(row_vals):
+            if v:
+                col_map[v] = c
             
-        # Fallback: User said Truck is Column L (index 11). 
-        # If "truck" not not in col_map, force add it if possible.
-        if "truck" not in col_map and "unit number" not in col_map and "unit" not in col_map:
-            # Check if column 11 exists
-            if 11 < len(df.columns):
-                col_map["truck"] = 11
+    # Fallback for Truck = Column L (index 11) if not mapped
+    if "truck" not in col_map and "unit number" not in col_map and "unit" not in col_map:
+        if 11 < len(df.columns):
+             col_map["truck"] = 11
 
-        def get_val(r_idx, *names):
-            # Try names
-            for n in names:
-                if n.lower() in col_map:
-                    return df.iloc[r_idx, col_map[n.lower()]]
-            return None
+    # HARD FALLBACK: if we still miss "load number" and "gross" and "truck",
+    # but we are using the fallback header row 2, assume the standard layout.
+    # Layout based on screenshot:
+    # Col 4 (E): Load Number
+    # Col 7 (H): Gross
+    # Col 8 (I): Total miles
+    # Col 3 (D): PU Date
+    # Col 5 (F): Pick up
+    # Col 6 (G): Delivery
+    # Col 10 (K): Driver/Carrier
+    
+    if ("load number" not in col_map and "load #" not in col_map) and \
+       ("gross" not in col_map):
+       # Force map standard positions
+       col_map["load number"] = 4
+       col_map["gross"] = 7
+       col_map["total miles"] = 8
+       col_map["pu date"] = 3
+       col_map["pickup location"] = 5
+       col_map["delivery location"] = 6
+       col_map["driver/carrier"] = 10
+       col_map["truck"] = 11
 
-        for r_idx in range(header_row_idx + 1, len(df)):
-            truck = get_val(r_idx, "truck", "unit number", "unit", "truck #")
-            # If still none and we are desperate, try column 11 directly if not mapped
-            if truck is None and 11 < len(df.columns):
-                 truck = df.iloc[r_idx, 11]
+    def get_val(r_idx, *names):
+        for n in names:
+            if n.lower() in col_map:
+                return df.iloc[r_idx, col_map[n.lower()]]
+        return None
 
-            owner = get_val(r_idx, "driver/carrier", "owner name", "owner", "llc")
-            driver = get_val(r_idx, "driver name", "driver")
-            # Load Number is priority
-            loadnum = get_val(r_idx, "load number", "load #")
-            pu = get_val(r_idx, "pickup location", "pick up")
-            dl = get_val(r_idx, "delivery location", "delivery")
-            gross = get_val(r_idx, "gross")
-            miles = get_val(r_idx, "total miles", "miles")
-            pu_date = get_val(r_idx, "pu date", "date")
+    for r_idx in range(header_row_idx + 1, len(df)):
+        truck = get_val(r_idx, "truck", "unit number", "unit", "truck #")
+        # Explicit fallback if needed
+        if truck is None and 11 < len(df.columns):
+             truck = df.iloc[r_idx, 11]
 
-            tk = _norm_id(truck)
-            # Valid row check: needs Truck ID AND (Load# OR Gross)
-            if tk and (pd.notna(loadnum) or _to_amount(gross)):
-                 loads_rows.append({
-                    "Week": "", 
-                    "Truck": tk,
-                    "Driver/Carrier": str(owner).strip() if pd.notna(owner) else "",
-                    "DriverName": str(driver).strip() if pd.notna(driver) else "",
-                    "Load Number": str(loadnum).strip() if pd.notna(loadnum) else "",
-                    "Pickup location": str(pu).strip() if pd.notna(pu) else "",
-                    "Delivery location": str(dl).strip() if pd.notna(dl) else "",
-                    "Gross": float(_to_amount(gross) or 0.0),
-                    "Total miles": float(_to_amount(miles) or 0.0),
-                    "Fuel": 0.0, 
-                    "PU date": pu_date if pd.notna(pu_date) else "",
-                })
-    else:
-        # User is adamant about structure, so maybe we missed the header because of naming?
-        # If we didn't find "Load Number" header, but user says L is Truck...
-        # Let's try blind mapping based on their description if standard fail.
-        # "L column is the truck id" -> 11.
-        # "B and C" is fuel.
-        # Assuming "Gross" might be near Truck?
-        # Let's fallback to standard parse but patch Fuel.
-        df_std = _parse_loads_sheet_standard(df)
-        return df_std, fuel_map
+        owner = get_val(r_idx, "driver/carrier", "owner name", "owner", "llc")
+        driver = get_val(r_idx, "driver name", "driver")
+        loadnum = get_val(r_idx, "load number", "load #")
+        pu = get_val(r_idx, "pickup location", "pick up")
+        dl = get_val(r_idx, "delivery location", "delivery")
+        gross = get_val(r_idx, "gross")
+        miles = get_val(r_idx, "total miles", "miles")
+        pu_date = get_val(r_idx, "pu date", "date")
+
+        tk = _norm_id(truck)
+        # We need either a Load Number OR a Gross amount to consider it a valid load row
+        if tk and (pd.notna(loadnum) or _to_amount(gross)):
+             loads_rows.append({
+                "Week": "", 
+                "Truck": tk,
+                "Driver/Carrier": str(owner).strip() if pd.notna(owner) else "",
+                "DriverName": str(driver).strip() if pd.notna(driver) else "",
+                "Load Number": str(loadnum).strip() if pd.notna(loadnum) else "",
+                "Pickup location": str(pu).strip() if pd.notna(pu) else "",
+                "Delivery location": str(dl).strip() if pd.notna(dl) else "",
+                "Gross": float(_to_amount(gross) or 0.0),
+                "Total miles": float(_to_amount(miles) or 0.0),
+                "Fuel": 0.0, 
+                "PU date": pu_date if pd.notna(pu_date) else "",
+            })
 
     columns = [
         "Week", "Truck", "Driver/Carrier", "DriverName", "Load Number",
