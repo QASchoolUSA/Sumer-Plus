@@ -208,61 +208,81 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
                                         terms_excel_bytes: bytes,
                                         drivers_sheet: str | None,
                                         owners_sheet: str | None):
-    xls_loads = pd.ExcelFile(io.BytesIO(loads_excel_bytes))
-    sheet_loads = loads_sheet if (loads_sheet and loads_sheet in xls_loads.sheet_names) else xls_loads.sheet_names[0]
-    df_loads_raw = pd.read_excel(xls_loads, sheet_name=sheet_loads, header=None)
-    df_loads, fuel_map = parse_loads_sheet(df_loads_raw)
-    # period parsing
-    period = ""
-    # With header=None, we don't have column names in df_loads.columns yet unless we set them.
-    # Actually parse_loads_sheet returns a structured DF now.
-    if "Week" in df_loads.columns and not df_loads.empty:
-        period = str(df_loads.iloc[0].get("Week") or "")
-    start, end = parse_week_period(period)
-    # group by truck
-    trucks = []
-    for truck in df_loads["Truck"].dropna().unique():
-        rows = df_loads[df_loads["Truck"] == truck].copy()
-        owner = str(rows.iloc[0].get("Driver/Carrier", "Owner")).strip() or "Owner"
-        trucks.append({"truck": truck, "owner": owner, "rows": rows})
-    # terms
-    xls_terms = pd.ExcelFile(io.BytesIO(terms_excel_bytes))
-    drivers_sheet_name = drivers_sheet if (drivers_sheet and drivers_sheet in xls_terms.sheet_names) else ("Drivers" if "Drivers" in xls_terms.sheet_names else xls_terms.sheet_names[0])
-    owners_sheet_name = owners_sheet if (owners_sheet and owners_sheet in xls_terms.sheet_names) else ("Owner" if "Owner" in xls_terms.sheet_names else xls_terms.sheet_names[-1])
-    df_drivers = pd.read_excel(xls_terms, sheet_name=drivers_sheet_name)
-    df_owners = pd.read_excel(xls_terms, sheet_name=owners_sheet_name)
-    drivers_map = parse_terms_drivers(df_drivers)
-    owners_map = parse_terms_owners(df_owners)
+    try:
+        xls_loads = pd.ExcelFile(io.BytesIO(loads_excel_bytes))
+        sheet_loads = loads_sheet if (loads_sheet and loads_sheet in xls_loads.sheet_names) else xls_loads.sheet_names[0]
+        df_loads_raw = pd.read_excel(xls_loads, sheet_name=sheet_loads, header=None)
+        df_loads, fuel_map = parse_loads_sheet(df_loads_raw)
+        
+        # period parsing
+        period = ""
+        if "Week" in df_loads.columns and not df_loads.empty:
+            period = str(df_loads.iloc[0].get("Week") or "")
+        start, end = parse_week_period(period)
+        
+        # group by truck
+        trucks = []
+        for truck in df_loads["Truck"].dropna().unique():
+            rows = df_loads[df_loads["Truck"] == truck].copy()
+            owner = str(rows.iloc[0].get("Driver/Carrier", "Owner")).strip() or "Owner"
+            trucks.append({"truck": truck, "owner": owner, "rows": rows})
+    except Exception as e:
+        raise Exception(f"Error parsing Loads Excel: {str(e)}\n{traceback.format_exc()}")
+
+    try:
+        # terms
+        xls_terms = pd.ExcelFile(io.BytesIO(terms_excel_bytes))
+        drivers_sheet_name = drivers_sheet if (drivers_sheet and drivers_sheet in xls_terms.sheet_names) else ("Drivers" if "Drivers" in xls_terms.sheet_names else xls_terms.sheet_names[0])
+        owners_sheet_name = owners_sheet if (owners_sheet and owners_sheet in xls_terms.sheet_names) else ("Owner" if "Owner" in xls_terms.sheet_names else xls_terms.sheet_names[-1])
+        df_drivers = pd.read_excel(xls_terms, sheet_name=drivers_sheet_name)
+        df_owners = pd.read_excel(xls_terms, sheet_name=owners_sheet_name)
+        drivers_map = parse_terms_drivers(df_drivers)
+        owners_map = parse_terms_owners(df_owners)
+    except Exception as e:
+        raise Exception(f"Error parsing Terms Excel: {str(e)}\n{traceback.format_exc()}")
+
     files = []
-    for t in trucks:
-        truck = t["truck"]
-        rows = t["rows"]
-        key = _norm_id(truck)
-        # names and rates
-        dcfg = drivers_map.get(key, {})
-        ocfg = owners_map.get(key, {})
-        driver_rpm = dcfg.get("rate_per_mile") or ocfg.get("per_mile")
-        driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
-        owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
-        owner_pct = None
-        # fuel total: lookup from map using normalized truck id/driver id
-        # The fuel map keys are normalized IDs. We check if the truck ID matches or if we need to map via driver.
-        # But realistically, the Fuel table has "Driver Id" which matches the unit number usually.
-        fuel_total = float(fuel_map.get(key, 0.0))
-        
-        # New filename format: PREFIX_Name_ID.pdf
-        # Ensure spaces are replaced with underscores for safety
-        safe_owner = owner_name.replace(" ", "_").replace("/", "-")
-        safe_driver = driver_name.replace(" ", "_").replace("/", "-")
-        safe_truck = str(truck).strip().replace(" ", "_")
-        
-        owner_filename = f"OWNER_{safe_owner}_{safe_truck}.pdf"
-        driver_filename = f"DRIVER_{safe_driver}_{safe_truck}.pdf"
-        
-        owner_bytes, owner_stats = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
-        driver_bytes, driver_stats = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
-        files.append({"name": owner_filename, "bytes": owner_bytes, "stats": owner_stats})
-        files.append({"name": driver_filename, "bytes": driver_bytes, "stats": driver_stats})
+    try:
+        for t in trucks:
+            truck = t["truck"]
+            rows = t["rows"]
+            key = _norm_id(truck)
+            # names and rates
+            try:
+                dcfg = drivers_map.get(key, {})
+                ocfg = owners_map.get(key, {})
+            except Exception as e:
+                raise Exception(f"Error looking up terms for truck {key}: {e}")
+
+            driver_rpm = dcfg.get("rate_per_mile") or ocfg.get("per_mile")
+            driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
+            owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
+            owner_pct = None
+            # fuel total: lookup from map using normalized truck id/driver id
+            # The fuel map keys are normalized IDs. We check if the truck ID matches or if we need to map via driver.
+            # But realistically, the Fuel table has "Driver Id" which matches the unit number usually.
+            fuel_total = float(fuel_map.get(key, 0.0))
+            
+            # New filename format: PREFIX_Name_ID.pdf
+            # Ensure spaces are replaced with underscores for safety
+            safe_owner = owner_name.replace(" ", "_").replace("/", "-")
+            safe_driver = driver_name.replace(" ", "_").replace("/", "-")
+            safe_truck = str(truck).strip().replace(" ", "_")
+            
+            owner_filename = f"OWNER_{safe_owner}_{safe_truck}.pdf"
+            driver_filename = f"DRIVER_{safe_driver}_{safe_truck}.pdf"
+            
+            try:
+                owner_bytes, owner_stats = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
+                driver_bytes, driver_stats = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
+            except Exception as e:
+                # Catch detailed PDF error
+                raise Exception(f"Error generating PDF bytes for truck {truck}: {str(e)}")
+
+            files.append({"name": owner_filename, "bytes": owner_bytes, "stats": owner_stats})
+            files.append({"name": driver_filename, "bytes": driver_bytes, "stats": driver_stats})
+    except Exception as e:
+        raise Exception(f"Error processing trucks loop: {str(e)}\n{traceback.format_exc()}")
         
     # period string for frontend
     period_str = f"{start.strftime('%m/%d/%Y')} - {end.strftime('%m/%d/%Y')}"
