@@ -17,6 +17,7 @@ export async function POST(req) {
       cache: 'no-store',
     });
     const text = await res.text();
+    let data;
     try {
       data = JSON.parse(text.trim());
     } catch (parseError) {
