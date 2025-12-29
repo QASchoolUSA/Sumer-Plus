@@ -827,7 +827,7 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
                      f"{owner_total:,.2f}"])
     else:
         avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_driver_pay / total_miles if total_miles else 0)
-        data.append(["", "TOTAL",
+        data.append(["", "TOTAL", "",
                      f"{total_miles:,.0f}",
                      f"{avg_rate:.2f}",
                      f"{total_driver_pay:,.2f}"])
