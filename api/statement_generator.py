@@ -43,6 +43,7 @@ class handler(BaseHTTPRequestHandler):
             drivers_sheet = payload.get("drivers_sheet") or None
             owners_sheet = payload.get("owners_sheet") or None
             if not excel_b64:
+                if loads_b64 and terms_b64:
                     loads_bytes = base64.b64decode(loads_b64)
                     terms_bytes = base64.b64decode(terms_b64)
                     files, period_str = sg.generate_statements_from_two_excels(
