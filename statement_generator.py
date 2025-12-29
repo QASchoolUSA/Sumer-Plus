@@ -690,6 +690,7 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
     data = [loads_header]
     total_miles = 0.0
     total_gross = 0.0
+    total_driver_pay = 0.0
     for _, r in rows.iterrows():
         pu = r.get("PU date", "")
         if isinstance(pu, (datetime, pd.Timestamp)):
@@ -709,10 +710,14 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
                 str(r.get("Load Number", "")),
                 str(r.get("Pickup location", "")),
                 str(r.get("Delivery location", "")),
+                f"{gross:,.2f}",
+                f"{pct*100:.2f}%",
+                f"{owner_pay:,.2f}",
             ])
         else:
             rate = driver_rate_per_mile if driver_rate_per_mile is not None else 0.0
             driver_pay = miles * rate
+            total_driver_pay += driver_pay
             # Header: ["Load Number", "Pickup location", "Delivery location", "Miles", "$ Per Mile", "Gross Pay"]
             data.append([
                 str(r.get("Load Number", "")),
@@ -732,11 +737,11 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
                      f"{pct*100:.2f}%",
                      f"{owner_total:,.2f}"])
     else:
-        avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_gross / total_miles if total_miles else 0)
+        avg_rate = driver_rate_per_mile if driver_rate_per_mile is not None else (total_driver_pay / total_miles if total_miles else 0)
         data.append(["", "TOTAL",
                      f"{total_miles:,.0f}",
                      f"{avg_rate:.2f}",
-                     f"{total_gross:,.2f}"])
+                     f"{total_driver_pay:,.2f}"])
     if for_owner:
         tbl = Table(
             data,
@@ -956,10 +961,7 @@ def make_statement_pdf(filename: str, rows: pd.DataFrame,
                      f"{total_miles:,.0f}",
                      f"{avg_rate:.2f}",
                      f"{total_driver_pay:,.2f}"])
-        data.append(["", "TOTAL",
-                     f"{total_miles:,.0f}",
-                     f"{avg_rate:.2f}",
-                     f"{total_driver_pay:,.2f}"])
+
 
     if for_owner:
         tbl = Table(
