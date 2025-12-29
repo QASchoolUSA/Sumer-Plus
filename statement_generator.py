@@ -940,10 +940,10 @@ def generate_statements_from_excel_bytes(excel_bytes: bytes, sheet_override: str
         driver_rpm = (cfg.get("rate_per_mile") if cfg else None)
         driver_name = (cfg.get("driver_name") if cfg else owner)
         owner_name = (cfg.get("company") if cfg and cfg.get("company") else owner)
-        owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_amt, driver_rate_per_mile=driver_rpm)
-        driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_amt, driver_rate_per_mile=driver_rpm)
-        files.append({"name": f"OWNER_{base_name_owner}.pdf", "bytes": owner_bytes})
-        files.append({"name": f"DRIVER_{(driver_name or 'Driver').replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}.pdf", "bytes": driver_bytes})
+        owner_bytes, owner_stats = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_amt, driver_rate_per_mile=driver_rpm)
+        driver_bytes, driver_stats = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_amt, driver_rate_per_mile=driver_rpm)
+        files.append({"name": f"OWNER_{base_name_owner}.pdf", "bytes": owner_bytes, "stats": owner_stats})
+        files.append({"name": f"DRIVER_{(driver_name or 'Driver').replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}.pdf", "bytes": driver_bytes, "stats": driver_stats})
     return files
 
 
