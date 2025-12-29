@@ -397,11 +397,23 @@ export default function StatementGeneratorClient({ lang }) {
 
   const totals = results.reduce((acc, curr) => {
     const s = curr.stats || {};
-    return {
-      gross: acc.gross + (s.gross || 0),
-      net: acc.net + (s.net || 0),
-      miles: acc.miles + (s.miles || 0),
-    };
+    const isOwner = curr.name.startsWith("OWNER_");
+    const isDriver = curr.name.startsWith("DRIVER_");
+
+    if (isOwner) {
+      return {
+        ...acc,
+        gross: acc.gross + (s.gross || 0),
+      };
+    }
+    if (isDriver) {
+      return {
+        ...acc,
+        net: acc.net + (s.net || 0),
+        miles: acc.miles + (s.miles || 0),
+      };
+    }
+    return acc;
   }, { gross: 0, net: 0, miles: 0 });
 
   const avgRpm = totals.miles > 0 ? totals.gross / totals.miles : 0;
@@ -582,7 +594,7 @@ export default function StatementGeneratorClient({ lang }) {
         </Card>
       )}
 
-      {/* Results Section */}\n
+      {/* Results Section */}
       {results.length > 0 && (
         <Card className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <CardHeader>
@@ -599,31 +611,48 @@ export default function StatementGeneratorClient({ lang }) {
                     </div>
                     <div className="min-w-0">
                       <span className="text-sm font-medium text-slate-700 block truncate">{f.name}</span>
-                      {f.stats && (
-                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-xs text-slate-500">
-                          <span><span className="font-semibold text-slate-600">Gross:</span> ${f.stats.gross?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                          <span><span className="font-semibold text-slate-600">Miles:</span> {f.stats.miles?.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-                          <span className="text-green-600 font-medium"><span className="text-slate-600 font-semibold">Net Pay:</span> ${f.stats.net?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                        </div>
-                      )}
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
+                        {f.stats && (
+                          <>
+                            {f.name.startsWith("OWNER_") && (
+                              <span className="flex items-center gap-1">
+                                <span className="font-medium text-slate-700">Gross:</span>
+                                ${(f.stats.gross || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                              </span>
+                            )}
+                            {f.name.startsWith("DRIVER_") && (
+                              <>
+                                <span className="flex items-center gap-1">
+                                  <span className="font-medium text-slate-700">Net:</span>
+                                  <span className="text-green-600 font-medium">${(f.stats.net || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <span className="font-medium text-slate-700">Miles:</span>
+                                  {(f.stats.miles || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                                </span>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(f.url, '_blank')}
-                      className="h-8 md:h-9"
-                    >
-                      <Eye className="h-3.5 w-3.5 mr-2" />
-                      <span className="hidden sm:inline">Preview</span>
-                    </Button>
-                    <a href={f.url} download={f.name} className="inline-block">
-                      <Button size="sm" className="h-8 md:h-9">
-                        <Download className="h-3.5 w-3.5 mr-2" />
-                        <span className="hidden sm:inline">Download</span>
+                    <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open(f.url, '_blank')}
+                        className="h-8 md:h-9"
+                      >
+                        <Eye className="h-3.5 w-3.5 mr-2" />
+                        <span className="hidden sm:inline">Preview</span>
                       </Button>
-                    </a>
+                      <a href={f.url} download={f.name} className="inline-block">
+                        <Button size="sm" className="h-8 md:h-9">
+                          <Download className="h-3.5 w-3.5 mr-2" />
+                          <span className="hidden sm:inline">Download</span>
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}
