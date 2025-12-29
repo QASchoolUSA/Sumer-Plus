@@ -10,7 +10,9 @@ import {
   Download,
   Eye,
   AlertCircle,
-  Loader2
+  AlertCircle,
+  Loader2,
+  Bug
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -18,7 +20,9 @@ import { cn } from "@/lib/utils";
 
 export default function StatementGeneratorClient({ lang }) {
   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [debugInfo, setDebugInfo] = useState(null); // For troubleshooting parsing issues
   const [results, setResults] = useState([]);
 
   // Loads File
@@ -58,6 +62,7 @@ export default function StatementGeneratorClient({ lang }) {
   async function onSubmit(e) {
     e.preventDefault();
     setError("");
+    setDebugInfo(null);
     if (!loadsFile || !termsFile) {
       setError("Please select both Loads and Drivers/Owners files");
       return;
@@ -109,13 +114,33 @@ export default function StatementGeneratorClient({ lang }) {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
+      console.log("Raw API Response:", data);
+
       let parsedData = data;
       // Handle case where API route returns a wrapped string in 'output'
       if (!data.files && data.output && typeof data.output === 'string') {
+        console.log("Detecting wrapped output. Attempting to parse...");
         try {
           parsedData = JSON.parse(data.output);
         } catch (e) {
-          console.error("Failed to parse wrapped output:", e);
+          console.error("Direct JSON parse failed:", e);
+          // Try to clean up the string (find first { and last })
+          const start = data.output.indexOf('{');
+          const end = data.output.lastIndexOf('}');
+          if (start !== -1 && end !== -1) {
+            const cleanJson = data.output.substring(start, end + 1);
+            try {
+              parsedData = JSON.parse(cleanJson);
+              console.log("Cleaned JSON parsed successfully");
+            } catch (e2) {
+              console.error("Cleaned JSON parse failed:", e2);
+              setDebugInfo({ raw: data.output, error: String(e2) });
+              throw new Error("Failed to parse backend response. See debug info.");
+            }
+          } else {
+            setDebugInfo({ raw: data.output, error: String(e) });
+            throw new Error("Invalid backend response format.");
+          }
         }
       }
 
@@ -123,13 +148,21 @@ export default function StatementGeneratorClient({ lang }) {
         throw new Error(parsedData.error || "Failed to generate statements");
       }
 
+      console.log("Parsed Data Files:", parsedData.files);
+
       const files = (parsedData.files || []).map((f) => {
         const blob = base64ToPdfBlob(f.pdf_base64);
         const url = URL.createObjectURL(blob);
         return { name: f.name, url, stats: f.stats };
       });
+
+      console.log("Processed Files:", files);
       setResults(files);
+      if (files.length === 0) {
+        setError("Generated 0 files. Check input data.");
+      }
     } catch (err) {
+      console.error("onSubmit Error:", err);
       setError(String(err));
     } finally {
       setLoading(false);
@@ -473,9 +506,19 @@ export default function StatementGeneratorClient({ lang }) {
         </div>
 
         {error && (
-          <div className="p-4 bg-red-50 border border-red-100 rounded-md flex items-center gap-3 text-red-600 text-sm">
-            <AlertCircle className="h-5 w-5 shrink-0" />
-            {error}
+          <div className="p-4 bg-red-50 border border-red-100 rounded-md flex flex-col gap-2 text-red-600 text-sm">
+            <div className="flex items-center gap-3">
+              <AlertCircle className="h-5 w-5 shrink-0" />
+              <span className="font-semibold">{error}</span>
+            </div>
+            {debugInfo && (
+              <div className="mt-2 text-xs font-mono bg-white p-2 rounded border border-red-200 overflow-auto max-h-40">
+                <p className="font-bold border-b mb-1">Raw Output:</p>
+                {debugInfo.raw}
+                <p className="font-bold border-b mt-2 mb-1">Parse Error:</p>
+                {debugInfo.error}
+              </div>
+            )}
           </div>
         )}
 
