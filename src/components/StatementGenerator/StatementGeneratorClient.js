@@ -59,10 +59,13 @@ export default function StatementGeneratorClient({ lang }) {
   const tollsInputRef = useRef(null);
   const deductionsInputRef = useRef(null);
 
+  const [statementPeriod, setStatementPeriod] = useState("");
+
   async function onSubmit(e) {
     e.preventDefault();
     setError("");
     setDebugInfo(null);
+    setStatementPeriod(""); // Reset statement period on new submission
     if (!loadsFile || !termsFile) {
       setError("Please select both Loads and Drivers/Owners files");
       return;
@@ -121,7 +124,22 @@ export default function StatementGeneratorClient({ lang }) {
       if (!data.files && data.output && typeof data.output === 'string') {
         console.log("Detecting wrapped output. Attempting to parse...");
         try {
-          parsedData = JSON.parse(data.output);
+          // New backend logic wraps everything in 'output' string
+          const parsed = JSON.parse(data.output);
+
+          if (Array.isArray(parsed)) {
+            // Backward compatibility for generic list response (e.g., just an array of files)
+            parsedData = parsed;
+          } else if (parsed.files) {
+            // New Format: { files: [...], period: "..." }
+            parsedData = parsed.files;
+            if (parsed.period) {
+              setStatementPeriod(parsed.period);
+            }
+          } else {
+            // If it's an object but doesn't have 'files', treat it as the data itself
+            parsedData = parsed;
+          }
         } catch (e) {
           console.error("Direct JSON parse failed:", e);
           // Try to clean up the string (find first { and last })
@@ -130,8 +148,18 @@ export default function StatementGeneratorClient({ lang }) {
           if (start !== -1 && end !== -1) {
             const cleanJson = data.output.substring(start, end + 1);
             try {
-              parsedData = JSON.parse(cleanJson);
+              const cleanedParsed = JSON.parse(cleanJson);
               console.log("Cleaned JSON parsed successfully");
+              if (Array.isArray(cleanedParsed)) {
+                parsedData = cleanedParsed;
+              } else if (cleanedParsed.files) {
+                parsedData = cleanedParsed.files;
+                if (cleanedParsed.period) {
+                  setStatementPeriod(cleanedParsed.period);
+                }
+              } else {
+                parsedData = cleanedParsed;
+              }
             } catch (e2) {
               console.error("Cleaned JSON parse failed:", e2);
               setDebugInfo({ raw: data.output, error: String(e2) });
@@ -599,7 +627,12 @@ export default function StatementGeneratorClient({ lang }) {
         <Card className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <CardHeader>
             <CardTitle>Generated Statements</CardTitle>
-            <CardDescription>Successfully generated {results.length} PDF files.</CardDescription>
+            <CardDescription>
+              Successfully generated {results.length} PDF files.
+              {statementPeriod && (
+                <span className="block mt-1 font-medium text-slate-700">Period: {statementPeriod}</span>
+              )}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="divide-y divide-slate-100">

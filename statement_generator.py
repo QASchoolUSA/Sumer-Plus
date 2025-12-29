@@ -249,13 +249,82 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         # The fuel map keys are normalized IDs. We check if the truck ID matches or if we need to map via driver.
         # But realistically, the Fuel table has "Driver Id" which matches the unit number usually.
         fuel_total = float(fuel_map.get(key, 0.0))
-        owner_base = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
-        driver_base = f"{driver_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
+        
+        # New filename format: PREFIX_Name_ID.pdf
+        # Ensure spaces are replaced with underscores for safety
+        safe_owner = owner_name.replace(" ", "_").replace("/", "-")
+        safe_driver = driver_name.replace(" ", "_").replace("/", "-")
+        safe_truck = str(truck).strip().replace(" ", "_")
+        
+        owner_filename = f"OWNER_{safe_owner}_{safe_truck}.pdf"
+        driver_filename = f"DRIVER_{safe_driver}_{safe_truck}.pdf"
+        
         owner_bytes, owner_stats = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
-        driver_bytes, driver_stats = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=None)
-        files.append({"name": f"OWNER_{owner_base}.pdf", "bytes": owner_bytes, "stats": owner_stats})
-        files.append({"name": f"DRIVER_{driver_base}.pdf", "bytes": driver_bytes, "stats": driver_stats})
-    return files
+        driver_bytes, driver_stats = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
+        files.append({"name": owner_filename, "bytes": owner_bytes, "stats": owner_stats})
+        files.append({"name": driver_filename, "bytes": driver_bytes, "stats": driver_stats})
+        
+    # period string for frontend
+    period_str = f"{start.strftime('%m/%d/%Y')} - {end.strftime('%m/%d/%Y')}"
+    return files, period_str
+
+def do_POST(self):
+    content_length = int(self.headers['Content-Length'])
+    post_data = self.rfile.read(content_length)
+    try:
+        data = json.loads(post_data.decode('utf-8'))
+        loads_b64 = data.get('loads_file')
+        terms_b64 = data.get('terms_file')
+        loads_sheet = data.get('loads_sheet')
+        drivers_sheet = data.get('drivers_sheet')
+        owners_sheet = data.get('owners_sheet')
+
+        if not loads_b64 or not terms_b64:
+            self.send_error(400, "Missing files")
+            return
+
+        loads_bytes = base64.b64decode(loads_b64)
+        terms_bytes = base64.b64decode(terms_b64)
+
+        files, period_str = generate_statements_from_two_excels(loads_bytes, loads_sheet, terms_bytes, drivers_sheet, owners_sheet)
+
+        # Convert bytes to base64 for JSON
+        output_files = []
+        for f in files:
+            output_files.append({
+                "name": f["name"],
+                "data": base64.b64encode(f["bytes"]).decode('utf-8'),
+                "stats": f["stats"]
+            })
+            
+        # Return object with files and period
+        # The frontend expects { "output": ... } where output might be a stringified JSON or object.
+        # Let's return a clean JSON object. 
+        # CAUTION: The frontend code checks `if (!data.files && data.output ...)`
+        # To maintain compatibility but add period, we can put everything in "output" as a JSON string,
+        # OR we can update the frontend to read `files` directly if we change API contract.
+        # Let's adjust backend to likely what frontend expects: 
+        # Existing frontend does: `parsedData = JSON.parse(data.output);`
+        # So `data.output` should be the JSON string of the result.
+        
+        result_obj = {
+            "files": output_files,
+            "period": period_str
+        }
+        
+        response = {"output": json.dumps(result_obj)}
+        
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps(response).encode('utf-8'))
+
+    except Exception as e:
+        self.send_response(500)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        err_msg = f"Error: {str(e)}\n{traceback.format_exc()}"
+        self.wfile.write(json.dumps({"error": err_msg}).encode('utf-8'))
 def _to_amount(x):
     try:
         if pd.isna(x): return None
