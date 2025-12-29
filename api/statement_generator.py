@@ -43,10 +43,9 @@ class handler(BaseHTTPRequestHandler):
             drivers_sheet = payload.get("drivers_sheet") or None
             owners_sheet = payload.get("owners_sheet") or None
             if not excel_b64:
-                if loads_b64 and terms_b64:
                     loads_bytes = base64.b64decode(loads_b64)
                     terms_bytes = base64.b64decode(terms_b64)
-                    files = sg.generate_statements_from_two_excels(
+                    files, period_str = sg.generate_statements_from_two_excels(
                         loads_bytes, loads_sheet, terms_bytes, drivers_sheet, owners_sheet
                     )
                 else:
@@ -58,7 +57,16 @@ class handler(BaseHTTPRequestHandler):
                     names = sg.get_sheet_names_from_bytes(excel_bytes)
                     self._respond(200, {"ok": True, "sheets": names})
                     return
-                files = sg.generate_statements_from_excel_bytes(excel_bytes, sheet, driver_configs=driver_configs)
+                # Standard generator might just return files, need check if it was updated too? 
+                # Assuming standard generator still returns just list for now or we handle it.
+                # If standard generator wasn't updated, let's assume just list.
+                # But actually, users request was specifically about the two-excel flow.
+                res = sg.generate_statements_from_excel_bytes(excel_bytes, sheet, driver_configs=driver_configs)
+                if isinstance(res, tuple):
+                    files, period_str = res
+                else:
+                    files = res
+                    period_str = ""
             out = []
             for f in files:
                 out.append({
@@ -66,6 +74,32 @@ class handler(BaseHTTPRequestHandler):
                     "pdf_base64": base64.b64encode(f["bytes"]).decode("utf-8"),
                     "stats": f.get("stats")
                 })
-            self._respond(200, {"ok": True, "files": out})
+            
+            # Match new frontend expectation: { output: stringified_json } or { files: ..., period: ... }
+            # The root statement_generator.py do_POST was returning { output: json.dumps({ files: ..., period: ... }) }
+            # But here we are in api/statement_generator.py which seems to return { ok: True, files: ... }
+            # We need to bridge this. Frontend updated to handle { files: ..., period: ... } inside `data.output`.
+            # OR logic in `StatementGeneratorClient.js` usually handles `data.files` directly if `data.output` is not present?
+            # Let's see frontend logic:
+            # if (!data.files && data.output ...) -> parse data.output
+            # else if (data.files) -> use data.files
+            
+            # If we return { ok: True, files: ..., period: ... }, frontend might use `data.files` and ignore period?
+            # Frontend code:
+            # if (!data.files && data.output...)
+            # else { parsedData = data.files; }
+            # And `setStatementPeriod` is ONLY called inside the `data.output` parsing block in my recent edit.
+            
+            # So to support period display, we MUST return `output` as a stringified JSON containing files and period.
+            # OR update frontend to read period from `data.period`.
+            
+            # Easier to stick to the pattern I established in `statement_generator.py` (which I thought I was editing correctly but wasn't running).
+            # The running file returns `ok, files`. I should change it to return `output`.
+            
+            result_obj = {
+                "files": out,
+                "period": period_str
+            }
+            self._respond(200, {"ok": True, "output": json.dumps(result_obj)})
         except Exception as e:
             self._respond(500, {"ok": False, "error": str(e), "trace": traceback.format_exc()})
