@@ -709,20 +709,18 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
                 str(r.get("Load Number", "")),
                 str(r.get("Pickup location", "")),
                 str(r.get("Delivery location", "")),
-                f"{gross:,.2f}",
-                f"{pct*100:.2f}%",
-                f"{owner_pay:,.2f}",
             ])
         else:
-            route = f"{r.get('Pickup location','')} - {r.get('Delivery location','')}"
-            rate = driver_rate_per_mile if driver_rate_per_mile is not None else (gross / miles if miles else 0)
+            rate = driver_rate_per_mile if driver_rate_per_mile is not None else 0.0
+            driver_pay = miles * rate
+            # Header: ["Load Number", "Pickup location", "Delivery location", "Miles", "$ Per Mile", "Gross Pay"]
             data.append([
                 str(r.get("Load Number", "")),
                 str(r.get("Pickup location", "")),
                 str(r.get("Delivery location", "")),
                 f"{miles:,.0f}",
                 f"{rate:.2f}",
-                f"{gross:,.2f}",
+                f"{driver_pay:,.2f}",
             ])
         total_miles += miles
         total_gross += gross
