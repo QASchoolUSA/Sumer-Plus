@@ -636,23 +636,23 @@ export default function StatementGeneratorClient({ lang }) {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => window.open(f.url, '_blank')}
-                        className="h-8 md:h-9"
-                      >
-                        <Eye className="h-3.5 w-3.5 mr-2" />
-                        <span className="hidden sm:inline">Preview</span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(f.url, '_blank')}
+                      className="h-8 md:h-9"
+                    >
+                      <Eye className="h-3.5 w-3.5 mr-2" />
+                      <span className="hidden sm:inline">Preview</span>
+                    </Button>
+                    <a href={f.url} download={f.name} className="inline-block">
+                      <Button size="sm" className="h-8 md:h-9">
+                        <Download className="h-3.5 w-3.5 mr-2" />
+                        <span className="hidden sm:inline">Download</span>
                       </Button>
-                      <a href={f.url} download={f.name} className="inline-block">
-                        <Button size="sm" className="h-8 md:h-9">
-                          <Download className="h-3.5 w-3.5 mr-2" />
-                          <span className="hidden sm:inline">Download</span>
-                        </Button>
-                      </a>
-                    </div>
+                    </a>
                   </div>
                 </div>
               ))}
