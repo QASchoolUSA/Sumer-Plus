@@ -64,6 +64,7 @@ class handler(BaseHTTPRequestHandler):
                 out.append({
                     "name": f["name"],
                     "pdf_base64": base64.b64encode(f["bytes"]).decode("utf-8"),
+                    "stats": f.get("stats")
                 })
             self._respond(200, {"ok": True, "files": out})
         except Exception as e:
