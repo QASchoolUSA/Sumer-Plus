@@ -395,6 +395,17 @@ export default function StatementGeneratorClient({ lang }) {
     </Card>
   );
 
+  const totals = results.reduce((acc, curr) => {
+    const s = curr.stats || {};
+    return {
+      gross: acc.gross + (s.gross || 0),
+      net: acc.net + (s.net || 0),
+      miles: acc.miles + (s.miles || 0),
+    };
+  }, { gross: 0, net: 0, miles: 0 });
+
+  const avgRpm = totals.miles > 0 ? totals.gross / totals.miles : 0;
+
   return (
     <div className="space-y-8">
       <form onSubmit={onSubmit} className="space-y-8">
@@ -541,7 +552,37 @@ export default function StatementGeneratorClient({ lang }) {
         </div>
       </form>
 
-      {/* Results Section */}
+      {/* Total Summary Section */}
+      {results.length > 0 && (
+        <Card className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <CardHeader className="pb-3">
+            <CardTitle>Total Summary</CardTitle>
+            <CardDescription>Combined metrics for all generated statements.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                <p className="text-xs font-medium text-slate-500 uppercase mb-1">Total Gross</p>
+                <p className="text-2xl font-bold text-slate-900">${totals.gross.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              </div>
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                <p className="text-xs font-medium text-slate-500 uppercase mb-1">Total Net Pay</p>
+                <p className="text-2xl font-bold text-green-600">${totals.net.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              </div>
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                <p className="text-xs font-medium text-slate-500 uppercase mb-1">Total Miles</p>
+                <p className="text-2xl font-bold text-slate-900">{totals.miles.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+              </div>
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                <p className="text-xs font-medium text-slate-500 uppercase mb-1">Avg Rate / Mile</p>
+                <p className="text-2xl font-bold text-blue-600">${avgRpm.toFixed(2)}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Results Section */}\n
       {results.length > 0 && (
         <Card className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <CardHeader>
