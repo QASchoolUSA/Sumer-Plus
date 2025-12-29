@@ -644,10 +644,13 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
     doc.build(story)
     
     # Return stats
+    def _clean(v):
+        return 0.0 if (v != v or pd.isna(v)) else float(v)
+
     stats = {
-        "gross": float(total_gross),
-        "miles": float(total_miles),
-        "net": float(check_amount)
+        "gross": _clean(total_gross),
+        "miles": _clean(total_miles),
+        "net": _clean(check_amount)
     }
     return buf.getvalue(), stats
 
