@@ -17,10 +17,11 @@ export async function POST(req) {
       cache: 'no-store',
     });
     const text = await res.text();
-    let data;
     try {
-      data = JSON.parse(text);
-    } catch {
+      data = JSON.parse(text.trim());
+    } catch (parseError) {
+      console.error("JSON Parse Error in route.js:", parseError);
+      console.log("Failed text start:", text.substring(0, 100));
       const isHtml = (res.headers.get('content-type') || '').includes('text/html');
       if (!res.ok && isHtml) {
         data = {

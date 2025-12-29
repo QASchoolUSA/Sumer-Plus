@@ -109,12 +109,21 @@ export default function StatementGeneratorClient({ lang }) {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      if (!res.ok || !data.ok) {
-        setError(data.error || "Generation failed");
-        setLoading(false);
-        return;
+      let parsedData = data;
+      // Handle case where API route returns a wrapped string in 'output'
+      if (!data.files && data.output && typeof data.output === 'string') {
+        try {
+          parsedData = JSON.parse(data.output);
+        } catch (e) {
+          console.error("Failed to parse wrapped output:", e);
+        }
       }
-      const files = (data.files || []).map((f) => {
+
+      if (!parsedData.ok) {
+        throw new Error(parsedData.error || "Failed to generate statements");
+      }
+
+      const files = (parsedData.files || []).map((f) => {
         const blob = base64ToPdfBlob(f.pdf_base64);
         const url = URL.createObjectURL(blob);
         return { name: f.name, url, stats: f.stats };
