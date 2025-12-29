@@ -211,7 +211,7 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
     xls_loads = pd.ExcelFile(io.BytesIO(loads_excel_bytes))
     sheet_loads = loads_sheet if (loads_sheet and loads_sheet in xls_loads.sheet_names) else xls_loads.sheet_names[0]
     df_loads_raw = pd.read_excel(xls_loads, sheet_name=sheet_loads)
-    df_loads = parse_loads_sheet(df_loads_raw)
+    df_loads, fuel_map = parse_loads_sheet(df_loads_raw)
     # period parsing
     period = ""
     if "Week" in df_loads.columns and not df_loads.empty:
@@ -243,8 +243,11 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         driver_name = (dcfg.get("driver_name") or ocfg.get("driver_name") or str(rows.iloc[0].get("DriverName") or "") or "Driver").strip()
         owner_name = (dcfg.get("company") or str(rows.iloc[0].get("Driver/Carrier") or "") or "Owner").strip()
         owner_pct = None
-        # fuel total: use per-truck total (do not multiply by loads)
-        fuel_total = float(rows["Fuel"].max()) if "Fuel" in rows.columns and not rows["Fuel"].empty else 0.0
+        owner_pct = None
+        # fuel total: lookup from map using normalized truck id/driver id
+        # The fuel map keys are normalized IDs. We check if the truck ID matches or if we need to map via driver.
+        # But realistically, the Fuel table has "Driver Id" which matches the unit number usually.
+        fuel_total = float(fuel_map.get(key, 0.0))
         owner_base = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         driver_base = f"{driver_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         owner_bytes, owner_stats = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
@@ -263,45 +266,189 @@ def _to_amount(x):
             return None
 
 def _norm_id(x):
-    s = str(x).strip()
-    filtered = "".join(ch for ch in s if ch.isdigit() or ch == ".")
-    if not filtered:
+    # Simply strip whitespace and convert to string, preserving leading zeros.
+    if pd.isna(x):
         return ""
-    try:
-        if "." in filtered:
-            return str(int(float(filtered)))
-        return str(int(filtered))
-    except Exception:
-        try:
-            return str(int(float(filtered)))
-        except Exception:
-            return ""
+    s = str(x).strip()
+    if s.endswith(".0"):
+        return s[:-2]
+    return s
 
-def extract_fuel_map(df: pd.DataFrame):
-    if df.empty:
-        return {}
-    row0 = df.iloc[0]
-    driver_col = None
-    total_col = None
+def parse_loads_sheet(df: pd.DataFrame):
+    # The sheet likely has "FUEL" table on the left and "DISPATCH BOARD" on the right.
+    # We'll scan the first few rows to find the headers.
+    
+    fuel_start_col = None
+    dispatch_start_col = None
+    header_row_idx = 0
+    
+    # Locate headers
+    # We look for "Driver Id" for Fuel and "PU date" or "Load Number" for Dispatch
+    for r_idx, row in df.head(10).iterrows():
+        row_vals = [str(v).strip().lower() for v in row.values]
+        if "driver id" in row_vals:
+            fuel_start_col = row_vals.index("driver id")
+            header_row_idx = r_idx
+        if "load number" in row_vals:
+            dispatch_start_col = row_vals.index("load number")
+            # If dispatch starts before load number (e.g. PU Date), try to find that
+            if "pu date" in row_vals:
+                dispatch_start_col = min(dispatch_start_col, row_vals.index("pu date"))
+                
+    if fuel_start_col is None and dispatch_start_col is None:
+        # Fallback to standard parsing if we can't find specific separate tables
+        return _parse_loads_sheet_standard(df), {}
+
+    # Extract Fuel Data
+    fuel_map = {}
+    if fuel_start_col is not None:
+        # Fuel table usually: Driver Id | ... | TOTAL
+        # We'll try to find the TOTAL column relative to Driver Id
+        # Slice the dataframe from the header row
+        fuel_df = df.iloc[header_row_idx+1:].copy()
+        # The columns at header_row_idx for fuel
+        fuel_headers = df.iloc[header_row_idx]
+        
+        # Identify Total column index
+        total_col_idx = None
+        driver_id_col_idx = fuel_start_col
+        
+        # Search for "Total" or "Sum of Amt Billed" to the right of Driver Id
+        for c in range(fuel_start_col + 1, len(df.columns)):
+            h_val = str(fuel_headers.iloc[c]).strip().lower()
+            if "total" in h_val or "sum of" in h_val:
+                total_col_idx = c
+                break
+        
+        if total_col_idx is not None:
+            for _, r in fuel_df.iterrows():
+                d_id = r.iloc[driver_id_col_idx]
+                amt = r.iloc[total_col_idx]
+                norm_d = _norm_id(d_id)
+                if norm_d and norm_d.lower() != "grand total":
+                    val = _to_amount(amt)
+                    if val is not None:
+                        fuel_map[norm_d] = val
+
+    # Extract Dispatch Data
+    loads_rows = []
+    if dispatch_start_col is not None:
+        dispatch_df = df.iloc[header_row_idx+1:].copy()
+        dispatch_headers = df.iloc[header_row_idx]
+        
+        # Map needed columns
+        col_map = {}
+        for c in range(dispatch_start_col, len(df.columns)):
+            h_val = str(dispatch_headers.iloc[c]).strip().lower()
+            col_map[h_val] = c
+            
+        def get_val(r, *names):
+            for n in names:
+                if n.lower() in col_map:
+                    return r.iloc[col_map[n.lower()]]
+            return None
+
+        # Iterate rows
+        period_val = None # Not always present in this format, maybe check above header?
+        # Check row above header for Period/Week if exists
+        if header_row_idx > 0:
+             # Basic check, might vary
+             pass
+
+        for _, r in dispatch_df.iterrows():
+            truck = get_val(r, "truck", "unit number", "unit")
+            owner = get_val(r, "driver/carrier", "owner name", "owner", "llc")
+            driver = get_val(r, "driver name", "driver") # Often mixed in Driver/Carrier or separate
+            loadnum = get_val(r, "load number", "load #")
+            pu = get_val(r, "pickup location", "pick up")
+            dl = get_val(r, "delivery location", "delivery")
+            gross = get_val(r, "gross")
+            miles = get_val(r, "total miles", "miles")
+            inv = get_val(r, "invoice #", "invoice")
+            
+            # If pu date is present
+            pu_date = get_val(r, "pu date", "date")
+
+            tk = _norm_id(truck)
+            if tk and (pd.notna(loadnum) or _to_amount(gross)):
+                 loads_rows.append({
+                    "Week": period_val or "",
+                    "Truck": tk,
+                    "Driver/Carrier": str(owner).strip() if pd.notna(owner) else "",
+                    "DriverName": str(driver).strip() if pd.notna(driver) else "",
+                    "Load Number": str(loadnum).strip() if pd.notna(loadnum) else "",
+                    "Pickup location": str(pu).strip() if pd.notna(pu) else "",
+                    "Delivery location": str(dl).strip() if pd.notna(dl) else "",
+                    "Gross": float(_to_amount(gross) or 0.0),
+                    "Total miles": float(_to_amount(miles) or 0.0),
+                    "Fuel": 0.0, # Fuel handled via map
+                    "PU date": pu_date if pd.notna(pu_date) else "",
+                })
+    else:
+        # If we didn't find specific Dispatch columns but fell through, try standard parse
+        return _parse_loads_sheet_standard(df), fuel_map
+
+    return pd.DataFrame(loads_rows), fuel_map
+
+def _parse_loads_sheet_standard(df: pd.DataFrame):
+    # This is the old/fallback parsing logic
+    col_map = {}
     for c in df.columns:
-        v = str(row0.get(c, "")).strip().lower()
-        if v == "driver id":
-            driver_col = c
-        if v == "total":
-            total_col = c
-    if not driver_col or not total_col:
-        return {}
-    mapping = {}
-    for _, r in df.iloc[1:].iterrows():
-        d = r.get(driver_col)
-        t = r.get(total_col)
-        if pd.notna(d) and pd.notna(t):
-            key = _norm_id(d)
-            if key:
-                amt = _to_amount(t)
-                if isinstance(amt, (int, float)):
-                    mapping[key] = float(amt)
-    return mapping
+        name = str(c).strip().lower()
+        col_map[name] = c
+    def get_col(*names):
+        for n in names:
+            key = n.lower()
+            if key in col_map:
+                return col_map[key]
+        return None
+    
+    # ... (Reuse existing column finding logic references if they existed in the passed DF)
+    # Since we are inside a function, we must reconstruct or assume standard layout.
+    # For safely, let's just attempt to map what we have.
+    
+    period_col = get_col("period")
+    truck_col = get_col("unit number", "truck", "unit", "truck number")
+    owner_col = get_col("owner name", "owner", "llc", "llc name", "driver/carrier")
+    driver_col = get_col("driver name", "driver")
+    loadnum_col = get_col("load number", "load #", "load")
+    pu_col = get_col("pick up location", "pickup location", "pick up", "pickup")
+    del_col = get_col("delivery location", "delivery")
+    gross_col = get_col("gross")
+    miles_col = get_col("miles", "total miles")
+    
+    rows = []
+    period_val = None
+    for _, r in df.iterrows():
+        if period_col:
+            val = r.get(period_col)
+            if pd.notna(val) and not period_val:
+                period_val = str(val).strip()
+        truck = r.get(truck_col) if truck_col else None
+        owner = r.get(owner_col) if owner_col else None
+        driver = r.get(driver_col) if driver_col else None
+        loadnum = r.get(loadnum_col) if loadnum_col else None
+        pu = r.get(pu_col) if pu_col else None
+        dl = r.get(del_col) if del_col else None
+        gross = _to_amount(r.get(gross_col)) if gross_col else None
+        miles = _to_amount(r.get(miles_col)) if miles_col else None
+        
+        tk = _norm_id(truck)
+        if tk:
+            rows.append({
+                "Week": period_val or "",
+                "Truck": tk,
+                "Driver/Carrier": str(owner).strip() if pd.notna(owner) else "",
+                "DriverName": str(driver).strip() if pd.notna(driver) else "",
+                "Load Number": str(loadnum).strip() if pd.notna(loadnum) else "",
+                "Pickup location": str(pu).strip() if pd.notna(pu) else "",
+                "Delivery location": str(dl).strip() if pd.notna(dl) else "",
+                "Gross": float(gross or 0.0),
+                "Total miles": float(miles or 0.0),
+                "Fuel": 0.0,
+                "PU date": "", 
+            })
+    return pd.DataFrame(rows)
 
 def extract_owner_map(path: str):
     try:
