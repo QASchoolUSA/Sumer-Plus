@@ -117,7 +117,7 @@ export default function StatementGeneratorClient({ lang }) {
       const files = (data.files || []).map((f) => {
         const blob = base64ToPdfBlob(f.pdf_base64);
         const url = URL.createObjectURL(blob);
-        return { name: f.name, url };
+        return { name: f.name, url, stats: f.stats };
       });
       setResults(files);
     } catch (err) {
@@ -499,14 +499,23 @@ export default function StatementGeneratorClient({ lang }) {
           <CardContent>
             <div className="divide-y divide-slate-100">
               {results.map((f) => (
-                <div key={f.name} className="flex items-center justify-between py-4 first:pt-0 last:pb-0 hover:bg-slate-50 -mx-4 px-4 transition-colors">
-                  <div className="flex items-center gap-3 overflow-hidden">
-                    <div className="p-2 bg-red-50 text-red-600 rounded-lg">
+                <div key={f.name} className="flex flex-col md:flex-row md:items-center justify-between py-4 first:pt-0 last:pb-0 hover:bg-slate-50 -mx-4 px-4 transition-colors gap-4">
+                  <div className="flex items-center gap-3 overflow-hidden min-w-0">
+                    <div className="p-2 bg-red-50 text-red-600 rounded-lg shrink-0">
                       <FileText className="h-5 w-5" />
                     </div>
-                    <span className="text-sm font-medium text-slate-700 truncate">{f.name}</span>
+                    <div className="min-w-0">
+                      <span className="text-sm font-medium text-slate-700 block truncate">{f.name}</span>
+                      {f.stats && (
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-xs text-slate-500">
+                          <span><span className="font-semibold text-slate-600">Gross:</span> ${f.stats.gross?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                          <span><span className="font-semibold text-slate-600">Miles:</span> {f.stats.miles?.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                          <span className="text-green-600 font-medium"><span className="text-slate-600 font-semibold">Net Pay:</span> ${f.stats.net?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
                     <Button
                       variant="outline"
                       size="sm"

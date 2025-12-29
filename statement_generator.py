@@ -247,10 +247,10 @@ def generate_statements_from_two_excels(loads_excel_bytes: bytes,
         fuel_total = float(rows["Fuel"].max()) if "Fuel" in rows.columns and not rows["Fuel"].empty else 0.0
         owner_base = f"{owner_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
         driver_base = f"{driver_name.replace(' ', '_')}_{truck}_{start:%m_%d_%Y}_to_{end:%m_%d_%Y}"
-        owner_bytes = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
-        driver_bytes = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=None)
-        files.append({"name": f"OWNER_{owner_base}.pdf", "bytes": owner_bytes})
-        files.append({"name": f"DRIVER_{driver_base}.pdf", "bytes": driver_bytes})
+        owner_bytes, owner_stats = make_statement_pdf_bytes(rows, owner_name, truck, start, end, True, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=owner_pct)
+        driver_bytes, driver_stats = make_statement_pdf_bytes(rows, driver_name, truck, start, end, False, fuel_total, driver_rate_per_mile=driver_rpm, owner_percentage=None)
+        files.append({"name": f"OWNER_{owner_base}.pdf", "bytes": owner_bytes, "stats": owner_stats})
+        files.append({"name": f"DRIVER_{driver_base}.pdf", "bytes": driver_bytes, "stats": driver_stats})
     return files
 def _to_amount(x):
     try:
@@ -642,7 +642,14 @@ def make_statement_pdf_bytes(rows: pd.DataFrame,
     ]))
     story.append(check_tbl)
     doc.build(story)
-    return buf.getvalue()
+    
+    # Return stats
+    stats = {
+        "gross": float(total_gross),
+        "miles": float(total_miles),
+        "net": float(check_amount)
+    }
+    return buf.getvalue(), stats
 
 def make_statement_pdf(filename: str, rows: pd.DataFrame,
                        owner_name: str, truck: str,
