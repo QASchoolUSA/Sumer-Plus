@@ -10,7 +10,7 @@ import {
   Download,
   Eye,
   AlertCircle,
-  AlertCircle,
+
   Loader2,
   Bug
 } from "lucide-react";
@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 
 export default function StatementGeneratorClient({ lang }) {
   const [loading, setLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
   const [debugInfo, setDebugInfo] = useState(null); // For troubleshooting parsing issues
   const [results, setResults] = useState([]);
