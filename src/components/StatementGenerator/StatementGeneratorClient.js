@@ -128,16 +128,16 @@ export default function StatementGeneratorClient({ lang }) {
           const parsed = JSON.parse(data.output);
 
           if (Array.isArray(parsed)) {
-            // Backward compatibility for generic list response (e.g., just an array of files)
-            parsedData = parsed;
+            // Backward compatibility for generic list response
+            parsedData = { files: parsed, ok: true };
           } else if (parsed.files) {
             // New Format: { files: [...], period: "..." }
-            parsedData = parsed.files;
+            parsedData = { ...parsed, ok: true };
             if (parsed.period) {
               setStatementPeriod(parsed.period);
             }
           } else {
-            // If it's an object but doesn't have 'files', treat it as the data itself
+            // If it's an object but doesn't have 'files', treat it as the data itself (might differ or be error)
             parsedData = parsed;
           }
         } catch (e) {
@@ -151,9 +151,9 @@ export default function StatementGeneratorClient({ lang }) {
               const cleanedParsed = JSON.parse(cleanJson);
               console.log("Cleaned JSON parsed successfully");
               if (Array.isArray(cleanedParsed)) {
-                parsedData = cleanedParsed;
+                parsedData = { files: cleanedParsed, ok: true };
               } else if (cleanedParsed.files) {
-                parsedData = cleanedParsed.files;
+                parsedData = { ...cleanedParsed, ok: true };
                 if (cleanedParsed.period) {
                   setStatementPeriod(cleanedParsed.period);
                 }
