@@ -1,0 +1,35 @@
+.section {
+    padding: 4rem 1.5rem;
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #3b82f6;
+    text-align: center;
+}
+
+.content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #334155;
+}
+
+.content p {
+    margin-bottom: 1.5rem;
+}

@@ -16,6 +16,7 @@ export default function Footer({ dict, lang }) {
                         <ul>
                             <li><Link href={`/${lang}`}>{dict.home}</Link></li>
                             <li><Link href={`/${lang}/services`}>{dict.services}</Link></li>
+                            <li><Link href={`/${lang}/calculator`}>{dict.calculator}</Link></li>
                             <li><Link href={`/${lang}/book`}>{dict.book}</Link></li>
                             <li><Link href={`/${lang}/contact`}>{dict.contact}</Link></li>
                         </ul>

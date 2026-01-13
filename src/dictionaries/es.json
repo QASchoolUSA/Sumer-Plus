@@ -3,14 +3,24 @@
         "home": "Inicio",
         "services": "Servicios",
         "contact": "Contacto",
+        "calculator": "Calculadora",
         "book": "Reservar"
     },
     "hero": {
-        "title_prefix": "Su Director Financiero",
-        "title_highlight": "Externalizado (CFO)",
-        "subtitle": "Servicios de CFO y contabilidad bajo la supervisión de contadores públicos certificados (CPA) y abogados de EE. UU.",
-        "cta_primary": "Programar una Consulta",
-        "cta_secondary": "Descargar plantillas y herramientas"
+        "title_prefix": "Sumer Plus",
+        "title_highlight": "",
+        "subtitle": "Bienvenido a Sumer Plus, un lugar donde los números encuentran claridad y donde el trabajo se realiza con cuidado, precisión y total transparencia. Nos encargamos de los números para que usted pueda concentrarse en lo que más importa: su familia y su negocio.",
+        "cta_primary": "Obtener Estimación de Precio",
+        "cta_secondary": ""
+    },
+    "about_us": {
+        "title": "Sobre Nosotros",
+        "subtitle": "Quiénes Somos",
+        "p1": "Sumer Plus aporta más de una década de experiencia en finanzas y contabilidad, respaldada por una profunda experiencia analítica.",
+        "p2": "Nuestra base se construye sobre un riguroso análisis financiero y experiencia especializada en industrias complejas. Esto nos permite ofrecer una comprensión más profunda y completa de la situación financiera de cada cliente.",
+        "p3": "Mantenemos los más altos estándares de desarrollo profesional, manteniéndonos al día con todos los cambios en la legislación fiscal. Cada recomendación que brindamos se basa en estrategias legales y éticas de ahorro de impuestos.",
+        "p4": "En nuestra firma, la precisión se une al servicio personalizado. Creemos que la contabilidad debe sentirse clara, de apoyo y empoderadora, no abrumadora.",
+        "p5": "Nos tomamos el tiempo para comprender su situación única para que podamos proporcionar un trabajo preciso, una orientación honesta y estrategias fiscales que cumplan plenamente y se adapten a sus objetivos."
     },
     "value_advantage": {
         "title": "Valor y Ventaja",

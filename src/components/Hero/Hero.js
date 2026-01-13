@@ -7,18 +7,14 @@ export default function Hero({ dict, lang }) {
         <section className={styles.hero}>
             <div className={styles.content}>
                 <h1 className={styles.title}>
-                    {dict.title_prefix} <br />
-                    <span className={styles.highlight}>{dict.title_highlight}</span>
+                    {dict.title_prefix}
                 </h1>
                 <p className={styles.subtitle}>
                     {dict.subtitle}
                 </p>
                 <div className={styles.actions}>
-                    <Button href={`/${lang}/book`} variant="primary">
+                    <Button href={`/${lang}/calculator`} variant="primary">
                         {dict.cta_primary}
-                    </Button>
-                    <Button href={`/${lang}/resources`} variant="outline">
-                        {dict.cta_secondary}
                     </Button>
                 </div>
             </div>

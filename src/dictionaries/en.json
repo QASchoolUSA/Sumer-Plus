@@ -3,14 +3,24 @@
         "home": "Home",
         "services": "Services",
         "contact": "Contact",
+        "calculator": "Calculator",
         "book": "Book Now"
     },
     "hero": {
-        "title_prefix": "Your outsourced",
-        "title_highlight": "Chief Financial Officer",
-        "subtitle": "CFO and accounting services under the supervision of certified US CPAs and lawyers.",
-        "cta_primary": "Schedule a Consultation",
-        "cta_secondary": "Download templates and tools"
+        "title_prefix": "Sumer Plus",
+        "title_highlight": "",
+        "subtitle": "Welcome to Sumer Plus, a place where numbers meet clarity and where the job is done with care, precision, and full transparency. We take care of the numbers so you can focus on what matters most: your family and your business.",
+        "cta_primary": "Get a Price Estimate",
+        "cta_secondary": ""
+    },
+    "about_us": {
+        "title": "About Us",
+        "subtitle": "Who We Are",
+        "p1": "Sumer Plus brings over a decade of experience in finance and accounting, supported by deep analytical expertise.",
+        "p2": "Our foundation is built on rigorous financial analysis and specialized experience in complex industries like trucking and small business finance. This allows us to offer a deeper, more comprehensive understanding of each client's financial situation.",
+        "p3": "We maintain the highest standards of professional development, staying up to date with all changes in tax legislation. Every recommendation we provide is based on lawful and ethical tax-saving strategies.",
+        "p4": "At our firm precision meets personalized service. We believe that accounting should feel clear, supportive, and empowering - not overwhelming.",
+        "p5": "We take the time to understand your unique situation so we can provide accurate work, honest guidance, and tax strategies that are fully compliant and tailored to your goals."
     },
     "value_advantage": {
         "title": "Value and Advantage",
