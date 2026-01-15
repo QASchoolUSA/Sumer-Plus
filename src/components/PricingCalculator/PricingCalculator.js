@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Button from '../Button/Button';
 import styles from './PricingCalculator.module.css';
+import { CONSULTING_QUESTIONS, calculateRisk } from './consultingQuestions';
 
 const STATES = {
     group200: ["Alaska", "Florida", "Nevada", "New Hampshire", "South Dakota", "Tennessee", "Texas", "Washington", "Wyoming"],
@@ -72,6 +73,15 @@ export default function PricingCalculator({ dict, lang }) {
     const [hasLoans, setHasLoans] = useState(false);
     const [assetCount, setAssetCount] = useState('0');
 
+    // Consulting State
+    const [consultingAnswers, setConsultingAnswers] = useState({});
+    const [currentStep, setCurrentStep] = useState(0);
+    const [consultingFinished, setConsultingFinished] = useState(false);
+
+    const handleConsultingAnswer = (id, value) => {
+        setConsultingAnswers(prev => ({ ...prev, [id]: value }));
+    };
+
     const handleSituationToggle = (id) => {
         setSituations(prev =>
             prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
@@ -133,6 +143,12 @@ export default function PricingCalculator({ dict, lang }) {
                     onClick={() => setActiveTab('bookkeeping')}
                 >
                     Bookkeeping
+                </button>
+                <button
+                    className={`${styles.tab} ${activeTab === 'consulting' ? styles.activeTab : ''}`}
+                    onClick={() => setActiveTab('consulting')}
+                >
+                    Tax Health Check
                 </button>
             </div>
 
@@ -300,6 +316,193 @@ export default function PricingCalculator({ dict, lang }) {
                     </div>
                 </div>
             )}
+
+            {activeTab === 'consulting' && (
+                <div className={styles.content}>
+                    {!consultingFinished ? (
+                        <>
+                            <div className={styles.step}>
+                                <h3 className={styles.stepTitle}>
+                                    {CONSULTING_QUESTIONS[currentStep].title}
+                                    <span style={{ fontSize: '0.8rem', fontWeight: 'normal', color: '#666', marginLeft: '10px' }}>
+                                        ({currentStep + 1} of {CONSULTING_QUESTIONS.length})
+                                    </span>
+                                </h3>
+
+                                {CONSULTING_QUESTIONS[currentStep].fields.map(field => {
+                                    if (field.condition && !field.condition(consultingAnswers)) return null;
+
+                                    return (
+                                        <div key={field.id} className={styles.group}>
+                                            <label className={field.type === 'yesno' || field.type === 'checkbox' ? styles.checkboxLabel : styles.label}>
+                                                {field.type === 'yesno' ? (
+                                                    <>
+                                                        <input
+                                                            type="checkbox"
+                                                            className={styles.checkbox}
+                                                            checked={consultingAnswers[field.id] === 'Yes'}
+                                                            onChange={(e) => handleConsultingAnswer(field.id, e.target.checked ? 'Yes' : 'No')}
+                                                        />
+                                                        {field.label}
+                                                    </>
+                                                ) : field.type === 'checkbox' ? (
+                                                    <>
+                                                        <input
+                                                            type="checkbox"
+                                                            className={styles.checkbox}
+                                                            checked={!!consultingAnswers[field.id]}
+                                                            onChange={(e) => handleConsultingAnswer(field.id, e.target.checked)}
+                                                        />
+                                                        {field.label}
+                                                    </>
+                                                ) : field.type === 'radio' ? (
+                                                    <>
+                                                        <div style={{ marginBottom: '8px', fontWeight: 500 }}>{field.label}</div>
+                                                        <div style={{ display: 'flex', gap: '15px' }}>
+                                                            {field.options.map(opt => (
+                                                                <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+                                                                    <input
+                                                                        type="radio"
+                                                                        name={field.id}
+                                                                        value={opt}
+                                                                        checked={consultingAnswers[field.id] === opt}
+                                                                        onChange={(e) => handleConsultingAnswer(field.id, e.target.value)}
+                                                                    />
+                                                                    {opt}
+                                                                </label>
+                                                            ))}
+                                                        </div>
+                                                    </>
+                                                ) : field.type === 'checkbox_group' ? (
+                                                    <>
+                                                        <div style={{ marginBottom: '8px', fontWeight: 500 }}>{field.label}</div>
+                                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px' }}>
+                                                            {field.options.map(opt => (
+                                                                <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={consultingAnswers[field.id]?.includes(opt)}
+                                                                        onChange={(e) => {
+                                                                            const current = consultingAnswers[field.id] || [];
+                                                                            const next = e.target.checked
+                                                                                ? [...current, opt]
+                                                                                : current.filter(x => x !== opt);
+                                                                            handleConsultingAnswer(field.id, next);
+                                                                        }}
+                                                                    />
+                                                                    {opt}
+                                                                </label>
+                                                            ))}
+                                                        </div>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {field.label}
+                                                        {field.type === 'textarea' ? (
+                                                            <textarea
+                                                                className={styles.select}
+                                                                style={{ height: '100px', paddingTop: '10px' }}
+                                                                value={consultingAnswers[field.id] || ''}
+                                                                onChange={(e) => handleConsultingAnswer(field.id, e.target.value)}
+                                                            />
+                                                        ) : (
+                                                            <input
+                                                                type={field.type === 'date' ? 'date' : 'text'}
+                                                                className={styles.select}
+                                                                value={consultingAnswers[field.id] || ''}
+                                                                onChange={(e) => handleConsultingAnswer(field.id, e.target.value)}
+                                                            />
+                                                        )}
+                                                    </>
+                                                )}
+                                            </label>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                                <Button
+                                    onClick={() => setCurrentStep(prev => prev - 1)}
+                                    disabled={currentStep === 0}
+                                    variant="outline"
+                                >
+                                    Back
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        if (currentStep < CONSULTING_QUESTIONS.length - 1) {
+                                            setCurrentStep(prev => prev + 1);
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        } else {
+                                            setConsultingFinished(true);
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }
+                                    }}
+                                    variant="primary"
+                                >
+                                    {currentStep === CONSULTING_QUESTIONS.length - 1 ? 'Finish' : 'Next'}
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <div className={styles.result}>
+                            <h4 className={styles.estimateLabel} style={{ marginBottom: '20px' }}>Tax Health Report</h4>
+
+                            {(() => {
+                                const { status, risks } = calculateRisk(consultingAnswers);
+                                const statusColor = status === 'green' ? '#10B981' : status === 'yellow' ? '#F59E0B' : '#EF4444';
+                                const statusText = status === 'green' ? 'Good Standing' : status === 'yellow' ? 'Attention Needed' : 'Action Required';
+
+                                return (
+                                    <>
+                                        <div style={{
+                                            padding: '20px',
+                                            backgroundColor: status === 'green' ? '#ECFDF5' : status === 'yellow' ? '#FFFBEB' : '#FEF2F2',
+                                            borderRadius: '8px',
+                                            border: `1px solid ${statusColor}`,
+                                            marginBottom: '20px'
+                                        }}>
+                                            <h3 style={{ color: statusColor, margin: 0 }}>{statusText}</h3>
+                                            <p style={{ marginTop: '10px', color: '#374151' }}>
+                                                {status === 'green'
+                                                    ? "Based on your responses, your tax situation appears to be in good order."
+                                                    : "We've identified some areas that may require professional attention to ensure full compliance."}
+                                            </p>
+                                        </div>
+
+                                        {risks.length > 0 && (
+                                            <div style={{ marginBottom: '30px', textAlign: 'left' }}>
+                                                <h5 style={{ fontWeight: 'bold', marginBottom: '10px' }}>Key Findings:</h5>
+                                                <ul style={{ paddingLeft: '20px' }}>
+                                                    {risks.map((risk, i) => (
+                                                        <li key={i} style={{ marginBottom: '8px', color: risk.level === 'high' ? '#DC2626' : '#D97706' }}>
+                                                            {risk.msg}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+
+                                        <div className={styles.disclaimer} style={{ marginBottom: '20px' }}>
+                                            This assessment is for informational purposes only and does not constitute official legal or tax advice.
+                                        </div>
+
+                                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                                            <Button href={`/${lang}/book`} variant="primary">Schedule Review</Button>
+                                            <Button onClick={() => {
+                                                setConsultingFinished(false);
+                                                setCurrentStep(0);
+                                                setConsultingAnswers({});
+                                            }} variant="outline">Start Over</Button>
+                                        </div>
+                                    </>
+                                );
+                            })()}
+                        </div>
+                    )}
+                </div>
+            )}
+
         </div>
     );
 }
