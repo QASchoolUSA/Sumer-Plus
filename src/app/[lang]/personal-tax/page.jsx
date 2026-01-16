@@ -51,6 +51,27 @@ export default function PersonalTaxPage() {
 
     const progress = ((currentStep + 1) / steps.length) * 100;
 
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    if (isSubmitted) {
+        return (
+            <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+                <Card className="max-w-xl w-full text-center p-8 shadow-xl border-green-100">
+                    <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                        <Check className="w-8 h-8 text-green-600" />
+                    </div>
+                    <CardTitle className="text-3xl mb-4 text-slate-900">Thank You!</CardTitle>
+                    <CardDescription className="text-lg text-slate-600 mb-8">
+                        Your Personal Tax Questionnaire has been successfully submitted. We have received your information and will review it shortly.
+                    </CardDescription>
+                    <Button onClick={() => window.location.href = '/'} className="w-full sm:w-auto">
+                        Return to Home
+                    </Button>
+                </Card>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto space-y-8">
@@ -108,7 +129,8 @@ export default function PersonalTaxPage() {
                                                 body: JSON.stringify({ type: 'Personal', data: formData }),
                                             });
                                             if (response.ok) {
-                                                alert('Questionnaire submitted successfully!');
+                                                setIsSubmitted(true);
+                                                window.scrollTo(0, 0);
                                             } else {
                                                 alert('Failed to submit questionnaire.');
                                             }
