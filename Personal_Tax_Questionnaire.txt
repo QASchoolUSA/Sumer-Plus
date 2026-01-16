@@ -1,0 +1,256 @@
+Personal Tax Questionnaire 2025 Tax year
+
+SECTION 1 — BASIC TAX INFORMATION
+Purpose: Determines filing status, tax rates, and eligibility for deductions and credits.
+	•	Name(s): ______________________________________
+	•	Name spose:
+	•	SSN / ITIN: ____________________________________
+	•	Date(s) of Birth: ______________________________
+	•	Filing Status (as of Dec 31, 2025): ☐ Single ☐ Married Filing Jointly ☐ Married Filing Separately ☐ Head of Household ☐ Qualifying Surviving Spouse
+	•	Address: ______________________________________
+	•	Did you move during 2025? ☐ Yes ☐ No
+This section establishes your legal identity for tax purposes and determines your filing status, which directly affects your tax brackets, standard deduction, eligibility for credits, and overall tax calculation. The IRS uses this information to match your return to Social Security records and prior-year filings. Your marital status as of December 31, 2025 controls your filing status for the entire year. Address information determines where IRS correspondence is sent and may also affect state tax obligations.
+SECTION 2 — DEPENDENTS
+Purpose: Determines eligibility for Child Tax Credit, Other Dependent Credit, and Head of Household status.
+For each dependent:
+Name
+SSN
+Relationship
+DOB
+Lived w/ You
+Support >50%
+Student
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This section determines whether you can claim individuals who rely on you financially. Claiming dependents can significantly reduce your tax liability through credits, higher standard deductions, and favorable filing status (such as Head of Household). The IRS applies strict tests for relationship, residency, support, age, and income. Incorrect dependent claims are a common audit trigger, so accuracy is critical.
+SECTION 3 — INCOME
+Purpose: IRS requires reporting of all worldwide income.
+Employment & Business Income
+	•	W-2 wages (employee income)
+	•	1099-NEC / consulting income (self-employment)
+	•	Business income or loss (Schedule C)
+	•	Tips, bonuses, commissions
+Investment & Other Income
+	•	Interest (1099-INT)
+	•	Dividends (1099-DIV)
+	•	Capital gains/losses (stocks, crypto, property)
+	•	Rental income
+	•	Royalties
+	•	Unemployment compensation
+	•	Social Security benefits
+	•	Retirement distributions (IRA, 401(k), pension)
+U.S. taxpayers must report all income from all sources worldwide, regardless of where it was earned or whether a tax form was issued. This section captures earned income (wages and self-employment), passive income (investments and rentals), and retirement or government benefits. Different income types are taxed differently, so full disclosure ensures correct tax treatment, proper calculation of self-employment tax, and accurate eligibility for deductions and credits.
+
+SECTION 4 — ADJUSTMENTS TO INCOME 
+Purpose: Reduces Adjusted Gross Income (AGI), even if you don’t itemize.
+	•	Traditional IRA contributions
+	•	Health Savings Account (HSA) contributions
+	•	Student loan interest paid
+	•	Self-employed health insurance premiums
+	•	Self-employed retirement (SEP, SIMPLE, Solo 401(k))
+	•	Alimony paid (pre-2019 agreements only)
+Adjustments to income reduce your Adjusted Gross Income (AGI) before standard or itemized deductions are applied. These deductions are especially valuable because they are available even if you do not itemize. Lower AGI can increase eligibility for tax credits, reduce phaseouts, and lower taxes across the return. Many of these adjustments benefit self-employed individuals and taxpayers saving for retirement or healthcare.
+
+SECTION 5 — DEDUCTIONS
+STANDARD DEDUCTION (2025)
+Filing Status
+Amount
+Single / MFS
+$15,000
+Married Filing Jointly
+$30,000
+Head of Household
+$22,500
+Explanation: If your itemized deductions are less than this amount, the standard deduction is usually better.
+ITEMIZED DEDUCTIONS (If Higher Than Standard)
+Medical Expenses
+	•	Deductible only if expenses exceed 7.5% of AGI
+State & Local Taxes (SALT)
+	•	Maximum deduction: $10,000 total (State income or sales tax + property tax combined)
+Mortgage Interest
+	•	Interest on qualified home loans
+	•	Home equity interest only if used to improve the home
+Charitable Contributions
+	•	Cash donations
+	•	Non-cash donations (fair market value)
+	•	Charity mileage
+Casualty & Theft Losses
+	•	Only for federally declared disasters
+This section determines whether you will claim the standard deduction or itemized deductions, whichever provides the greater tax benefit. Deductions reduce the portion of your income that is subject to tax. Itemized deductions include medical expenses, taxes paid, mortgage interest, charitable contributions, and certain disaster losses. Each category has specific limits and documentation requirements set by the IRS.
+SECTION 6 — TAX CREDITS 
+Child Tax Credit (CTC)
+	•	Up to $2,000 per qualifying child under age 17
+	•	Refundable portion up to approximately $1,700
+	•	Phases out at higher income levels
+Credit for Other Dependents
+	•	Up to $500 per qualifying non-child dependent
+Child & Dependent Care Credit
+	•	Percentage of qualified childcare expenses
+	•	Based on income level
+Education Credits
+	•	American Opportunity Credit
+	•	Lifetime Learning Credit
+Retirement Saver’s Credit
+	•	Credit for retirement contributions (income-based)
+Energy Credits
+	•	Energy-efficient home improvements
+	•	Solar, heat pumps, insulation, etc.
+Electric Vehicle Credit
+	•	Up to $7,500 for qualifying EVs (income & vehicle limits apply)
+Premium Tax Credit
+	•	Health insurance purchased through Marketplace
+Tax credits are among the most valuable tax benefits because they reduce your tax liability dollar for dollar, rather than merely reducing taxable income. Some credits are refundable, meaning they can generate a refund even if no tax is owed. This section identifies credits related to children, dependents, education, retirement savings, energy efficiency, electric vehicles, and health insurance.
+
+
+SECTION 7 — EDUCATION
+Purpose: Determines eligibility for education credits.
+	•	Tuition paid (Form 1098-T)
+	•	Student loan interest
+	•	Scholarships or grants received
+This section determines eligibility for education-related tax benefits. Qualified tuition, fees, and student loan interest may result in valuable credits or deductions. Scholarships and grants must also be reported, as some portions may be taxable. Education benefits are subject to income limits and coordination rules, so accurate reporting is necessary to avoid errors or lost credits.
+SECTION 8 — RETIREMENT CONTRIBUTION LIMITS 
+Account Type
+Limit 2025
+401(k), 403(b), TSP
+$23,500
+IRA (Traditional or Roth)
+$7,000
+IRA Catch-Up (Age 50+)
+$1,000
+HSA — Self-Only
+$4,300
+HSA — Family
+$8,550
+Health FSA
+$3,300
+Dependent Care FSA
+$5,000 per household
+Explanation: Traditional contributions often reduce taxable income; Roth contributions grow tax-free.
+This section tracks retirement savings contributions and retirement income. Contributions to certain retirement accounts can reduce current taxable income, while distributions are often taxable. Required Minimum Distributions (RMDs) must be taken once you reach a certain age, and failure to do so results in steep penalties. Proper reporting ensures compliance and accurate taxation of retirement funds.
+SECTION 9 — HEALTH INSURANCE
+Purpose: Confirms compliance and reconciles credits.
+	•	Covered all year? ☐ Yes ☐ No
+	•	Marketplace insurance (Form 1095-A)
+	•	HSA contributions or withdrawals
+This section verifies health insurance coverage and reconciles any advance tax credits received through the Health Insurance Marketplace. It also tracks Health Savings Account (HSA) contributions and withdrawals, which have strict rules. Errors in this section can delay refunds or result in repayment of advance credits.
+SECTION 10 — FOREIGN & DIGITAL ASSETS
+Purpose: High-penalty reporting areas.
+	•	Foreign bank accounts (FBAR)
+	•	Foreign income
+	•	Foreign financial assets (FATCA)
+	•	Cryptocurrency transactions
+The IRS imposes strict reporting requirements for foreign financial accounts, foreign income, and cryptocurrency transactions. Penalties for noncompliance can be severe, even if no tax is owed. This section ensures compliance with FBAR, FATCA, and digital asset reporting rules, which are common audit and enforcement areas.
+
+SECTION 11 — ESTIMATED TAX PAYMENTS
+Purpose: Prevents penalties and double payment.
+	•	Federal estimated taxes paid
+	•	State estimated taxes paid
+	•	Prior-year refund applied to 2025
+This section records tax payments already made during the year, including quarterly estimated payments and prior-year refunds applied forward. These payments are credited against your total tax liability. Accurate reporting prevents overpayment, underpayment penalties, and incorrect balances due.
+SECTION 12 — LIFE EVENTS
+Purpose: Identifies special tax rules.
+	•	Marriage or divorce
+	•	Birth or adoption
+	•	Death of spouse or dependent
+	•	Job change
+	•	Business started or closed
+	•	Home purchase or sale
+	•	Disaster or major medical event
+Major life events can significantly affect your tax situation by changing filing status, eligibility for deductions or credits, and how income is taxed. This section identifies events such as marriage, divorce, childbirth, death, job changes, business activity, home transactions, or disasters that may require special tax treatment or additional forms.
+SECTION 13 — 2025 FEDERAL TAX BRACKETS
+Marginal Tax Rates (Taxable Income)
+Rate
+Single
+Married Filing Jointly
+Head of Household
+10%
+$0 – $11,925
+$0 – $23,850
+$0 – $17,000
+12%
+$11,926 – $48,475
+$23,851 – $96,950
+$17,001 – $64,850
+22%
+$48,476 – $103,350
+$96,951 – $206,700
+$64,851 – $103,350
+24%
+$103,351 – $197,300
+$206,701 – $394,600
+$103,351 – $197,300
+32%
+$197,301 – $250,525
+$394,601 – $501,050
+$197,301 – $250,500
+35%
+$250,526 – $626,350
+$501,051 – $751,600
+$250,501 – $626,350
+37%
+$626,351+
+$751,601+
+$626,351+
+Explanation: Income is taxed in layers — only the amount within each bracket is taxed at that rate.
+This section provides reference information showing how taxable income is taxed using marginal tax brackets. It helps taxpayers understand that income is taxed in layers and not at a single flat rate. This context is useful for planning deductions, estimating tax owed, and understanding how additional income may affect overall taxes.
+
+SECTION 14 — BANKING & FILING
+Purpose: IRS processing and authorization.
+	•	Bank routing & account number (refunds/payments)
+	•	E-file authorization
+	•	Preparer authorization
+This section authorizes how your return is filed and how refunds or payments are processed. Direct deposit information speeds refunds and reduces errors. Filing authorizations allow electronic submission and permit a tax preparer to communicate with the IRS on your behalf if necessary.
+
+For your information:
+	•	Deductions reduce taxable income
+	•	Credits reduce tax owed
+	•	Refunds depend on payments vs. tax liability
+	•	Missing information can cause penalties or delayed refunds
+

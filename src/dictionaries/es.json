@@ -4,7 +4,9 @@
         "services": "Servicios",
         "contact": "Contacto",
         "calculator": "Calculadora",
-        "book": "Reservar"
+        "book": "Reservar",
+        "personal_tax": "Cuestionario de Impuestos Personales",
+        "corporate_tax": "Cuestionario de Impuestos Corporativos"
     },
     "hero": {
         "title_prefix": "Sumer Plus",

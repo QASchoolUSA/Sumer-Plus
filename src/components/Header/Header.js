@@ -59,6 +59,8 @@ export default function Header({ dict, lang }) {
                                 ))}
                             </div>
                         </li>
+                        <li><Link href={`/${lang}/personal-tax`} className={styles.navLink} onClick={() => setIsMenuOpen(false)}>{dict.personal_tax}</Link></li>
+                        <li><Link href={`/${lang}/corporate-tax`} className={styles.navLink} onClick={() => setIsMenuOpen(false)}>{dict.corporate_tax}</Link></li>
                         <li>
                             <Button href={`/${lang}/book`} variant="secondary" onClick={() => setIsMenuOpen(false)}>
                                 {dict.book}

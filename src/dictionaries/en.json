@@ -4,7 +4,9 @@
         "services": "Services",
         "contact": "Contact",
         "calculator": "Calculator",
-        "book": "Book Now"
+        "book": "Book Now",
+        "personal_tax": "Personal Tax Questionnaire",
+        "corporate_tax": "Corporate Tax Questionnaire"
     },
     "hero": {
         "title_prefix": "Sumer Plus",

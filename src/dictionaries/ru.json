@@ -4,7 +4,9 @@
         "services": "Услуги",
         "contact": "Контакты",
         "calculator": "Калькулятор",
-        "book": "Забронировать"
+        "book": "Забронировать",
+        "personal_tax": "Анкета по личным налогам",
+        "corporate_tax": "Анкета по корпоративным налогам"
     },
     "hero": {
         "title_prefix": "Sumer Plus",

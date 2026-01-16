@@ -1,0 +1,224 @@
+Tax Questionnaire
+1. Company Information
+	•	Legal name of entity____________________________________________________
+	•	DBA / trade name (if any)________________________________________________
+	•	Entity type:
+	•	☐ C-Corporation
+	•	☐ S-Corporation
+	•	☐ Partnership
+	•	☐ LLC (taxed as: ☐ Corp ☐ Partnership ☐ Disregarded)
+	•	EIN  _________________________________________
+	•	State of incorporation/formation___________________________________________
+	•	Date of formation_______________________________________________________
+	•	Business address _______________________________________________________
+_____________________________________________________________________
+	•	States where business operates or files returns________________________________
+	•	Fiscal year-end_________________________
+	•	Accounting method:
+	•	☐ Cash
+	•	☐ Accrual
+	•	Accounting software used________________________________________________
+2. Ownership & Equity
+	•	Owners/shareholders/partners:
+	•	Name__________________________________________________________
+	•	Ownership %____________________________________________________
+	•	Tax residency____________________________________________________
+	•	Any ownership changes during the year?____________________________________
+_____________________________________________________________________
+	•	Stock/unit issuances, redemptions, or buybacks_______________________________
+	•	Stock options, profit interests, or equity compensation issued?___________________
+_____________________________________________________________________
+
+3. Nature of Services
+	•	Description of business ____________________________________________________
+	•	NAICS code (if known)____________________________________________________
+	•	Any regulated or licensed consulting activities?_________________________________
+_______________________________________________________________________
+4. Revenue
+	•	Total gross receipts for the year______________________________________________
+	•	Revenue by service type____________________________________________________
+	•	Revenue by state (approximate %)____________________________________________
+	•	Revenue from:
+	•	☐ Individuals
+	•	☐ Businesses
+	•	☐ Government entities
+	•	Any client >20% of total revenue?____________________________________________
+	•	Advance payments / deferred revenue at year-end________________________________
+	•	Refunds, credits, or write-offs_______________________________________________
+5. State & Local Tax (SALT)
+	•	States where employees, contractors, or offices are located_________________________
+________________________________________________________________________
+	•	States where services are performed___________________________________________
+	•	State income/franchise tax returns filed during the year___________________________
+	•	Any state notices, audits, or assessments?______________________________________
+6. Sales Tax 
+	•	Is the company registered for sales tax in any state?______________________________
+	•	States of registration_______________________________________________________
+	•	Are services treated as:
+	•	☐ Taxable
+	•	☐ Exempt
+	•	☐ Partially taxable
+	•	Any bundled services (consulting + software/data/products)?_______________________
+	•	Total sales tax collected and remitted__________________________________________
+	•	Any exposure from uncollected sales tax?______________________________________
+7. Payroll & Employment Taxes
+	•	Number of employees (full-time / part-time)____________________________________
+	•	States where employees work (including remote employees)_______________________
+_______________________________________________________________________
+	•	Total gross payroll________________________________________________________
+	•	Federal payroll taxes paid (941, 940)__________________________________________
+	•	State payroll and unemployment taxes paid_____________________________________
+	•	Bonuses, commissions, or incentive compensation_______________________________
+	•	Retirement plans (401(k), SEP, SIMPLE, etc.)__________________________________
+	•	Health insurance or fringe benefits____________________________________________
+8. Independent Contractors (1099)
+	•	Use of independent contractors? (☐ Yes ☐ No)
+	•	Total contractor payments__________________________________________________
+	•	Types of contractor services________________________________________________
+	•	Were W-9s collected?_____________________________________________________
+	•	Were Forms 1099-NEC filed on time?________________________________________
+	•	Any worker classification concerns?__________________________________________
+9. Expenses & Deductions
+Provide totals for:
+	•	Officer compensation_____________________________________________________
+	•	Salaries & wages_________________________________________________________
+	•	Payroll taxes_____________________________________________________________
+	•	Contractor costs__________________________________________________________
+	•	Rent / coworking space____________________________________________________
+	•	Software & SaaS tools_____________________________________________________
+	•	Professional fees (legal, accounting)__________________________________________
+	•	Marketing & advertising___________________________________________________
+	•	Travel (domestic/international)______________________________________________
+	•	Meals (business-related)___________________________________________________
+	•	Insurance_______________________________________________________________
+	•	Office expenses__________________________________________________________
+	•	Training & education______________________________________________________
+Indicate any non-deductible or limited expenses.
+10. Assets & Depreciation
+	•	Fixed assets purchased (computers, equipment, furniture)__________________________
+	•	Section 179 or bonus depreciation claimed?____________________________________
+	•	Software development or capitalized costs______________________________________
+	•	Assets disposed of during the year____________________________________________
+	•	Leases (operating or finance)________________________________________________
+
+11. Financing & Cash Flow
+	•	Business loans or lines of credit_____________________________________________
+	•	PPP, EIDL, or other government funding (if applicable)__________________________
+	•	Interest expense paid______________________________________________________
+	•	Owner loans or capital contributions__________________________________________
+	•	Distributions/dividends paid________________________________________________
+12. Federal Income Tax
+	•	Prior-year tax returns filed_________________________________________________
+	•	Estimated tax payments made______________________________________________
+	•	Net operating losses (NOLs) available________________________________________
+	•	R&D credits or other tax credits claimed______________________________________
+	•	Section 199A (QBI) considerations (if pass-through)_____________________________
+13. International Considerations (if applicable)
+	•	Foreign clients or revenue__________________________________________________
+	•	Services performed outside the U.S.__________________________________________
+	•	Foreign contractors or employees____________________________________________
+	•	Foreign withholding taxes paid______________________________________________
+	•	Transfer pricing or intercompany services_____________________________________
+14. Compliance & Risk
+	•	IRS or state audits/notices received___________________________________________
+	•	Outstanding tax liabilities___________________________________________________
+	•	Penalties or interest assessed________________________________________________
+	•	Aggressive or uncertain tax positions taken?____________________________________
+
+15. Declarations
+	•	All income has been fully reported _______initials
+	•	All expenses are ordinary and necessary________initials
+	•	All information provided is complete and accurate________initials
+Prepared by: Name:________________________________________________________________________ Title:_________________________________________________________________________ Date:________________________ Signature:_____________________
+
+Tax Document Checklist
+☐ 1. Entity & Legal Documents
+	•	☐ Articles of Incorporation / Organization
+	•	☐ Operating Agreement / Shareholder Agreement
+	•	☐ EIN confirmation letter (CP 575)
+	•	☐ Business licenses & registrations
+	•	☐ Amendments to entity documents (if any)
+☐ 2. Prior-Year Tax Returns
+	•	☐ Federal tax returns (last 2–3 years)
+	•	☐ Form 1120 / 1120-S / 1065
+	•	☐ State income/franchise tax returns
+	•	☐ Schedule K-1s issued/received
+	•	☐ NOL & credit carryforward schedules
+☐ 3. Financial Statements & Accounting
+	•	☐ Year-end Balance Sheet
+	•	☐ Year-end Profit & Loss (Income Statement)
+	•	☐ Trial balance (preferred)
+	•	☐ General ledger (full year)
+	•	☐ Cash flow statement (if available)
+	•	☐ Accounting method confirmation (cash/accrual)
+☐ 4. Revenue & Client Support
+	•	☐ Revenue detail by client
+	•	☐ Revenue detail by state
+	•	☐ Client contracts / engagement letters
+	•	☐ Invoices issued during the year
+	•	☐ Deferred (unearned) revenue schedule
+	•	☐ Bad debt write-off documentation
+☐ 5. Expenses & Deductions
+	•	☐ Detailed expense reports
+	•	☐ Business bank statements
+	•	☐ Business credit card statements
+	•	☐ Receipts for large/unusual expenses
+	•	☐ Travel & meals logs
+	•	☐ Professional fee invoices (legal, accounting)
+☐ 6. Payroll & Employment Taxes
+	•	☐ Payroll summary (by employee & state)
+	•	☐ Forms 941 (all quarters)
+	•	☐ Form 940
+	•	☐ State payroll tax filings
+	•	☐ Forms W-2 and W-3
+	•	☐ Employee benefit invoices (health, 401(k), etc.)
+☐ 7. Independent Contractors (1099)
+	•	☐ Contractor payment summary
+	•	☐ Signed W-9s
+	•	☐ Forms 1099-NEC filed
+	•	☐ Form 1096 (if applicable)
+	•	☐ Contractor agreements
+☐ 8. Sales Tax (If Applicable)
+	•	☐ Sales tax registration confirmations
+	•	☐ Sales tax returns filed
+	•	☐ Sales tax reports by state
+	•	☐ Exemption certificates (if any)
+☐ 9. State & Local Tax (SALT)
+	•	☐ States where employees work
+	•	☐ States where clients are located
+	•	☐ State apportionment schedules
+	•	☐ Nexus studies (if available)
+	•	☐ State tax notices or correspondence
+☐ 10. Fixed Assets & Depreciation
+	•	☐ Fixed asset register
+	•	☐ Asset purchase invoices
+	•	☐ Section 179 / bonus depreciation elections
+	•	☐ Asset disposal documentation
+	•	☐ Lease agreements
+☐ 11. Financing & Equity
+	•	☐ Loan agreements & amortization schedules
+	•	☐ Interest statements
+	•	☐ Capital contributions records
+	•	☐ Owner distributions/dividends
+	•	☐ Equity compensation documentation
+☐ 12. Government Programs (If Applicable)
+	•	☐ PPP loan documentation & forgiveness
+	•	☐ EIDL or other relief program records
+☐ 13. International (If Applicable)
+	•	☐ Foreign income details
+	•	☐ Foreign contractor agreements
+	•	☐ Withholding tax certificates
+☐ 14. IRS & State Correspondence
+	•	☐ Audit notices
+	•	☐ Penalty or interest notices
+	•	☐ Open tax issue correspondence
+Client Acknowledgment
+By providing information and documents in response to this checklist, the undersigned acknowledges and agrees that:
+	•	This checklist is provided for informational and document-gathering purposes only and does not constitute tax, legal, or accounting advice.
+	•	No professional relationship or engagement is created by use of this checklist alone.
+	•	The tax preparer may rely entirely on information provided by the undersigned without independent verification.
+	•	The undersigned is solely responsible for the accuracy, completeness, and timeliness of all information and documents provided.
+	•	The undersigned has read, understands, and agrees to the Disclaimer and Limitation of Liability governing this checklist.
+Acknowledged and agreed:
+Client Name: _________________________________________________________________ Entity Name: _________________________________________________________________ Signature: ________________________________ Date: ________________________________
+
