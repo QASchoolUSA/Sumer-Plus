@@ -54,8 +54,17 @@ export default async function RootLayout({ children, params }: AppLayoutProps) {
     logo: `${SITE.url}${SITE.logoPath}`,
     image: `${SITE.url}${SITE.ogImagePath}`,
     email: SITE.email,
+    telephone: SITE.phoneTel,
     description: dict.seo.site_description,
     sameAs: [SITE.instagramUrl],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.streetAddress,
+      addressLocality: SITE.address.addressLocality,
+      addressRegion: SITE.address.addressRegion,
+      postalCode: SITE.address.postalCode,
+      addressCountry: SITE.address.addressCountry,
+    },
     areaServed: {
       "@type": "Country",
       name: "United States",

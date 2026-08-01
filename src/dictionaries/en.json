@@ -404,7 +404,7 @@
       },
       {
         "q": "How can I contact SumerPlus or follow you online?",
-        "a": "Email support@sumerplus.com, use the contact form on sumerplus.com, or follow us on Instagram at @sumer.plus."
+        "a": "Email info@sumerplus.com, call 321-353-1287, visit 555 Winderley Place, Suite 300, Maitland, FL 32751, use the contact form on sumerplus.com, or follow us on Instagram at @sumer.plus."
       }
     ]
   },
@@ -427,6 +427,8 @@
     "title": "Contact Us",
     "subtitle": "Have questions? We are here to help.",
     "email": "Email",
+    "phone": "Phone",
+    "office": "Office",
     "instagram": "Instagram",
     "form_name": "Name",
     "form_email": "Email",
