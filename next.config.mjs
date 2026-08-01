@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
   reactCompiler: true,
-  serverExternalPackages: ['pdfkit'],
+  serverExternalPackages: ["pdfkit"],
+  experimental: {
+    // Required for TypeScript 7 (no JS compiler API yet)
+    useTypeScriptCli: true,
+  },
 };
 
 export default nextConfig;

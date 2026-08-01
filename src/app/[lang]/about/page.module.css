@@ -1,0 +1,118 @@
+.page {
+  width: 100%;
+}
+
+.hero {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md) var(--spacing-xl);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(212, 175, 55, 0.1), transparent 60%),
+    var(--color-charcoal);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.seal {
+  display: block;
+  margin: 0 auto var(--spacing-md);
+  background: transparent;
+  border-radius: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--color-primary);
+  letter-spacing: 0.1em;
+  margin: 0 0 var(--spacing-sm);
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.definition {
+  color: var(--color-text-main);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: var(--spacing-md) auto 0;
+  max-width: 40rem;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-xxl) var(--spacing-md);
+}
+
+.block {
+  margin-bottom: var(--spacing-xl);
+}
+
+.block h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.block p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 0 0 var(--spacing-md);
+}
+
+.freeTitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-text-main);
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  text-align: center;
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  margin: 0 0 var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pillars {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.pillar {
+  padding: var(--spacing-md);
+  border-left: 2px solid var(--color-primary);
+  background: var(--color-surface);
+}
+
+.pillar h3 {
+  font-family: var(--font-display);
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.pillar p {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  padding-top: var(--spacing-lg);
+}

@@ -1,95 +1,446 @@
 {
-    "navigation": {
-        "home": "Inicio",
-        "services": "Servicios",
-        "contact": "Contacto",
-        "calculator": "Calculadora",
-        "book": "Reservar",
-        "personal_tax": "Cuestionario de Impuestos Personales",
-        "corporate_tax": "Cuestionario de Impuestos Corporativos"
-    },
-    "hero": {
-        "title_prefix": "Sumer Plus",
-        "title_highlight": "",
-        "subtitle": "Bienvenido a Sumer Plus, un lugar donde los números encuentran claridad y donde el trabajo se realiza con cuidado, precisión y total transparencia. Nos encargamos de los números para que usted pueda concentrarse en lo que más importa: su familia y su negocio.",
-        "cta_primary": "Obtener Estimación de Precio",
-        "cta_secondary": ""
-    },
-    "about_us": {
-        "title": "Sobre Nosotros",
-        "subtitle": "Quiénes Somos",
-        "p1": "Sumer Plus aporta más de una década de experiencia en finanzas y contabilidad, respaldada por una profunda experiencia analítica.",
-        "p2": "Nuestra base se construye sobre un riguroso análisis financiero y experiencia especializada en industrias complejas. Esto nos permite ofrecer una comprensión más profunda y completa de la situación financiera de cada cliente.",
-        "p3": "Mantenemos los más altos estándares de desarrollo profesional, manteniéndonos al día con todos los cambios en la legislación fiscal. Cada recomendación que brindamos se basa en estrategias legales y éticas de ahorro de impuestos.",
-        "p4": "En nuestra firma, la precisión se une al servicio personalizado. Creemos que la contabilidad debe sentirse clara, de apoyo y empoderadora, no abrumadora.",
-        "p5": "Nos tomamos el tiempo para comprender su situación única para que podamos proporcionar un trabajo preciso, una orientación honesta y estrategias fiscales que cumplan plenamente y se adapten a sus objetivos."
-    },
-    "value_advantage": {
-        "title": "Valor y Ventaja",
-        "compliance": "Cumplimiento de normas GAAP e IRS",
-        "audit": "Preparación para auditorías",
-        "cfo": "CFO certificado externalizado",
-        "tools": "Plantillas y herramientas de Excel verificadas por CPA y abogados"
-    },
-    "services_section": {
-        "title": "Nuestros Servicios",
-        "subtitle": "Soluciones financieras integrales para cada etapa de la vida y los negocios.",
-        "personal_title": "Impuestos Personales",
-        "personal_desc": "Maximice su reembolso con nuestros servicios expertos de preparación de impuestos personales. Manejamos situaciones complejas con facilidad.",
-        "business_title": "Impuestos Comerciales",
-        "business_desc": "Planificación fiscal estratégica y presentación de declaraciones para pequeñas empresas y corporaciones. Manténgase en cumplimiento y optimice su responsabilidad.",
-        "consultation_title": "Consulta",
-        "consultation_desc": "Sesiones individuales para discutir sus objetivos financieros, estrategias fiscales y planificación comercial.",
-        "learn_more": "Más información"
-    },
-    "cta_section": {
-        "title": "¿Listo para llevar su negocio al siguiente nivel de control financiero y cumplimiento con las normas de EE. UU.?",
-        "button": "Programar una llamada"
-    },
-    "footer": {
-        "tagline": "Servicios Profesionales de Impuestos y Negocios",
-        "quick_links": "Enlaces Rápidos",
-        "contact": "Contacto",
-        "rights": "Todos los derechos reservados."
-    },
-    "services_page": {
-        "title": "Nuestros Servicios",
-        "subtitle": "Soluciones financieras a medida para individuos y empresas.",
-        "personal_title": "Servicios de Impuestos Personales",
-        "personal_desc": "Navegar por los impuestos personales puede ser complejo. Nos aseguramos de que obtenga el máximo reembolso posible mientras cumple plenamente con las normas.",
-        "personal_list": [
-            "Preparación de Declaración de Impuestos Individual (1040)",
-            "Presentación de Impuestos Estatales y Locales",
-            "Planificación y Asesoramiento Fiscal",
-            "Representación en Auditorías del IRS",
-            "Servicios de Impuestos de Sucesiones y Fideicomisos"
-        ],
-        "personal_cta": "Reservar Consulta Personal",
-        "business_title": "Servicios de Impuestos Comerciales",
-        "business_desc": "Desde startups hasta corporaciones establecidas, brindamos planificación fiscal estratégica para ayudar a que su negocio crezca.",
-        "business_list": [
-            "Declaraciones de Impuestos Corporativos (1120, 1120S)",
-            "Declaraciones de Impuestos de Sociedades (1065)",
-            "Servicios de Teneduría de Libros y Nómina",
-            "Formación de Nuevos Negocios",
-            "Planificación de Impuestos Estimados Trimestrales"
-        ],
-        "business_cta": "Reservar Consulta Comercial"
-    },
-    "contact_page": {
-        "title": "Contáctenos",
-        "subtitle": "¿Tiene preguntas? Estamos aquí para ayudar.",
-        "email": "Correo electrónico",
-        "phone": "Teléfono",
-        "office": "Oficina",
-        "form_name": "Nombre",
-        "form_email": "Correo electrónico",
-        "form_message": "Mensaje",
-        "form_submit": "Enviar Mensaje",
-        "success_message": "¡Gracias por su mensaje! Nos pondremos en contacto con usted pronto."
-    },
-    "book_page": {
-        "title": "Reservar una Consulta",
-        "subtitle": "Seleccione un horario que le convenga. Esperamos hablar con usted."
-    }
+  "seo": {
+    "site_title": "SumerPlus | Servicios Empresariales y Agencia de Seguros",
+    "site_description": "Planificación fiscal integrada, contabilidad y estrategias de seguros independientes con licencia Florida 2-15. Sabiduría ancestral. Soluciones modernas. Su futuro en América.",
+    "home_title": "SumerPlus | Impuestos, Contabilidad y Seguros Integrados",
+    "home_description": "Deje de pagar por asesoría financiera fragmentada. SumerPlus unifica impuestos corporativos, contabilidad y suscripción de riesgos independiente en un solo escudo.",
+    "personal_tax_title": "Cuestionario de Impuestos Personales | SumerPlus",
+    "personal_tax_description": "Inicie su intake de impuestos personales con SumerPlus — preparación precisa desde W-2 hasta inversiones y autoempleo.",
+    "corporate_tax_title": "Cuestionario de Impuestos Corporativos | SumerPlus",
+    "corporate_tax_description": "Intake fiscal empresarial para corporaciones, sociedades y autónomos — Formularios 1120, 1120-S, 1065 y Schedule C."
+  },
+  "navigation": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "insurance": "Seguros",
+    "about": "Nosotros",
+    "tools": "Herramientas",
+    "contact": "Contacto",
+    "faq": "Preguntas frecuentes",
+    "calculator": "Calculadora de Precios",
+    "leakage": "Calculadora de Fugas Fiscales",
+    "book": "Reservar",
+    "personal_tax": "Cuestionario de Impuestos Personales",
+    "corporate_tax": "Cuestionario de Impuestos Corporativos"
+  },
+  "hero": {
+    "brand": "SUMERPLUS",
+    "descriptor": "Consultoría Empresarial y Agencia de Seguros",
+    "headline": "Deje de Pagar por Asesoría Financiera Fragmentada.",
+    "subtitle": "Fusionamos la planeación fiscal corporativa, la contabilidad automatizada y la suscripción de riesgos independiente en un escudo defensivo unificado.",
+    "metric": "Rendimiento promedio de un plan proactivo: miles de dólares recuperados en fugas fiscales cada año.",
+    "free_note": "Su revisión inicial de arquitectura y toda consulta estratégica de seguros son permanentes y totalmente gratuitas.",
+    "cta_primary": "Reservar Consulta Gratuita",
+    "cta_secondary": "Auditoría de Fugas",
+    "cta_tertiary": "Estimación de Precio"
+  },
+  "pillars": {
+    "title": "Lo Que Representa Nuestra Identidad",
+    "items": [
+      {
+        "title": "Protección",
+        "description": "Resguardando lo que más importa — seguro confiable para sus activos en Estados Unidos."
+      },
+      {
+        "title": "Prosperidad Futura",
+        "description": "Orientación estratégica para el crecimiento sostenible de su negocio y patrimonio."
+      },
+      {
+        "title": "Cumplimiento",
+        "description": "Navegando las leyes de EE. UU. con confianza — guía clara sobre registro y regulación."
+      }
+    ]
+  },
+  "engines": {
+    "title": "Cuatro Motores de Capacidad",
+    "subtitle": "Una práctica integrada — impuestos, protección de capital, retención de talento y continuidad.",
+    "items": [
+      {
+        "title": "Minimización Fiscal Estructural",
+        "description": "Ingeniería corporativa (LLC / S-Corp / C-Corp) para reducir legalmente las obligaciones fiscales por cuenta propia."
+      },
+      {
+        "title": "Blindaje de Capital Privado",
+        "description": "Estructuras de Vida Entera y Universal para transferir liquidez y patrimonio generacional fuera del radar de impuestos federales."
+      },
+      {
+        "title": "Marcos de Retención de Talento",
+        "description": "Salud grupal, dental y bonos ejecutivos Sección 162 para eliminar rotación deduciendo el 100% del costo."
+      },
+      {
+        "title": "Financiamiento de Continuidad Empresarial",
+        "description": "Acuerdos de Compra-Venta vinculados a pólizas de vida e invalidez para que la salida de un socio no agote reservas."
+      }
+    ]
+  },
+  "autonomy": {
+    "title": "100% Independiente. Diseñado Exclusivamente para Usted.",
+    "body": "Cada plan financiero, estrategia fiscal y cartera de seguros que creamos está diseñado a la medida de sus objetivos únicos. Como agencia y correduría independiente, no trabajamos para las compañías de seguros — trabajamos directamente para usted. No rendimos cuentas a ninguna aseguradora y rastreamos todo el mercado libre para asegurar tarifas alineadas con sus objetivos de ahorro fiscal.",
+    "free_title": "Su Primera Consulta y Asesoría de Seguros: Siempre Gratis",
+    "free_body": "Su consulta inicial de estrategia y toda la asesoría profesional de seguros de nuestra correduría independiente son siempre completamente gratuitas — sin ningún tipo de obligación."
+  },
+  "crossover": {
+    "title": "La Ventaja Cross-Over",
+    "subtitle": "No vemos sus inversiones ni sus impuestos en el vacío. Alineamos las pólizas de seguro para proteger su estructura fiscal.",
+    "items": [
+      {
+        "title": "Supervisión Financiera Holística",
+        "description": "Contabilidad, planificación fiscal y seguros independientes diseñados como un solo sistema."
+      },
+      {
+        "title": "Transferencia de Riqueza Libre de Impuestos",
+        "description": "Seguros de vida estructurados para transferir patrimonio generacional libre de impuesto federal sobre la renta."
+      },
+      {
+        "title": "Eliminación de Puntos Ciegos",
+        "description": "Protegiendo a los clientes de perder activos por crisis de salud, demandas o pasivos imprevistos."
+      }
+    ]
+  },
+  "about_us": {
+    "title": "Por Qué SumerPlus",
+    "subtitle": "Sabiduría ancestral. Soluciones modernas. Su futuro en América.",
+    "p1": "El antiguo Sumer dio al mundo sus primeras leyes, contratos escritos y sistemas de contabilidad — la cuna del negocio organizado. Tomamos esa precisión fundacional y la elevamos con estrategias empresariales modernas de EE. UU. y estructuras de seguros.",
+    "p2": "SumerPlus representa seguridad atemporal y crecimiento moderno. Nuestro logo no es solo un sello dorado: símbolos cuneiformes auténticos en el fondo de piedra codifican Protección, Prosperidad Futura y Cumplimiento.",
+    "p3": "Con más de una década de experiencia en finanzas estadounidenses y una licencia independiente Florida 2-15 (Vida y Salud), colaboramos con CPAs licenciados para que cada decisión de seguro se vea a través de su declaración de impuestos.",
+    "p4": "En nuestra firma, la precisión se une al servicio personalizado. Creemos que la contabilidad y la protección deben sentirse claras y empoderadoras — no abrumadoras.",
+    "p5": "Nos tomamos el tiempo para comprender su situación única y brindar trabajo preciso, orientación honesta y estrategias plenamente conformes a sus objetivos."
+  },
+  "value_advantage": {
+    "title": "La Perspectiva Fiscal",
+    "compliance": "Planificación proactiva que ahorra legalmente miles cada año",
+    "audit": "Representación ante el IRS y resolución tributaria cuando la necesita",
+    "cfo": "Correduría 2-15 independiente — comparamos todo el mercado por usted",
+    "tools": "Vehículos de seguro con ventajas fiscales alineados a su entidad"
+  },
+  "services_section": {
+    "title": "Servicios Empresariales y Fiscales",
+    "subtitle": "Desde declaraciones personales hasta contabilidad completa — bases para el crecimiento.",
+    "learn_more": "Explorar servicios"
+  },
+  "cta_section": {
+    "title": "¿Listo para una defensa integrada de sus impuestos, beneficios y patrimonio?",
+    "button": "Programar una consulta gratuita"
+  },
+  "footer": {
+    "legal_name": "SumerPlus Business Services and Insurance Agency, Inc.",
+    "tagline": "Sabiduría ancestral. Soluciones modernas. Su futuro en América.",
+    "quick_links": "Enlaces Rápidos",
+    "client_portals": "Portales de Cliente",
+    "contact": "Contacto",
+    "home": "Inicio",
+    "services": "Servicios",
+    "insurance": "Seguros",
+    "about": "Nosotros",
+    "faq": "Preguntas frecuentes",
+    "calculator": "Calculadora de Precios",
+    "leakage": "Calculadora de Fugas",
+    "book": "Reservar",
+    "instagram": "Instagram",
+    "rights": "Todos los derechos reservados."
+  },
+  "services_page": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Impuestos, contabilidad y operaciones — diseñados para cumplimiento y ahorro.",
+    "definition": "SumerPlus ofrece preparación de impuestos personales y empresariales, contabilidad, nómina, formación de entidades y planificación fiscal durante todo el año para personas y empresas en Estados Unidos.",
+    "book_cta": "Reservar Consulta",
+    "insurance_cta": "Explorar Soluciones de Seguros",
+    "items": [
+      {
+        "id": "personal-tax",
+        "title": "Declaración de Impuestos Personales",
+        "subtitle": "Preparación precisa que maximiza su reembolso legalmente.",
+        "description": "Cada declaración se prepara con documentación rigurosa e interpretación de buena fe de la ley tributaria — desde W-2 simples hasta inversiones y autoempleo complejos.",
+        "features": [
+          "W-2 hasta inversiones y autoempleo complejos",
+          "Revisión de todas las deducciones y créditos",
+          "Actualizado con las últimas regulaciones",
+          "Soporte ante avisos del IRS o estatales"
+        ]
+      },
+      {
+        "id": "business-tax",
+        "title": "Declaración de Impuestos Empresariales",
+        "subtitle": "Presentación detallada para corporaciones, sociedades y autónomos.",
+        "description": "Preparamos los Formularios 1120, 1120-S, 1065 y Schedule C — y analizamos estados para identificar oportunidades de ahorro.",
+        "features": [
+          "Formularios 1120, 1120-S, 1065, Schedule C",
+          "Análisis de estados financieros",
+          "Clasificación correcta de gastos",
+          "Orientación sobre elección de entidad"
+        ]
+      },
+      {
+        "id": "bookkeeping",
+        "title": "Contabilidad y Teneduría de Libros",
+        "subtitle": "Libros y reportes profesionales a un costo mensual predecible.",
+        "description": "Libros precisos son la base de cualquier negocio exitoso — categorización, conciliación y estados oportunos.",
+        "features": [
+          "Categorización precisa de transacciones",
+          "Conciliación bancaria mensual",
+          "Estados financieros oportunos",
+          "Revisiones trimestrales"
+        ]
+      },
+      {
+        "id": "reinstatement",
+        "title": "Restablecimiento de Libros y Registros",
+        "subtitle": "Recupere claridad en financieros descuidados u obsoletos.",
+        "description": "Limpiamos y restablecemos libros para temporada fiscal, prestamistas o auditoría.",
+        "features": [
+          "Reconstrucción histórica",
+          "Corrección de errores",
+          "Conciliación completa",
+          "Preparación para reportes"
+        ]
+      },
+      {
+        "id": "estimated-tax",
+        "title": "Impuestos Estimados",
+        "subtitle": "Anticípese a las obligaciones trimestrales.",
+        "description": "Montos trimestrales precisos y calendarios para que los autónomos eviten sanciones.",
+        "features": [
+          "Cálculo trimestral según ingresos",
+          "Asesoría de flujo de caja",
+          "Seguimiento de plazos",
+          "Programación de pagos"
+        ]
+      },
+      {
+        "id": "tax-planning",
+        "title": "Optimización y Planificación Fiscal",
+        "subtitle": "Estrategias proactivas para minimizar legalmente la carga.",
+        "description": "Planificación durante todo el año — no arreglos de último minuto — para deducciones, créditos y alineación de entidad.",
+        "features": [
+          "Planificación anual continua",
+          "Alineación de entidad",
+          "Estrategia de retiro y beneficios",
+          "Créditos y deducciones"
+        ]
+      },
+      {
+        "id": "payroll",
+        "title": "Configuración y Mantenimiento de Nómina",
+        "subtitle": "Nómina precisa, conforme y sin estrés.",
+        "description": "Desde la configuración hasta el mantenimiento — horarios, presentaciones y reportes manejados correctamente.",
+        "features": [
+          "Configuración de software e incorporación",
+          "Horarios de pago y depósito directo",
+          "Cumplimiento W-2 y trimestral",
+          "Seguimiento de PTO"
+        ]
+      },
+      {
+        "id": "1099",
+        "title": "Preparación y Presentación de 1099",
+        "subtitle": "Cumplimiento de contratistas simplificado.",
+        "description": "Preparación, e-filing al IRS y copias para receptores — evite sanciones con un proceso limpio.",
+        "features": [
+          "Validación de datos de contratistas",
+          "1099-NEC y formularios relacionados",
+          "E-filing al IRS",
+          "Copias para receptores"
+        ]
+      },
+      {
+        "id": "sales-tax",
+        "title": "Impuesto sobre las Ventas",
+        "subtitle": "Cumplimiento multiestatal de impuestos sobre ventas.",
+        "description": "Cobrar, rastrear y remitir correctamente a través de canales y jurisdicciones.",
+        "features": [
+          "Evaluación de nexo",
+          "Integración de plataformas",
+          "Presentación y remisión",
+          "Preparación para auditoría"
+        ]
+      },
+      {
+        "id": "formation",
+        "title": "Formación de Nueva Entidad Empresarial",
+        "subtitle": "Comience sobre la base correcta.",
+        "description": "Elija la estructura adecuada, presente documentos y configure correctamente desde el día uno.",
+        "features": [
+          "Selección de entidad (LLC, S-Corp, etc.)",
+          "EIN y registros estatales",
+          "Elecciones ante el IRS",
+          "Configuración inicial de libros"
+        ]
+      }
+    ]
+  },
+  "insurance_page": {
+    "title": "Seguros y Protección",
+    "subtitle": "Correduría 2-15 independiente — beneficios grupales, vida, continuidad y estrategias de riqueza alineadas a impuestos.",
+    "definition": "SumerPlus es una correduría independiente Florida 2-15 (Vida y Salud) que diseña beneficios grupales, vida, invalidez y estrategias de riqueza alineadas a impuestos sin cuotas de aseguradora.",
+    "intro": "Como agencia independiente, evaluamos todo el mercado para diseñar carteras que sirvan sus intereses fiscales y financieros — no la cuota de una sola aseguradora.",
+    "book_cta": "Reservar Consulta de Seguros Gratuita",
+    "sections": [
+      {
+        "id": "group-benefits",
+        "title": "Beneficios Grupales para Empleados",
+        "subtitle": "Diseño con licencia 2-15 para equipos pequeños",
+        "description": "Planes grupales de salud, dental, visión e invalidez patrocinados por el empleador que retienen talento y califican como gastos deducibles.",
+        "features": [
+          "Salud, dental, visión e invalidez grupal",
+          "Contribuciones del empleador deducibles",
+          "Estructuras de prima pre-impuestos",
+          "Comparaciones entre aseguradoras"
+        ]
+      },
+      {
+        "id": "executive",
+        "title": "Bono Ejecutivo y Compensación Diferida",
+        "subtitle": "Reclute y retenga talento clave",
+        "description": "Estrategias de seguro de vida especializadas como planes Sección 162 financiados con dólares corporativos con ventajas fiscales.",
+        "features": [
+          "Planes de bono ejecutivo Sección 162",
+          "Seguro de vida para persona clave",
+          "Diseño orientado a retención",
+          "Protección del flujo de caja"
+        ]
+      },
+      {
+        "id": "buy-sell",
+        "title": "Financiamiento de Acuerdos Compra-Venta",
+        "subtitle": "Continuidad cuando un propietario sale",
+        "description": "Seguros de vida e invalidez que financian la transferencia de capital para que los socios sobrevivientes mantengan el control sin agotar reservas.",
+        "features": [
+          "Financiamiento con vida e invalidez",
+          "Protección de capital de socios",
+          "Estructuras legales alineadas con CPA",
+          "Liquidez en el momento necesario"
+        ]
+      },
+      {
+        "id": "key-person",
+        "title": "Seguro de Persona Clave",
+        "subtitle": "Proteja ingresos ante pérdidas críticas",
+        "description": "Pólizas sobre empleados cuya pérdida impactaría financieramente el negocio — liquidez inmediata para brechas y reemplazo.",
+        "features": [
+          "Cobertura de empleados críticos",
+          "Escudo de ingresos y flujo de caja",
+          "Capital puente para contratación",
+          "Alineado con planificación fiscal corporativa"
+        ]
+      },
+      {
+        "id": "personal-wealth",
+        "title": "Estrategias Individuales de Riqueza e Impuestos",
+        "subtitle": "Vida, anualidades y protección familiar",
+        "description": "Optimización de impuestos personales junto con vehículos de retiro con ventajas fiscales y protección de activos familiares.",
+        "features": [
+          "Término, Vida Entera, Vida Universal",
+          "Anualidades fijas e indexadas (2-15)",
+          "Beneficios en vida / enfermedad crónica",
+          "Salvaguarda de riqueza generacional"
+        ]
+      },
+      {
+        "id": "irs",
+        "title": "Representación y Resolución ante el IRS",
+        "subtitle": "Protección profesional bajo presión",
+        "description": "Soporte en auditorías, negociación de impuestos atrasados y Ofrecimientos de Compromiso — con seguros y estructura de entidad a la vista.",
+        "features": [
+          "Soporte en auditorías estatales y federales",
+          "Negociación de Offers in Compromise",
+          "Resolución de impuestos atrasados",
+          "Integrado con su plan de protección"
+        ]
+      }
+    ],
+    "proof_title": "Cómo Trabajan Juntos Impuestos y Seguros",
+    "proof_items": [
+      {
+        "title": "Beneficios de salud y ejecutivos S-Corp",
+        "description": "Planes médicos calificados y beneficios del propietario pueden estructurarse como deducciones comerciales legítimas — reduciendo la utilidad corporativa ante el IRS, cuando se hace correctamente."
+      },
+      {
+        "title": "Protección de sociedades",
+        "description": "Sin acuerdos Compra-Venta financiados, la participación de un socio puede pasar a herederos que congelen cuentas o exijan una compra en efectivo. Financiamos la estructura legal con cobertura independiente."
+      },
+      {
+        "title": "Retención de talento sin aumentos infinitos",
+        "description": "Los beneficios grupales reducen la rotación; las estructuras pre-impuestos pueden reducir el matching FICA mientras las contribuciones de la empresa reducen la utilidad gravable."
+      }
+    ]
+  },
+  "about_page": {
+    "title": "Sobre SumerPlus",
+    "subtitle": "Por qué nos llamamos SumerPlus",
+    "definition": "SumerPlus Business Services and Insurance Agency, Inc. es una práctica integrada de impuestos, contabilidad y seguros independientes en EE. UU., nombrada por la precisión del antiguo Sumer más las herramientas financieras modernas americanas.",
+    "name_title": "¿Por qué el nombre SumerPlus?",
+    "name_body": "El antiguo Sumer dio al mundo sus primeras leyes, contratos escritos y marcos contables. Tomamos esa precisión fundacional y añadimos herramientas modernas estadounidenses — el Plus. SumerPlus es confiabilidad milenaria adaptada al mercado de EE. UU.",
+    "logo_title": "¿Qué hay oculto en el logo?",
+    "logo_body": "Nuestra identidad une fundamentos estructurales atemporales con protección moderna. El sello presenta logogramas cuneiformes auténticos que representan Protección, Prosperidad Futura y Orientación Regulatoria — nuestro compromiso de salvaguardar su trayectoria empresarial en Estados Unidos.",
+    "tagline": "Sabiduría ancestral. Soluciones modernas. Su futuro en América."
+  },
+  "faq_page": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Respuestas claras sobre los servicios de impuestos, contabilidad y seguros de SumerPlus.",
+    "items": [
+      {
+        "q": "¿Qué es SumerPlus?",
+        "a": "SumerPlus Business Services and Insurance Agency, Inc. es una práctica integrada que combina planificación fiscal, contabilidad y correduría independiente Florida 2-15 para que los clientes no deban coordinar asesores desconectados."
+      },
+      {
+        "q": "¿Qué servicios ofrece SumerPlus?",
+        "a": "Ofrecemos declaraciones de impuestos personales y empresariales, contabilidad, nómina, formación de entidades, impuestos estimados, planificación fiscal, beneficios grupales, estrategias de vida e invalidez, financiamiento de buy-sell y apoyo en representación ante el IRS."
+      },
+      {
+        "q": "¿La primera consulta es gratuita?",
+        "a": "Sí. Su consulta estratégica inicial y el asesoramiento profesional de seguros de nuestra correduría independiente son gratuitos y sin obligación."
+      },
+      {
+        "q": "¿Manejan impuestos personales y empresariales?",
+        "a": "Sí. Preparamos declaraciones personales (desde W-2 hasta inversiones y autoempleo) y presentaciones empresariales, incluidos los Formularios 1120, 1120-S, 1065 y Schedule C."
+      },
+      {
+        "q": "¿Con qué coberturas de seguro pueden ayudar?",
+        "a": "Como correduría independiente Florida 2-15 (Vida y Salud), diseñamos salud grupal y beneficios relacionados, planes de bono ejecutivo, financiamiento key-person y buy-sell, vida individual y estrategias de riqueza alineadas a impuestos evaluando el mercado abierto."
+      },
+      {
+        "q": "¿Qué idiomas admiten?",
+        "a": "Nuestro sitio web y la comunicación con clientes están disponibles en inglés, español y ruso."
+      },
+      {
+        "q": "¿Cómo puedo contactar a SumerPlus o seguirlos en línea?",
+        "a": "Escriba a support@sumerplus.com, use el formulario de contacto en sumerplus.com o síganos en Instagram en @sumer.plus."
+      }
+    ]
+  },
+  "leakage_page": {
+    "title": "Calculadora de Fugas Fiscales",
+    "subtitle": "Vea cómo la planificación fragmentada de impuestos y seguros puede drenar capital — luego modele un enfoque integrado.",
+    "inputs_title": "Ingrese sus Métricas",
+    "revenue_label": "Ingresos Anuales Brutos de la Empresa (o Ingresos del Hogar)",
+    "tax_label": "Impuesto Anual Actual Pagado",
+    "premiums_label": "Primas Totales de Seguros Anuales (Salud, Vida, Invalidez)",
+    "unintegrated_title": "Riesgo de Fuga Estructural Oculta",
+    "unintegrated_sub": "El efectivo anual estimado que pierde su empresa debido a la falta de coordinación entre estructuras corporativas, deducciones de seguros y transferencia de riqueza no optimizada.",
+    "integrated_title": "Potencial de Ahorro Anual Recuperado",
+    "integrated_sub": "Capital retenido y redirigido al desarrollo de su negocio o a reservas generacionales con ventajas fiscales.",
+    "cta": "Solicitar una Auditoría de Fugas Gratuita y Verificada",
+    "disclaimer": "Estimación ilustrativa únicamente. No constituye asesoría fiscal, legal ni de seguros. Los resultados reales requieren revisión profesional de sus archivos.",
+    "link_pricing": "¿Prefiere una estimación de precios de servicios?"
+  },
+  "contact_page": {
+    "title": "Contáctenos",
+    "subtitle": "¿Tiene preguntas? Estamos aquí para ayudar.",
+    "email": "Correo electrónico",
+    "instagram": "Instagram",
+    "form_name": "Nombre",
+    "form_email": "Correo electrónico",
+    "form_message": "Mensaje",
+    "form_submit": "Enviar Mensaje",
+    "success_message": "¡Gracias por su mensaje! Nos pondremos en contacto con usted pronto."
+  },
+  "book_page": {
+    "title": "Reservar una Consulta",
+    "subtitle": "Seleccione un horario que le convenga. Su primera consulta estratégica es gratuita."
+  },
+  "calculator_page": {
+    "title": "Calculadora de Precios",
+    "subtitle": "Estime precios de servicios de impuestos, contabilidad y consultoría.",
+    "leakage_link": "También pruebe la Calculadora de Fugas Fiscales"
+  }
 }

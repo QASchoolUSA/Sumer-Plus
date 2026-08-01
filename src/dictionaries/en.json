@@ -1,95 +1,446 @@
 {
-    "navigation": {
-        "home": "Home",
-        "services": "Services",
-        "contact": "Contact",
-        "calculator": "Calculator",
-        "book": "Book Now",
-        "personal_tax": "Personal Tax Questionnaire",
-        "corporate_tax": "Corporate Tax Questionnaire"
-    },
-    "hero": {
-        "title_prefix": "Sumer Plus",
-        "title_highlight": "",
-        "subtitle": "Welcome to Sumer Plus, a place where numbers meet clarity and where the job is done with care, precision, and full transparency. We take care of the numbers so you can focus on what matters most: your family and your business.",
-        "cta_primary": "Get a Price Estimate",
-        "cta_secondary": ""
-    },
-    "about_us": {
-        "title": "About Us",
-        "subtitle": "Who We Are",
-        "p1": "Sumer Plus brings over a decade of experience in finance and accounting, supported by deep analytical expertise.",
-        "p2": "Our foundation is built on rigorous financial analysis and specialized experience in complex industries like trucking and small business finance. This allows us to offer a deeper, more comprehensive understanding of each client's financial situation.",
-        "p3": "We maintain the highest standards of professional development, staying up to date with all changes in tax legislation. Every recommendation we provide is based on lawful and ethical tax-saving strategies.",
-        "p4": "At our firm precision meets personalized service. We believe that accounting should feel clear, supportive, and empowering - not overwhelming.",
-        "p5": "We take the time to understand your unique situation so we can provide accurate work, honest guidance, and tax strategies that are fully compliant and tailored to your goals."
-    },
-    "value_advantage": {
-        "title": "Value and Advantage",
-        "compliance": "GAAP and IRS standards compliance",
-        "audit": "Readiness for audit",
-        "cfo": "Certified CFO on outsource",
-        "tools": "Templates and Excel Tools verified by CPAs and lawyers"
-    },
-    "services_section": {
-        "title": "Our Services",
-        "subtitle": "Comprehensive financial solutions for every stage of life and business.",
-        "personal_title": "Personal Taxes",
-        "personal_desc": "Maximize your refund with our expert personal tax preparation services. We handle complex situations with ease.",
-        "business_title": "Business Taxes",
-        "business_desc": "Strategic tax planning and filing for small businesses and corporations. Stay compliant and optimize your liability.",
-        "consultation_title": "Consultation",
-        "consultation_desc": "One-on-one sessions to discuss your financial goals, tax strategies, and business planning.",
-        "learn_more": "Learn more"
-    },
-    "cta_section": {
-        "title": "Ready to take your business to the next level of financial control and compliance with US standards?",
-        "button": "Schedule a call"
-    },
-    "footer": {
-        "tagline": "Professional Tax & Business Services",
-        "quick_links": "Quick Links",
-        "contact": "Contact",
-        "rights": "All rights reserved."
-    },
-    "services_page": {
-        "title": "Our Services",
-        "subtitle": "Tailored financial solutions for individuals and businesses.",
-        "personal_title": "Personal Tax Services",
-        "personal_desc": "Navigating personal taxes can be complex. We ensure you get the maximum refund possible while staying fully compliant.",
-        "personal_list": [
-            "Individual Tax Return Preparation (1040)",
-            "State & Local Tax Filing",
-            "Tax Planning & Advisory",
-            "IRS Audit Representation",
-            "Estate & Trust Tax Services"
-        ],
-        "personal_cta": "Book Personal Consultation",
-        "business_title": "Business Tax Services",
-        "business_desc": "From startups to established corporations, we provide strategic tax planning to help your business grow.",
-        "business_list": [
-            "Corporate Tax Filings (1120, 1120S)",
-            "Partnership Tax Filings (1065)",
-            "Bookkeeping & Payroll Services",
-            "New Business Formation",
-            "Quarterly Estimated Tax Planning"
-        ],
-        "business_cta": "Book Business Consultation"
-    },
-    "contact_page": {
-        "title": "Contact Us",
-        "subtitle": "Have questions? We're here to help.",
-        "email": "Email",
-        "phone": "Phone",
-        "office": "Office",
-        "form_name": "Name",
-        "form_email": "Email",
-        "form_message": "Message",
-        "form_submit": "Send Message",
-        "success_message": "Thank you for your message! We will get back to you soon."
-    },
-    "book_page": {
-        "title": "Book a Consultation",
-        "subtitle": "Select a time that works for you. We look forward to speaking with you."
-    }
+  "seo": {
+    "site_title": "SumerPlus | Business Services & Insurance Agency",
+    "site_description": "Integrated tax planning, accounting, and independent Florida 2-15 insurance strategies. Ancient wisdom. Modern solutions. Your future in America.",
+    "home_title": "SumerPlus | Integrated Tax, Accounting & Insurance",
+    "home_description": "Stop paying for fragmented financial advice. SumerPlus unifies corporate taxation, bookkeeping, and independent risk underwriting into one defense shield.",
+    "personal_tax_title": "Personal Tax Questionnaire | SumerPlus",
+    "personal_tax_description": "Start your personal tax intake with SumerPlus — accurate preparation for W-2 through complex investments and self-employment.",
+    "corporate_tax_title": "Corporate Tax Questionnaire | SumerPlus",
+    "corporate_tax_description": "Business tax intake for corporations, partnerships, and self-employed clients — Forms 1120, 1120-S, 1065, and Schedule C."
+  },
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "insurance": "Insurance",
+    "about": "About",
+    "tools": "Tools",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "calculator": "Pricing Calculator",
+    "leakage": "Fiscal Leakage Calculator",
+    "book": "Book Now",
+    "personal_tax": "Personal Tax Questionnaire",
+    "corporate_tax": "Corporate Tax Questionnaire"
+  },
+  "hero": {
+    "brand": "SUMERPLUS",
+    "descriptor": "Business Consulting & Insurance Agency",
+    "headline": "Stop Paying for Fragmented Financial Advice.",
+    "subtitle": "We collapse corporate taxation, automated ledger accounting, and independent risk underwriting into a singular, integrated defense shield.",
+    "metric": "Average proactive plan yield: thousands saved in hidden leakages annually.",
+    "free_note": "Your architecture review and all multi-line strategic insurance consultations are permanently free.",
+    "cta_primary": "Book a Free Consultation",
+    "cta_secondary": "Run a Leakage Audit",
+    "cta_tertiary": "Get a Price Estimate"
+  },
+  "pillars": {
+    "title": "What Our Identity Stands For",
+    "items": [
+      {
+        "title": "Protection",
+        "description": "Safeguarding what matters most — reliable insurance for your assets in the United States."
+      },
+      {
+        "title": "Future Prosperity",
+        "description": "Strategic guidance for sustainable growth of your business and wealth."
+      },
+      {
+        "title": "Compliance",
+        "description": "Navigating U.S. laws with confidence — clear guidance on registration and regulation."
+      }
+    ]
+  },
+  "engines": {
+    "title": "Four Capability Engines",
+    "subtitle": "One integrated practice — tax, capital protection, talent retention, and continuity.",
+    "items": [
+      {
+        "title": "Structural Tax Minimization",
+        "description": "Entity engineering (LLC / S-Corp / C-Corp) to legally compress self-employment tax liabilities."
+      },
+      {
+        "title": "Private Capital Protection",
+        "description": "Whole and Universal Life architecture to move liquidity and generational equity past the federal income tax grid."
+      },
+      {
+        "title": "Capitalized Retention Frameworks",
+        "description": "Group Health, dental, and Section 162 executive bonus programs that cut attrition while writing off 100% of cost."
+      },
+      {
+        "title": "Enterprise Continuity Funding",
+        "description": "Buy-Sell agreements hard-linked to independent life and disability policies so partner exits do not drain reserves."
+      }
+    ]
+  },
+  "autonomy": {
+    "title": "100% Independent. Designed Exclusively for You.",
+    "body": "Every financial plan, tax strategy, and insurance portfolio we build is custom-designed around your unique goals. As an independent agency and brokerage, we do not work for the insurance companies — we work directly for you. We hold no brand allegiances and scan the open market to secure pricing that aligns with your tax-saving structure.",
+    "free_title": "Your First Consultation & Insurance Advice: Always Free",
+    "free_body": "Your initial strategy consultation and all professional insurance advice from our independent brokerage are completely free of charge — with zero obligation."
+  },
+  "crossover": {
+    "title": "The Cross-Over Advantage",
+    "subtitle": "We don't look at your investments or taxes in a vacuum. We align insurance policies to protect your tax structure.",
+    "items": [
+      {
+        "title": "Holistic Financial Oversight",
+        "description": "Accounting, tax planning, and independent insurance designed as one system."
+      },
+      {
+        "title": "Tax-Free Wealth Transfer",
+        "description": "Life insurance structured to transfer generational wealth free of federal income tax."
+      },
+      {
+        "title": "Eliminating Blind Spots",
+        "description": "Protecting clients from losing assets to health crises, lawsuits, or unplanned liabilities."
+      }
+    ]
+  },
+  "about_us": {
+    "title": "Why SumerPlus",
+    "subtitle": "Ancient wisdom. Modern solutions. Your future in America.",
+    "p1": "Ancient Sumer gave the world its very first laws, written contracts, and accounting frameworks — the cradle of organized business. We took that foundational precision and elevated it with modern U.S. business strategies and insurance structures.",
+    "p2": "SumerPlus stands for timeless security and modern growth. Our logo is not merely a gold seal: genuine ancient cuneiform symbols on the stone background encode Protection, Future Prosperity, and Compliance — our commitment to safeguarding your journey in the United States.",
+    "p3": "With over a decade of experience in American finance and an independent Florida 2-15 (Life & Health) license, we partner with licensed CPAs so every insurance decision is viewed through your tax return.",
+    "p4": "At our firm, precision meets personalized service. We believe accounting and protection should feel clear, supportive, and empowering — not overwhelming.",
+    "p5": "We take the time to understand your unique situation so we can provide accurate work, honest guidance, and strategies that are fully compliant and tailored to your goals."
+  },
+  "value_advantage": {
+    "title": "The Tax Perspective",
+    "compliance": "Proactive planning that legally saves thousands every year",
+    "audit": "IRS representation and tax resolution when you need it",
+    "cfo": "Independent 2-15 brokerage — we shop the full market for you",
+    "tools": "Tax-advantaged insurance vehicles aligned to your entity structure"
+  },
+  "services_section": {
+    "title": "Business & Tax Services",
+    "subtitle": "From personal returns to full-charge bookkeeping — foundations for growth.",
+    "learn_more": "Explore services"
+  },
+  "cta_section": {
+    "title": "Ready for an integrated defense of your taxes, benefits, and wealth?",
+    "button": "Schedule a free consultation"
+  },
+  "footer": {
+    "legal_name": "SumerPlus Business Services and Insurance Agency, Inc.",
+    "tagline": "Ancient wisdom. Modern solutions. Your future in America.",
+    "quick_links": "Quick Links",
+    "client_portals": "Client Portals",
+    "contact": "Contact",
+    "home": "Home",
+    "services": "Services",
+    "insurance": "Insurance",
+    "about": "About",
+    "faq": "FAQ",
+    "calculator": "Pricing Calculator",
+    "leakage": "Leakage Calculator",
+    "book": "Book",
+    "instagram": "Instagram",
+    "rights": "All rights reserved."
+  },
+  "services_page": {
+    "title": "Our Services",
+    "subtitle": "Tax, accounting, and business operations — engineered for compliance and savings.",
+    "definition": "SumerPlus provides personal and business tax preparation, bookkeeping, payroll, entity formation, and year-round tax planning for individuals and companies in the United States.",
+    "book_cta": "Book Consultation",
+    "insurance_cta": "Explore Insurance Solutions",
+    "items": [
+      {
+        "id": "personal-tax",
+        "title": "Personal Tax Return",
+        "subtitle": "Accurate personal tax preparation that maximizes your refund legally.",
+        "description": "Every return is prepared with thorough documentation and good-faith interpretation of tax law — from simple W-2 to complex investments and self-employment.",
+        "features": [
+          "W-2 through complex investments and self-employment",
+          "Review for all deductions and credits",
+          "Current with latest regulations",
+          "Support with IRS or state notices"
+        ]
+      },
+      {
+        "id": "business-tax",
+        "title": "Business Tax Return",
+        "subtitle": "Detail-driven filing for corporations, partnerships, and the self-employed.",
+        "description": "We prepare Forms 1120, 1120-S, 1065, and Schedule C — and analyze statements to identify tax-saving opportunities and proper expense classification.",
+        "features": [
+          "Forms 1120, 1120-S, 1065, Schedule C",
+          "Financial statement analysis for savings",
+          "Proper expense classification",
+          "Entity tax selection guidance"
+        ]
+      },
+      {
+        "id": "bookkeeping",
+        "title": "Accounting & Bookkeeping",
+        "subtitle": "Professional books and reporting at a predictable monthly cost.",
+        "description": "Accurate books are the foundation of any successful business — categorization, reconciliation, and timely statements.",
+        "features": [
+          "Accurate transaction categorization",
+          "Monthly bank reconciliation",
+          "Timely financial statements",
+          "Quarterly reviews"
+        ]
+      },
+      {
+        "id": "reinstatement",
+        "title": "Books & Records Reinstatement",
+        "subtitle": "Restore clarity in neglected or outdated financials.",
+        "description": "We clean up and reinstate books for tax season, lenders, or audit readiness.",
+        "features": [
+          "Historical reconstruction",
+          "Error correction",
+          "Full account reconciliation",
+          "Reporting readiness"
+        ]
+      },
+      {
+        "id": "estimated-tax",
+        "title": "Estimated Tax",
+        "subtitle": "Stay ahead of quarterly obligations.",
+        "description": "Accurate quarterly amounts and schedules so self-employed taxpayers avoid penalties.",
+        "features": [
+          "Quarterly calculation from income trends",
+          "Cash-flow planning advice",
+          "Deadline tracking",
+          "Remittance scheduling"
+        ]
+      },
+      {
+        "id": "tax-planning",
+        "title": "Tax Optimization & Planning",
+        "subtitle": "Proactive strategies to legally minimize liability.",
+        "description": "Year-round planning — not last-minute fixes — for deductions, credits, and entity alignment.",
+        "features": [
+          "Year-round planning",
+          "Entity alignment",
+          "Retirement & benefits strategy",
+          "Credits & deductions"
+        ]
+      },
+      {
+        "id": "payroll",
+        "title": "Payroll Setup & Maintenance",
+        "subtitle": "Accurate, compliant, stress-free payroll.",
+        "description": "From setup to ongoing maintenance — pay schedules, filings, and reporting handled correctly.",
+        "features": [
+          "Software setup and onboarding",
+          "Pay schedules and direct deposit",
+          "W-2 and quarterly compliance",
+          "PTO tracking"
+        ]
+      },
+      {
+        "id": "1099",
+        "title": "1099 Preparation & Filing",
+        "subtitle": "Contractor compliance made simple.",
+        "description": "Preparation, IRS e-filing, and recipient copies — avoid penalties with a clean process.",
+        "features": [
+          "Contractor data validation",
+          "1099-NEC and related forms",
+          "IRS e-filing",
+          "Recipient copies"
+        ]
+      },
+      {
+        "id": "sales-tax",
+        "title": "Sales Tax",
+        "subtitle": "Multi-state sales tax compliance.",
+        "description": "Charging, tracking, and remitting correctly across channels and jurisdictions.",
+        "features": [
+          "Nexus assessment",
+          "Platform integration",
+          "Filing & remittance",
+          "Audit readiness"
+        ]
+      },
+      {
+        "id": "formation",
+        "title": "New Business Entity Formation",
+        "subtitle": "Start on the right foundation.",
+        "description": "Choose the right structure, file documents, and set up properly from day one.",
+        "features": [
+          "Entity selection (LLC, S-Corp, etc.)",
+          "EIN & state registrations",
+          "IRS elections",
+          "Initial books setup"
+        ]
+      }
+    ]
+  },
+  "insurance_page": {
+    "title": "Insurance & Protection",
+    "subtitle": "Independent 2-15 brokerage — group benefits, life, continuity, and tax-aligned wealth strategies.",
+    "definition": "SumerPlus is an independent Florida 2-15 (Life & Health) brokerage that designs group benefits, life, disability, and tax-aligned wealth strategies without carrier quotas.",
+    "intro": "As an independent agency, we shop the entire market to design portfolios that serve your tax and financial interests — not a single carrier's quota.",
+    "book_cta": "Book a Free Insurance Consultation",
+    "sections": [
+      {
+        "id": "group-benefits",
+        "title": "Group Employee Benefits",
+        "subtitle": "2-15 licensed design for small teams",
+        "description": "Custom employer-sponsored group health, dental, vision, and disability plans that retain talent while qualifying as tax-deductible business expenses.",
+        "features": [
+          "Group health, dental, vision, disability",
+          "Tax-deductible employer contributions",
+          "Pre-tax employee premium structures",
+          "Side-by-side carrier comparisons"
+        ]
+      },
+      {
+        "id": "executive",
+        "title": "Executive Bonus & Deferred Compensation",
+        "subtitle": "Recruit and retain key talent",
+        "description": "Specialized life insurance strategies such as Section 162 plans funded with tax-advantaged corporate dollars.",
+        "features": [
+          "Section 162 executive bonus plans",
+          "Key-person life insurance",
+          "Retention-focused design",
+          "Cash-flow protection for the company"
+        ]
+      },
+      {
+        "id": "buy-sell",
+        "title": "Buy-Sell Agreement Funding",
+        "subtitle": "Business continuity when an owner exits",
+        "description": "Life and disability insurance that funds seamless equity transfer so surviving owners keep control without draining reserves.",
+        "features": [
+          "Life & disability funding",
+          "Partner equity protection",
+          "CPA-aligned legal structures",
+          "Liquidity at the moment of need"
+        ]
+      },
+      {
+        "id": "key-person",
+        "title": "Key-Person Insurance",
+        "subtitle": "Protect revenue from critical loss",
+        "description": "Policies on employees whose loss would financially impact the business — instant liquidity for gaps and replacement.",
+        "features": [
+          "Critical employee coverage",
+          "Revenue & cash-flow shield",
+          "Hiring bridge capital",
+          "Aligned with corporate tax planning"
+        ]
+      },
+      {
+        "id": "personal-wealth",
+        "title": "Individual Wealth & Tax Strategies",
+        "subtitle": "Life, annuities, and family protection",
+        "description": "Personal income tax optimization paired with tax-advantaged retirement vehicles and family asset protection.",
+        "features": [
+          "Term, Whole Life, Universal Life",
+          "Fixed & indexed annuities (2-15)",
+          "Living benefits / chronic illness riders",
+          "Generational wealth safeguarding"
+        ]
+      },
+      {
+        "id": "irs",
+        "title": "IRS Representation & Tax Resolution",
+        "subtitle": "Professional protection under pressure",
+        "description": "Audit support, back-tax negotiation, and Offers in Compromise — with insurance and entity structure kept in view.",
+        "features": [
+          "State & federal audit support",
+          "Offer-in-compromise negotiation",
+          "Back-tax resolution",
+          "Integrated with your protection plan"
+        ]
+      }
+    ],
+    "proof_title": "How Tax and Insurance Work Together",
+    "proof_items": [
+      {
+        "title": "S-Corp health & executive benefits",
+        "description": "Qualified medical plans and owner benefits can be structured as legitimate business deductions — reducing corporate profit before IRS, when done correctly."
+      },
+      {
+        "title": "Partnership protection",
+        "description": "Without funded Buy-Sell agreements, a partner's share can pass to heirs who may freeze accounts or force a cash buyout. We fund the legal structure with independent coverage."
+      },
+      {
+        "title": "Talent retention without endless raises",
+        "description": "Group benefits lower turnover; pre-tax structures can reduce FICA matching while company contributions reduce taxable profit."
+      }
+    ]
+  },
+  "about_page": {
+    "title": "About SumerPlus",
+    "subtitle": "Why we are called SumerPlus",
+    "definition": "SumerPlus Business Services and Insurance Agency, Inc. is an integrated U.S. tax, accounting, and independent insurance practice named for the precision of ancient Sumer plus modern American financial tools.",
+    "name_title": "Why the name SumerPlus?",
+    "name_body": "Ancient Sumer gave the world its first laws, written contracts, and accounting frameworks. We took that foundational precision and added modern American tools — the Plus. SumerPlus is reliability proven across millennia, adapted to the U.S. market.",
+    "logo_title": "What is hidden within the logo?",
+    "logo_body": "Our identity bridges timeless structural foundations with modern protection. The seal features genuine ancient cuneiform logograms representing Protection, Future Prosperity, and Regulatory Guidance — our commitment to safeguarding your business journey in the United States.",
+    "tagline": "Ancient wisdom. Modern solutions. Your future in America."
+  },
+  "faq_page": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Clear answers about SumerPlus tax, accounting, and insurance services.",
+    "items": [
+      {
+        "q": "What is SumerPlus?",
+        "a": "SumerPlus Business Services and Insurance Agency, Inc. is an integrated practice that combines tax planning, accounting, and independent Florida 2-15 insurance brokerage so clients are not forced to juggle disconnected advisors."
+      },
+      {
+        "q": "What services does SumerPlus offer?",
+        "a": "We offer personal and business tax returns, bookkeeping, payroll, entity formation, estimated taxes, tax planning, group employee benefits, life and disability strategies, buy-sell funding, and IRS representation support."
+      },
+      {
+        "q": "Is the first consultation free?",
+        "a": "Yes. Your initial strategy consultation and professional insurance advice from our independent brokerage are free of charge and carry no obligation."
+      },
+      {
+        "q": "Do you handle both personal and business taxes?",
+        "a": "Yes. We prepare personal returns (W-2 through investments and self-employment) and business filings including Forms 1120, 1120-S, 1065, and Schedule C."
+      },
+      {
+        "q": "What insurance coverage can you help with?",
+        "a": "As an independent Florida 2-15 (Life & Health) brokerage, we design group health and related benefits, executive bonus plans, key-person and buy-sell funding, individual life, and tax-aligned wealth strategies by shopping the open market."
+      },
+      {
+        "q": "What languages do you support?",
+        "a": "Our website and client communications support English, Spanish, and Russian."
+      },
+      {
+        "q": "How can I contact SumerPlus or follow you online?",
+        "a": "Email support@sumerplus.com, use the contact form on sumerplus.com, or follow us on Instagram at @sumer.plus."
+      }
+    ]
+  },
+  "leakage_page": {
+    "title": "Fiscal Leakage Calculator",
+    "subtitle": "See how fragmented tax and insurance planning may be draining capital — then model an integrated approach.",
+    "inputs_title": "Input Your Metrics",
+    "revenue_label": "Gross Annual Business Revenue (or Household Income)",
+    "tax_label": "Current Annual Tax Paid",
+    "premiums_label": "Total Annual Insurance Premiums (Health, Life, Disability)",
+    "unintegrated_title": "Hidden Structural Leakage Risk",
+    "unintegrated_sub": "Estimated annual cash leaving your business due to mismatching corporate structures with insurance deductions and unoptimized wealth transfer.",
+    "integrated_title": "Captured Annual Savings Potential",
+    "integrated_sub": "Retained capital redirected back into business development or tax-deferred generational reserves.",
+    "cta": "Run a Free Verified Leakage Audit On My Files",
+    "disclaimer": "Illustrative estimate only. Not tax, legal, or insurance advice. Actual results require a professional review of your files.",
+    "link_pricing": "Prefer a service price estimate?"
+  },
+  "contact_page": {
+    "title": "Contact Us",
+    "subtitle": "Have questions? We are here to help.",
+    "email": "Email",
+    "instagram": "Instagram",
+    "form_name": "Name",
+    "form_email": "Email",
+    "form_message": "Message",
+    "form_submit": "Send Message",
+    "success_message": "Thank you for your message! We will get back to you soon."
+  },
+  "book_page": {
+    "title": "Book a Consultation",
+    "subtitle": "Select a time that works for you. Your first strategy consultation is free."
+  },
+  "calculator_page": {
+    "title": "Pricing Calculator",
+    "subtitle": "Estimate service pricing for tax, bookkeeping, and consulting.",
+    "leakage_link": "Also try the Fiscal Leakage Calculator"
+  }
 }
