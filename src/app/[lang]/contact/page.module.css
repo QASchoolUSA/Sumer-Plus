@@ -55,6 +55,12 @@
   color: var(--color-primary);
 }
 
+.infoItem address {
+  font-style: normal;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
 .infoItem p {
   color: var(--color-text-muted);
   line-height: 1.6;

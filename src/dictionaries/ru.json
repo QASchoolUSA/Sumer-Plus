@@ -404,7 +404,7 @@
       },
       {
         "q": "Как связаться с SumerPlus или подписаться в соцсетях?",
-        "a": "Пишите на support@sumerplus.com, используйте форму на sumerplus.com или подписывайтесь в Instagram на @sumer.plus."
+        "a": "Пишите на info@sumerplus.com, звоните 321-353-1287, приходите по адресу 555 Winderley Place, Suite 300, Maitland, FL 32751, используйте форму на sumerplus.com или подписывайтесь в Instagram на @sumer.plus."
       }
     ]
   },
@@ -427,6 +427,8 @@
     "title": "Свяжитесь с нами",
     "subtitle": "Есть вопросы? Мы здесь, чтобы помочь.",
     "email": "Email",
+    "phone": "Телефон",
+    "office": "Офис",
     "instagram": "Instagram",
     "form_name": "Имя",
     "form_email": "Email",

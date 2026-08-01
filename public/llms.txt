@@ -4,7 +4,9 @@
 Name: SumerPlus
 Legal name: SumerPlus Business Services and Insurance Agency, Inc.
 Website: https://sumerplus.com
-Email: support@sumerplus.com
+Email: info@sumerplus.com
+Phone: 321-353-1287
+Address: 555 Winderley Place, Suite 300, Maitland, FL 32751
 Instagram: https://www.instagram.com/sumer.plus/
 Languages: English, Spanish, Russian
 

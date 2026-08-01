@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "../../../i18n/get-dictionary";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import { buildPageMetadata } from "@/lib/seo";
-import { SITE } from "@/lib/site";
+import { SITE, formatSiteAddress } from "@/lib/site";
 import styles from "./page.module.css";
 import type { PageProps } from "@/types/pages";
 
@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Contact({ params }: PageProps) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
+  const [street, cityLine] = formatSiteAddress(true).split("\n");
 
   return (
     <div className={styles.page}>
@@ -36,6 +37,20 @@ export default async function Contact({ params }: PageProps) {
               <p>
                 <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
               </p>
+            </div>
+            <div className={styles.infoItem}>
+              <h2>{dict.contact_page.phone}</h2>
+              <p>
+                <a href={`tel:${SITE.phoneTel}`}>{SITE.phone}</a>
+              </p>
+            </div>
+            <div className={styles.infoItem}>
+              <h2>{dict.contact_page.office}</h2>
+              <address>
+                {street}
+                <br />
+                {cityLine}
+              </address>
             </div>
             <div className={styles.infoItem}>
               <h2>{dict.contact_page.instagram}</h2>

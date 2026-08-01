@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Instagram } from "lucide-react";
 import styles from "./Footer.module.css";
 import type { Dictionary } from "@/i18n/get-dictionary";
-import { SITE } from "@/lib/site";
+import { SITE, formatSiteAddress } from "@/lib/site";
 
 type Props = {
   dict: Dictionary["footer"];
@@ -89,6 +89,10 @@ export default function Footer({ dict, nav, lang }: Props) {
             <p>
               <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </p>
+            <p>
+              <a href={`tel:${SITE.phoneTel}`}>{SITE.phone}</a>
+            </p>
+            <p className={styles.address}>{formatSiteAddress(true)}</p>
             <p>
               <a
                 href={SITE.instagramUrl}

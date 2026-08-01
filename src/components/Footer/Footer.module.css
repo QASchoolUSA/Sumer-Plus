@@ -98,6 +98,12 @@
   margin-bottom: var(--spacing-xs);
 }
 
+.address {
+  white-space: pre-line;
+  line-height: 1.45;
+  max-width: 220px;
+}
+
 .copyright {
   border-top: 1px solid var(--color-border);
   padding-top: var(--spacing-md);

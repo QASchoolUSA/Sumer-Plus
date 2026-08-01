@@ -1,0 +1,49 @@
+.successPage {
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 30%, rgba(212, 175, 55, 0.1), transparent 60%),
+    var(--color-background);
+}
+
+.card {
+  max-width: 32rem;
+  width: 100%;
+  text-align: center;
+  padding: var(--spacing-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.iconWrap {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto var(--spacing-md);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(107, 155, 110, 0.18);
+  color: var(--color-success);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--color-primary);
+  letter-spacing: 0.06em;
+  margin: 0 0 var(--spacing-sm);
+}
+
+.message {
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin: 0 0 var(--spacing-lg);
+  font-size: 1.05rem;
+}
