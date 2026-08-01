@@ -1,13 +1,13 @@
 {
   "seo": {
     "site_title": "SumerPlus | Servicios Empresariales y Agencia de Seguros",
-    "site_description": "Planificación fiscal integrada, contabilidad y estrategias de seguros independientes con licencia Florida 2-15. Sabiduría ancestral. Soluciones modernas. Su futuro en América.",
+    "site_description": "Planificación fiscal integrada, contabilidad y estrategias de seguros independientes con licencia Florida 2-15. Sabiduría ancestral. Soluciones modernas. Su futuro en Estados Unidos.",
     "home_title": "SumerPlus | Impuestos, Contabilidad y Seguros Integrados",
-    "home_description": "Deje de pagar por asesoría financiera fragmentada. SumerPlus unifica impuestos corporativos, contabilidad y suscripción de riesgos independiente en un solo escudo.",
+    "home_description": "Deje de pagar por asesoría financiera fragmentada. SumerPlus unifica impuestos corporativos, contabilidad y evaluación independiente de riesgos en un solo escudo.",
     "personal_tax_title": "Cuestionario de Impuestos Personales | SumerPlus",
-    "personal_tax_description": "Inicie su intake de impuestos personales con SumerPlus — preparación precisa desde W-2 hasta inversiones y autoempleo.",
+    "personal_tax_description": "Inicie su formulario de admisión de impuestos personales con SumerPlus — preparación precisa desde W-2 hasta inversiones y autoempleo.",
     "corporate_tax_title": "Cuestionario de Impuestos Corporativos | SumerPlus",
-    "corporate_tax_description": "Intake fiscal empresarial para corporaciones, sociedades y autónomos — Formularios 1120, 1120-S, 1065 y Schedule C."
+    "corporate_tax_description": "Proceso de admisión fiscal empresarial para corporaciones, sociedades y autónomos — Formularios 1120, 1120-S, 1065 y Schedule C."
   },
   "navigation": {
     "home": "Inicio",
@@ -27,9 +27,9 @@
     "brand": "SUMERPLUS",
     "descriptor": "Consultoría Empresarial y Agencia de Seguros",
     "headline": "Deje de Pagar por Asesoría Financiera Fragmentada.",
-    "subtitle": "Fusionamos la planeación fiscal corporativa, la contabilidad automatizada y la suscripción de riesgos independiente en un escudo defensivo unificado.",
+    "subtitle": "Fusionamos la planificación fiscal corporativa, la contabilidad automatizada y la evaluación independiente de riesgos en un escudo defensivo unificado.",
     "metric": "Rendimiento promedio de un plan proactivo: miles de dólares recuperados en fugas fiscales cada año.",
-    "free_note": "Su revisión inicial de arquitectura y toda consulta estratégica de seguros son permanentes y totalmente gratuitas.",
+    "free_note": "Su revisión inicial de arquitectura y todas las consultas estratégicas de seguros son siempre gratuitas.",
     "cta_primary": "Reservar Consulta Gratuita",
     "cta_secondary": "Auditoría de Fugas",
     "cta_tertiary": "Estimación de Precio"
@@ -39,7 +39,7 @@
     "items": [
       {
         "title": "Protección",
-        "description": "Resguardando lo que más importa — seguro confiable para sus activos en Estados Unidos."
+        "description": "Protegemos lo que más importa — un seguro confiable para sus activos en Estados Unidos."
       },
       {
         "title": "Prosperidad Futura",
@@ -47,7 +47,7 @@
       },
       {
         "title": "Cumplimiento",
-        "description": "Navegando las leyes de EE. UU. con confianza — guía clara sobre registro y regulación."
+        "description": "Lo guiamos por las leyes de EE. UU. con confianza — orientación clara sobre registro y regulación."
       }
     ]
   },
@@ -61,50 +61,50 @@
       },
       {
         "title": "Blindaje de Capital Privado",
-        "description": "Estructuras de Vida Entera y Universal para transferir liquidez y patrimonio generacional fuera del radar de impuestos federales."
+        "description": "Estructuras de vida entera y vida universal para transferir liquidez y patrimonio generacional fuera del alcance del impuesto federal sobre la renta."
       },
       {
         "title": "Marcos de Retención de Talento",
-        "description": "Salud grupal, dental y bonos ejecutivos Sección 162 para eliminar rotación deduciendo el 100% del costo."
+        "description": "Salud grupal, dental y bonos ejecutivos Sección 162 para reducir la rotación, deduciendo el 100% del costo."
       },
       {
         "title": "Financiamiento de Continuidad Empresarial",
-        "description": "Acuerdos de Compra-Venta vinculados a pólizas de vida e invalidez para que la salida de un socio no agote reservas."
+        "description": "Acuerdos de compra-venta vinculados a pólizas de vida e incapacidad para que la salida de un socio no agote las reservas."
       }
     ]
   },
   "autonomy": {
     "title": "100% Independiente. Diseñado Exclusivamente para Usted.",
-    "body": "Cada plan financiero, estrategia fiscal y cartera de seguros que creamos está diseñado a la medida de sus objetivos únicos. Como agencia y correduría independiente, no trabajamos para las compañías de seguros — trabajamos directamente para usted. No rendimos cuentas a ninguna aseguradora y rastreamos todo el mercado libre para asegurar tarifas alineadas con sus objetivos de ahorro fiscal.",
+    "body": "Cada plan financiero, estrategia fiscal y cartera de seguros que creamos está diseñado a la medida de sus objetivos. Como agencia y correduría independiente, no trabajamos para las compañías de seguros — trabajamos directamente para usted. No tenemos lealtad a ninguna aseguradora y comparamos todo el mercado libre para obtener tarifas alineadas con sus metas de ahorro fiscal.",
     "free_title": "Su Primera Consulta y Asesoría de Seguros: Siempre Gratuita",
-    "free_body": "Su consulta inicial de estrategia y toda la asesoría profesional de seguros de nuestra correduría independiente son siempre completamente gratuitas — sin ningún tipo de obligación."
+    "free_body": "Su consulta inicial de estrategia y toda la asesoría profesional de seguros de nuestra correduría independiente son siempre gratuitas — sin ningún tipo de obligación."
   },
   "crossover": {
-    "title": "La Ventaja Cross-Over",
-    "subtitle": "No vemos sus inversiones ni sus impuestos en el vacío. Alineamos las pólizas de seguro para proteger su estructura fiscal.",
+    "title": "La Ventaja Integrada",
+    "subtitle": "No vemos sus inversiones ni sus impuestos de forma aislada. Alineamos las pólizas de seguro para proteger su estructura fiscal.",
     "items": [
       {
-        "title": "Supervisión Financiera Holística",
+        "title": "Supervisión Financiera Personalizada",
         "description": "Contabilidad, planificación fiscal y seguros independientes diseñados como un solo sistema."
       },
       {
-        "title": "Transferencia de Riqueza Libre de Impuestos",
-        "description": "Seguros de vida estructurados para transferir patrimonio generacional libre de impuesto federal sobre la renta."
+        "title": "Transferencia de Patrimonio Libre de Impuestos",
+        "description": "Seguros de vida estructurados para transferir patrimonio generacional libre del impuesto federal sobre la renta."
       },
       {
         "title": "Eliminación de Puntos Ciegos",
-        "description": "Protegiendo a los clientes de perder activos por crisis de salud, demandas o pasivos imprevistos."
+        "description": "Protección del cliente frente a la pérdida de activos por crisis de salud, demandas o pasivos imprevistos."
       }
     ]
   },
   "about_us": {
     "title": "Por Qué SumerPlus",
-    "subtitle": "Sabiduría ancestral. Soluciones modernas. Su futuro en América.",
+    "subtitle": "Sabiduría ancestral. Soluciones modernas. Su futuro en Estados Unidos.",
     "p1": "El antiguo Sumer dio al mundo sus primeras leyes, contratos escritos y sistemas de contabilidad — la cuna del negocio organizado. Tomamos esa precisión fundacional y la elevamos con estrategias empresariales modernas de EE. UU. y estructuras de seguros.",
     "p2": "SumerPlus representa seguridad atemporal y crecimiento moderno. Nuestro logo no es solo un sello dorado: símbolos cuneiformes auténticos en el fondo de piedra codifican Protección, Prosperidad Futura y Cumplimiento.",
-    "p3": "Con más de una década de experiencia en finanzas estadounidenses y una licencia independiente Florida 2-15 (Vida y Salud), colaboramos con CPAs licenciados para que cada decisión de seguro se vea a través de su declaración de impuestos.",
-    "p4": "En nuestra firma, la precisión se une al servicio personalizado. Creemos que la contabilidad y la protección deben sentirse claras y empoderadoras — no abrumadoras.",
-    "p5": "Nos tomamos el tiempo para comprender su situación única y brindar trabajo preciso, orientación honesta y estrategias plenamente conformes a sus objetivos."
+    "p3": "Con más de una década de experiencia en finanzas estadounidenses y una licencia independiente Florida 2-15 (Vida y Salud), colaboramos con contadores públicos (CPA) licenciados para que cada decisión de seguro se evalúe a través de su declaración de impuestos.",
+    "p4": "En nuestra firma, la precisión se une al servicio personalizado. Creemos que la contabilidad y la protección deben sentirse claras, de apoyo y que le den control — no abrumadoras.",
+    "p5": "Nos tomamos el tiempo para comprender su situación y brindar trabajo preciso, orientación honesta y estrategias plenamente conformes a la ley y alineadas con sus objetivos."
   },
   "value_advantage": {
     "title": "La Perspectiva Fiscal",
@@ -124,7 +124,7 @@
   },
   "footer": {
     "legal_name": "SumerPlus Business Services and Insurance Agency, Inc.",
-    "tagline": "Sabiduría ancestral. Soluciones modernas. Su futuro en América.",
+    "tagline": "Sabiduría ancestral. Soluciones modernas. Su futuro en Estados Unidos.",
     "quick_links": "Enlaces Rápidos",
     "client_portals": "Portales de Cliente",
     "contact": "Contacto",
@@ -142,7 +142,7 @@
   "services_page": {
     "title": "Nuestros Servicios",
     "subtitle": "Impuestos, contabilidad y operaciones — diseñados para cumplimiento y ahorro.",
-    "definition": "SumerPlus ofrece preparación de impuestos personales y empresariales, contabilidad, nómina, formación de entidades y planificación fiscal durante todo el año para personas y empresas en Estados Unidos.",
+    "definition": "SumerPlus ofrece preparación de impuestos personales y empresariales, contabilidad, nómina, constitución de entidades y planificación fiscal durante todo el año para personas y empresas en Estados Unidos.",
     "book_cta": "Reservar Consulta",
     "insurance_cta": "Explorar Soluciones de Seguros",
     "items": [
@@ -150,19 +150,19 @@
         "id": "personal-tax",
         "title": "Declaración de Impuestos Personales",
         "subtitle": "Preparación precisa que maximiza su reembolso legalmente.",
-        "description": "Cada declaración se prepara con documentación rigurosa e interpretación de buena fe de la ley tributaria — desde W-2 simples hasta inversiones y autoempleo complejos.",
+        "description": "Cada declaración se prepara con documentación rigurosa e interpretación de buena fe de la ley tributaria — desde W-2 sencillos hasta inversiones y autoempleo complejos.",
         "features": [
           "W-2 hasta inversiones y autoempleo complejos",
           "Revisión de todas las deducciones y créditos",
           "Actualizado con las últimas regulaciones",
-          "Soporte ante avisos del IRS o estatales"
+          "Apoyo ante avisos del IRS o estatales"
         ]
       },
       {
         "id": "business-tax",
         "title": "Declaración de Impuestos Empresariales",
         "subtitle": "Presentación detallada para corporaciones, sociedades y autónomos.",
-        "description": "Preparamos los Formularios 1120, 1120-S, 1065 y Schedule C — y analizamos estados para identificar oportunidades de ahorro.",
+        "description": "Preparamos los Formularios 1120, 1120-S, 1065 y Schedule C — y analizamos los estados financieros para identificar oportunidades de ahorro.",
         "features": [
           "Formularios 1120, 1120-S, 1065, Schedule C",
           "Análisis de estados financieros",
@@ -172,8 +172,8 @@
       },
       {
         "id": "bookkeeping",
-        "title": "Contabilidad y Teneduría de Libros",
-        "subtitle": "Libros y reportes profesionales a un costo mensual predecible.",
+        "title": "Contabilidad Operativa",
+        "subtitle": "Libros e informes profesionales a un costo mensual predecible.",
         "description": "Libros precisos son la base de cualquier negocio exitoso — categorización, conciliación y estados oportunos.",
         "features": [
           "Categorización precisa de transacciones",
@@ -185,13 +185,13 @@
       {
         "id": "reinstatement",
         "title": "Restablecimiento de Libros y Registros",
-        "subtitle": "Recupere claridad en financieros descuidados u obsoletos.",
-        "description": "Limpiamos y restablecemos libros para temporada fiscal, prestamistas o auditoría.",
+        "subtitle": "Recupere claridad en estados financieros descuidados u obsoletos.",
+        "description": "Limpiamos y restablecemos libros para la temporada fiscal, prestamistas o auditorías.",
         "features": [
           "Reconstrucción histórica",
           "Corrección de errores",
           "Conciliación completa",
-          "Preparación para reportes"
+          "Preparación para informes"
         ]
       },
       {
@@ -210,7 +210,7 @@
         "id": "tax-planning",
         "title": "Optimización y Planificación Fiscal",
         "subtitle": "Estrategias proactivas para minimizar legalmente la carga.",
-        "description": "Planificación durante todo el año — no arreglos de último minuto — para deducciones, créditos y alineación de entidad.",
+        "description": "Planificación durante todo el año — no soluciones de último minuto — para deducciones, créditos y alineación de entidad.",
         "features": [
           "Planificación anual continua",
           "Alineación de entidad",
@@ -222,31 +222,31 @@
         "id": "payroll",
         "title": "Configuración y Mantenimiento de Nómina",
         "subtitle": "Nómina precisa, conforme y sin estrés.",
-        "description": "Desde la configuración hasta el mantenimiento — horarios, presentaciones y reportes manejados correctamente.",
+        "description": "Desde la configuración hasta el mantenimiento — calendarios de pago, presentaciones e informes gestionados correctamente.",
         "features": [
           "Configuración de software e incorporación",
-          "Horarios de pago y depósito directo",
+          "Calendarios de pago y depósito directo",
           "Cumplimiento W-2 y trimestral",
-          "Seguimiento de PTO"
+          "Seguimiento de tiempo libre pagado (PTO)"
         ]
       },
       {
         "id": "1099",
         "title": "Preparación y Presentación de 1099",
-        "subtitle": "Cumplimiento de contratistas simplificado.",
-        "description": "Preparación, e-filing al IRS y copias para receptores — evite sanciones con un proceso limpio.",
+        "subtitle": "Cumplimiento con contratistas, simplificado.",
+        "description": "Preparación, presentación electrónica ante el IRS y copias para receptores — evite sanciones con un proceso limpio.",
         "features": [
           "Validación de datos de contratistas",
           "1099-NEC y formularios relacionados",
-          "E-filing al IRS",
+          "Presentación electrónica ante el IRS",
           "Copias para receptores"
         ]
       },
       {
         "id": "sales-tax",
         "title": "Impuesto sobre las Ventas",
-        "subtitle": "Cumplimiento multiestatal de impuestos sobre ventas.",
-        "description": "Cobrar, rastrear y remitir correctamente a través de canales y jurisdicciones.",
+        "subtitle": "Cumplimiento multiestatal de impuestos sobre las ventas.",
+        "description": "Cobrar, registrar y remitir correctamente a través de canales y jurisdicciones.",
         "features": [
           "Evaluación de nexo",
           "Integración de plataformas",
@@ -256,9 +256,9 @@
       },
       {
         "id": "formation",
-        "title": "Formación de Nueva Entidad Empresarial",
+        "title": "Constitución de Nueva Entidad Empresarial",
         "subtitle": "Comience sobre la base correcta.",
-        "description": "Elija la estructura adecuada, presente documentos y configure correctamente desde el día uno.",
+        "description": "Elija la estructura adecuada, presente documentos y configure todo correctamente desde el primer día.",
         "features": [
           "Selección de entidad (LLC, S-Corp, etc.)",
           "EIN y registros estatales",
@@ -270,20 +270,20 @@
   },
   "insurance_page": {
     "title": "Seguros y Protección",
-    "subtitle": "Correduría 2-15 independiente — beneficios grupales, vida, continuidad y estrategias de riqueza alineadas a impuestos.",
-    "definition": "SumerPlus es una correduría independiente Florida 2-15 (Vida y Salud) que diseña beneficios grupales, vida, invalidez y estrategias de riqueza alineadas a impuestos sin cuotas de aseguradora.",
-    "intro": "Como agencia independiente, evaluamos todo el mercado para diseñar carteras que sirvan sus intereses fiscales y financieros — no la cuota de una sola aseguradora.",
+    "subtitle": "Correduría 2-15 independiente — beneficios grupales, vida, continuidad y estrategias de patrimonio alineadas a impuestos.",
+    "definition": "SumerPlus es una correduría independiente Florida 2-15 (Vida y Salud) que diseña beneficios grupales, vida, incapacidad y estrategias de patrimonio alineadas a impuestos sin cuotas de aseguradora.",
+    "intro": "Como agencia independiente, evaluamos todo el mercado para diseñar carteras que sirvan a sus intereses fiscales y financieros — no a la cuota de una sola aseguradora.",
     "book_cta": "Reservar Consulta de Seguros Gratuita",
     "sections": [
       {
         "id": "group-benefits",
         "title": "Beneficios Grupales para Empleados",
         "subtitle": "Diseño con licencia 2-15 para equipos pequeños",
-        "description": "Planes grupales de salud, dental, visión e invalidez patrocinados por el empleador que retienen talento y califican como gastos deducibles.",
+        "description": "Planes grupales de salud, dental, visión e incapacidad patrocinados por el empleador que retienen talento y califican como gastos deducibles.",
         "features": [
-          "Salud, dental, visión e invalidez grupal",
+          "Salud, dental, visión e incapacidad grupal",
           "Contribuciones del empleador deducibles",
-          "Estructuras de prima pre-impuestos",
+          "Estructuras de prima antes de impuestos",
           "Comparaciones entre aseguradoras"
         ]
       },
@@ -291,23 +291,23 @@
         "id": "executive",
         "title": "Bono Ejecutivo y Compensación Diferida",
         "subtitle": "Reclute y retenga talento clave",
-        "description": "Estrategias de seguro de vida especializadas como planes Sección 162 financiados con dólares corporativos con ventajas fiscales.",
+        "description": "Estrategias de seguro de vida especializadas, como planes Sección 162 financiados con dólares corporativos con ventajas fiscales.",
         "features": [
           "Planes de bono ejecutivo Sección 162",
           "Seguro de vida para persona clave",
-          "Diseño orientado a retención",
+          "Diseño orientado a la retención",
           "Protección del flujo de caja"
         ]
       },
       {
         "id": "buy-sell",
-        "title": "Financiamiento de Acuerdos Compra-Venta",
-        "subtitle": "Continuidad cuando un propietario sale",
-        "description": "Seguros de vida e invalidez que financian la transferencia de capital para que los socios sobrevivientes mantengan el control sin agotar reservas.",
+        "title": "Financiamiento de Acuerdos de Compra-Venta",
+        "subtitle": "Continuidad cuando un propietario se retira",
+        "description": "Seguros de vida e incapacidad que financian la transferencia de capital para que los socios sobrevivientes mantengan el control sin agotar reservas.",
         "features": [
-          "Financiamiento con vida e invalidez",
-          "Protección de capital de socios",
-          "Estructuras legales alineadas con CPA",
+          "Financiamiento con vida e incapacidad",
+          "Protección del capital de los socios",
+          "Estructuras legales alineadas con el CPA",
           "Liquidez en el momento necesario"
         ]
       },
@@ -315,34 +315,34 @@
         "id": "key-person",
         "title": "Seguro de Persona Clave",
         "subtitle": "Proteja ingresos ante pérdidas críticas",
-        "description": "Pólizas sobre empleados cuya pérdida impactaría financieramente el negocio — liquidez inmediata para brechas y reemplazo.",
+        "description": "Pólizas sobre empleados cuya pérdida impactaría financieramente el negocio — liquidez inmediata para cubrir brechas y el reemplazo.",
         "features": [
           "Cobertura de empleados críticos",
           "Escudo de ingresos y flujo de caja",
           "Capital puente para contratación",
-          "Alineado con planificación fiscal corporativa"
+          "Alineado con la planificación fiscal corporativa"
         ]
       },
       {
         "id": "personal-wealth",
-        "title": "Estrategias Individuales de Riqueza e Impuestos",
+        "title": "Estrategias Individuales de Patrimonio e Impuestos",
         "subtitle": "Vida, anualidades y protección familiar",
         "description": "Optimización de impuestos personales junto con vehículos de retiro con ventajas fiscales y protección de activos familiares.",
         "features": [
-          "Término, Vida Entera, Vida Universal",
+          "Término, vida entera, vida universal",
           "Anualidades fijas e indexadas (2-15)",
           "Beneficios en vida / enfermedad crónica",
-          "Salvaguarda de riqueza generacional"
+          "Salvaguarda del patrimonio generacional"
         ]
       },
       {
         "id": "irs",
         "title": "Representación y Resolución ante el IRS",
         "subtitle": "Protección profesional bajo presión",
-        "description": "Soporte en auditorías, negociación de impuestos atrasados y Ofrecimientos de Compromiso — con seguros y estructura de entidad a la vista.",
+        "description": "Apoyo en auditorías, negociación de impuestos atrasados y Ofertas de Compromiso (Offer in Compromise) — con seguros y estructura de entidad a la vista.",
         "features": [
-          "Soporte en auditorías estatales y federales",
-          "Negociación de Offers in Compromise",
+          "Apoyo en auditorías estatales y federales",
+          "Negociación de Ofertas de Compromiso (Offer in Compromise)",
           "Resolución de impuestos atrasados",
           "Integrado con su plan de protección"
         ]
@@ -352,27 +352,27 @@
     "proof_items": [
       {
         "title": "Beneficios de salud y ejecutivos S-Corp",
-        "description": "Planes médicos calificados y beneficios del propietario pueden estructurarse como deducciones comerciales legítimas — reduciendo la utilidad corporativa ante el IRS, cuando se hace correctamente."
+        "description": "Los planes médicos calificados y los beneficios del propietario pueden estructurarse como deducciones comerciales legítimas — reduciendo la utilidad corporativa ante el IRS, cuando se hace correctamente."
       },
       {
         "title": "Protección de sociedades",
-        "description": "Sin acuerdos Compra-Venta financiados, la participación de un socio puede pasar a herederos que congelen cuentas o exijan una compra en efectivo. Financiamos la estructura legal con cobertura independiente."
+        "description": "Sin acuerdos de compra-venta financiados, la participación de un socio puede pasar a herederos que congelen cuentas o exijan una compra en efectivo. Financiamos la estructura legal con cobertura independiente."
       },
       {
         "title": "Retención de talento sin aumentos infinitos",
-        "description": "Los beneficios grupales reducen la rotación; las estructuras pre-impuestos pueden reducir el matching FICA mientras las contribuciones de la empresa reducen la utilidad gravable."
+        "description": "Los beneficios grupales reducen la rotación; las estructuras antes de impuestos pueden reducir el aporte patronal de FICA, mientras las contribuciones de la empresa reducen la utilidad gravable."
       }
     ]
   },
   "about_page": {
     "title": "Sobre SumerPlus",
     "subtitle": "Por qué nos llamamos SumerPlus",
-    "definition": "SumerPlus Business Services and Insurance Agency, Inc. es una práctica integrada de impuestos, contabilidad y seguros independientes en EE. UU., nombrada por la precisión del antiguo Sumer más las herramientas financieras modernas americanas.",
+    "definition": "SumerPlus Business Services and Insurance Agency, Inc. es una práctica integrada de impuestos, contabilidad y seguros independientes en EE. UU., nombrada por la precisión del antiguo Sumer más las herramientas financieras modernas de Estados Unidos.",
     "name_title": "¿Por qué el nombre SumerPlus?",
     "name_body": "El antiguo Sumer dio al mundo sus primeras leyes, contratos escritos y marcos contables. Tomamos esa precisión fundacional y añadimos herramientas modernas estadounidenses — el Plus. SumerPlus es confiabilidad milenaria adaptada al mercado de EE. UU.",
     "logo_title": "¿Qué hay oculto en el logo?",
     "logo_body": "Nuestra identidad une fundamentos estructurales atemporales con protección moderna. El sello presenta logogramas cuneiformes auténticos que representan Protección, Prosperidad Futura y Orientación Regulatoria — nuestro compromiso de salvaguardar su trayectoria empresarial en Estados Unidos.",
-    "tagline": "Sabiduría ancestral. Soluciones modernas. Su futuro en América."
+    "tagline": "Sabiduría ancestral. Soluciones modernas. Su futuro en Estados Unidos."
   },
   "faq_page": {
     "title": "Preguntas frecuentes",
@@ -384,7 +384,7 @@
       },
       {
         "q": "¿Qué servicios ofrece SumerPlus?",
-        "a": "Ofrecemos declaraciones de impuestos personales y empresariales, contabilidad, nómina, formación de entidades, impuestos estimados, planificación fiscal, beneficios grupales, estrategias de vida e invalidez, financiamiento de buy-sell y apoyo en representación ante el IRS."
+        "a": "Ofrecemos declaraciones de impuestos personales y empresariales, contabilidad, nómina, constitución de entidades, impuestos estimados, planificación fiscal, beneficios grupales, estrategias de vida e incapacidad, financiamiento de acuerdos de compra-venta y apoyo en representación ante el IRS."
       },
       {
         "q": "¿La primera consulta es gratuita?",
@@ -396,7 +396,7 @@
       },
       {
         "q": "¿Con qué coberturas de seguro pueden ayudar?",
-        "a": "Como correduría independiente Florida 2-15 (Vida y Salud), diseñamos salud grupal y beneficios relacionados, planes de bono ejecutivo, financiamiento key-person y buy-sell, vida individual y estrategias de riqueza alineadas a impuestos evaluando el mercado abierto."
+        "a": "Como correduría independiente Florida 2-15 (Vida y Salud), diseñamos salud grupal y beneficios relacionados, planes de bono ejecutivo, financiamiento de persona clave y acuerdos de compra-venta, vida individual y estrategias de patrimonio alineadas a impuestos, evaluando el mercado abierto."
       },
       {
         "q": "¿Qué idiomas admiten?",
@@ -414,9 +414,9 @@
     "inputs_title": "Ingrese sus Métricas",
     "revenue_label": "Ingresos Anuales Brutos de la Empresa (o Ingresos del Hogar)",
     "tax_label": "Impuesto Anual Actual Pagado",
-    "premiums_label": "Primas Totales de Seguros Anuales (Salud, Vida, Invalidez)",
+    "premiums_label": "Primas Totales de Seguros Anuales (Salud, Vida, Incapacidad)",
     "unintegrated_title": "Riesgo de Fuga Estructural Oculta",
-    "unintegrated_sub": "El efectivo anual estimado que pierde su empresa debido a la falta de coordinación entre estructuras corporativas, deducciones de seguros y transferencia de riqueza no optimizada.",
+    "unintegrated_sub": "El efectivo anual estimado que pierde su empresa debido a la falta de coordinación entre estructuras corporativas, deducciones de seguros y transferencia de patrimonio no optimizada.",
     "integrated_title": "Potencial de Ahorro Anual Recuperado",
     "integrated_sub": "Capital retenido y redirigido al desarrollo de su negocio o a reservas generacionales con ventajas fiscales.",
     "cta": "Solicitar una Auditoría de Fugas Gratuita y Verificada",
