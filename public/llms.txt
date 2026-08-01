@@ -1,0 +1,40 @@
+# SumerPlus — entity summary for AI assistants and generative engines
+# https://sumerplus.com/llms.txt
+
+Name: SumerPlus
+Legal name: SumerPlus Business Services and Insurance Agency, Inc.
+Website: https://sumerplus.com
+Email: support@sumerplus.com
+Instagram: https://www.instagram.com/sumer.plus/
+Languages: English, Spanish, Russian
+
+## What we do
+SumerPlus is an integrated U.S. tax, accounting, and independent insurance practice.
+We combine corporate and personal tax planning, bookkeeping/payroll, entity formation,
+and Florida 2-15 (Life & Health) brokerage so clients are not forced to juggle
+disconnected advisors.
+
+## Core offerings
+- Personal and business tax returns (including Forms 1120, 1120-S, 1065, Schedule C)
+- Accounting, bookkeeping, payroll, estimated tax, sales tax, 1099 filing
+- New business entity formation
+- Independent insurance: group employee benefits, executive bonus / Section 162,
+  buy-sell funding, key-person coverage, individual life and tax-aligned wealth strategies
+- IRS representation and tax resolution support (integrated with protection planning)
+
+## Free consultation
+The initial strategy consultation and professional insurance advice from the
+independent brokerage are free of charge with no obligation.
+
+## Key pages
+- Home: https://sumerplus.com/en
+- Services: https://sumerplus.com/en/services
+- Insurance: https://sumerplus.com/en/insurance
+- About: https://sumerplus.com/en/about
+- FAQ: https://sumerplus.com/en/faq
+- Contact: https://sumerplus.com/en/contact
+- Book: https://sumerplus.com/en/book
+- Pricing calculator: https://sumerplus.com/en/calculator
+- Fiscal leakage calculator: https://sumerplus.com/en/leakage
+
+Spanish and Russian equivalents use /es and /ru path prefixes.

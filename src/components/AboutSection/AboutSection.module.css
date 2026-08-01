@@ -1,35 +1,41 @@
 .section {
-    padding: 4rem 1.5rem;
-    background-color: #ffffff;
+  padding: var(--spacing-xxl) 0;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
 }
 
 .title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #0f172a;
-    text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--color-primary);
+  text-align: center;
+  margin: 0 0 var(--spacing-xs);
+  letter-spacing: 0.08em;
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    color: #3b82f6;
-    text-align: center;
-}
-
-.content {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: #334155;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0 0 var(--spacing-xl);
+  letter-spacing: 0.06em;
 }
 
 .content p {
-    margin-bottom: 1.5rem;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--spacing-md);
+  line-height: 1.7;
+  font-size: 1.02rem;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
 }

@@ -1,158 +1,228 @@
 .header {
-    background-color: var(--color-background);
-    box-shadow: var(--shadow-sm);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: var(--spacing-sm) 0;
+  background-color: rgba(18, 18, 18, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0.65rem 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.logoImg {
+  display: block;
+  background: transparent;
+  border-radius: 0;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.12em;
 }
 
 .nav {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .navList {
-    display: flex;
-    list-style: none;
-    gap: var(--spacing-lg);
-    align-items: center;
+  display: flex;
+  list-style: none;
+  gap: 1.15rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .navLink {
-    font-weight: 500;
-    color: var(--color-text-main);
-    transition: color var(--transition-fast);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .navLink:hover {
-    color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 200px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0;
+  list-style: none;
+  margin: 0;
+  box-shadow: var(--shadow-md);
+}
+
+.dropdown:hover .dropdownMenu,
+.dropdownOpen {
+  display: block;
+}
+
+.dropdownLink {
+  display: block;
+  padding: 0.6rem 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.dropdownLink:hover {
+  color: var(--color-primary);
+  background: var(--color-gold-dim);
 }
 
 .langSwitcher {
-    display: flex;
-    gap: var(--spacing-xs);
+  display: flex;
+  gap: 0.25rem;
 }
 
 .langLink {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 0.25rem 0.4rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
 }
 
 .langLink:hover {
-    color: var(--color-primary);
-    background-color: var(--color-surface);
+  color: var(--color-primary);
 }
 
 .activeLang {
-    color: var(--color-primary);
-    background-color: rgba(212, 175, 55, 0.2);
-    /* Gold tint */
+  color: var(--color-primary);
+  background-color: var(--color-gold-dim);
 }
 
 .mobileToggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    z-index: 101;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  z-index: 101;
 }
 
 .hamburger {
-    width: 24px;
-    height: 2px;
-    background-color: var(--color-primary);
-    position: relative;
-    transition: all var(--transition-normal);
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-primary);
+  position: relative;
+  transition: all var(--transition-normal);
 }
 
 .hamburger::before,
 .hamburger::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background-color: var(--color-primary);
-    transition: all var(--transition-normal);
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: all var(--transition-normal);
 }
 
 .hamburger::before {
-    transform: translateY(-8px);
+  transform: translateY(-8px);
 }
 
 .hamburger::after {
-    transform: translateY(8px);
+  transform: translateY(8px);
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .mobileToggle {
-        display: flex;
-    }
+@media (max-width: 960px) {
+  .mobileToggle {
+    display: flex;
+  }
 
-    .nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        height: 100vh;
-        background-color: var(--color-background);
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        padding: var(--spacing-xxl) var(--spacing-md);
-        transition: right var(--transition-normal);
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(320px, 88%);
+    height: 100vh;
+    background-color: var(--color-charcoal);
+    border-left: 1px solid var(--color-border);
+    padding: var(--spacing-xxl) var(--spacing-md);
+    transition: right var(--transition-normal);
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
 
-    .navOpen {
-        right: 0;
-    }
+  .navOpen {
+    right: 0;
+  }
 
-    .navList {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        gap: var(--spacing-md);
-    }
+  .navList {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: var(--spacing-md);
+  }
 
-    .navLink {
-        font-size: 1.25rem;
-        display: block;
-        padding: var(--spacing-xs) 0;
-    }
+  .navLink {
+    font-size: 1.1rem;
+    display: block;
+    color: var(--color-text-main);
+  }
 
-    /* Hamburger Animation */
-    .open {
-        background-color: transparent;
-    }
+  .dropdownMenu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding-left: 0.5rem;
+  }
 
-    .open::before {
-        transform: rotate(45deg);
-    }
+  .dropdownOpen {
+    display: block;
+  }
 
-    .open::after {
-        transform: rotate(-45deg);
-    }
+  .open {
+    background-color: transparent;
+  }
+
+  .open::before {
+    transform: rotate(45deg);
+  }
+
+  .open::after {
+    transform: rotate(-45deg);
+  }
 }
