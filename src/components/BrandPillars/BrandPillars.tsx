@@ -13,9 +13,6 @@ export default function BrandPillars({ dict }: Props) {
         <div className={styles.grid}>
           {dict.items.map((item, i) => (
             <div key={i} className={styles.pillar}>
-              <span className={styles.index}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <h3 className={styles.pillarTitle}>{item.title}</h3>
               <p className={styles.desc}>{item.description}</p>
             </div>
