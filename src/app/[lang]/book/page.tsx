@@ -34,9 +34,9 @@ export default async function BookPage({ params }: PageProps) {
         <h3 className={styles.termsHeading}>Scope of Services</h3>
         <p className={styles.termsText}>
           A paid consultation provides professional guidance and answers to your
-          questions related to tax matters, bookkeeping, insurance strategy, and
-          general tax optimization. Advice is based solely on the information you
-          provide and limited to the time scheduled.
+          questions related to tax matters, bookkeeping, and general tax
+          optimization. Advice is based solely on the information you provide and
+          limited to the time scheduled.
         </p>
 
         <h3 className={styles.termsHeading}>A consultation does not include:</h3>
