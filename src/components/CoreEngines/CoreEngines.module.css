@@ -12,16 +12,11 @@
 .title {
   font-family: var(--font-display);
   text-align: center;
-  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  font-size: clamp(1.25rem, 2.8vw, 1.75rem);
   color: var(--color-text-main);
-  margin: 0 0 var(--spacing-sm);
-}
-
-.subtitle {
-  text-align: center;
-  color: var(--color-text-muted);
-  max-width: 560px;
+  max-width: 720px;
   margin: 0 auto var(--spacing-xl);
+  line-height: 1.35;
 }
 
 .grid {

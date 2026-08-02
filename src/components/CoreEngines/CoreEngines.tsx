@@ -10,7 +10,6 @@ export default function CoreEngines({ dict }: Props) {
     <section className={styles.section}>
       <div className={styles.container}>
         <h2 className={styles.title}>{dict.title}</h2>
-        <p className={styles.subtitle}>{dict.subtitle}</p>
         <div className={styles.grid}>
           {dict.items.map((item, i) => (
             <article key={i} className={styles.item}>
