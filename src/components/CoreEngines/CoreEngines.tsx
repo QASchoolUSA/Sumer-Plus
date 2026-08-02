@@ -13,9 +13,6 @@ export default function CoreEngines({ dict }: Props) {
         <div className={styles.grid}>
           {dict.items.map((item, i) => (
             <article key={i} className={styles.item}>
-              <span className={styles.letter}>
-                {String.fromCharCode(65 + i)}
-              </span>
               <h3 className={styles.itemTitle}>{item.title}</h3>
               <p className={styles.desc}>{item.description}</p>
             </article>
