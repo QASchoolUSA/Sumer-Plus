@@ -38,18 +38,11 @@
   transform: translateY(-2px);
 }
 
-.letter {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  color: var(--color-primary);
-}
-
 .itemTitle {
   font-family: var(--font-display);
   font-size: 1.15rem;
   color: var(--color-primary);
-  margin: var(--spacing-xs) 0 var(--spacing-sm);
+  margin: 0 0 var(--spacing-sm);
   letter-spacing: 0.04em;
 }
 
