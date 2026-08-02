@@ -5,7 +5,7 @@
     "home_title": "SumerPlus | Impuestos, Contabilidad y Seguros Integrados",
     "home_description": "Deje de pagar por asesoría financiera fragmentada. SumerPlus unifica impuestos corporativos, contabilidad y evaluación independiente de riesgos en un solo escudo.",
     "personal_tax_title": "Cuestionario de Impuestos Personales | SumerPlus",
-    "personal_tax_description": "Inicie su formulario de admisión de impuestos personales con SumerPlus — preparación precisa desde W-2 hasta inversiones y autoempleo.",
+    "personal_tax_description": "Inicie su formulario de admisión de impuestos personales con SumerPlus — preparación precisa desde W-2 hasta ingresos complejos y autoempleo.",
     "corporate_tax_title": "Cuestionario de Impuestos Corporativos | SumerPlus",
     "corporate_tax_description": "Proceso de admisión fiscal empresarial para corporaciones, sociedades y autónomos — Formularios 1120, 1120-S, 1065 y Schedule C."
   },
@@ -81,7 +81,7 @@
   },
   "crossover": {
     "title": "La Ventaja Integrada",
-    "subtitle": "No vemos sus inversiones ni sus impuestos de forma aislada. Alineamos las pólizas de seguro para proteger su estructura fiscal.",
+    "subtitle": "No vemos sus impuestos ni sus seguros de forma aislada. Alineamos las pólizas de seguro para proteger su estructura fiscal.",
     "items": [
       {
         "title": "Supervisión Financiera Personalizada",
@@ -150,9 +150,9 @@
         "id": "personal-tax",
         "title": "Declaración de Impuestos Personales",
         "subtitle": "Preparación precisa que maximiza su reembolso legalmente.",
-        "description": "Cada declaración se prepara con documentación rigurosa e interpretación de buena fe de la ley tributaria — desde W-2 sencillos hasta inversiones y autoempleo complejos.",
+        "description": "Cada declaración se prepara con documentación rigurosa e interpretación de buena fe de la ley tributaria — desde W-2 sencillos hasta ingresos y autoempleo complejos.",
         "features": [
-          "W-2 hasta inversiones y autoempleo complejos",
+          "W-2 hasta ingresos y autoempleo complejos",
           "Revisión de todas las deducciones y créditos",
           "Actualizado con las últimas regulaciones",
           "Apoyo ante avisos del IRS o estatales"
@@ -392,7 +392,7 @@
       },
       {
         "q": "¿Manejan impuestos personales y empresariales?",
-        "a": "Sí. Preparamos declaraciones personales (desde W-2 hasta inversiones y autoempleo) y presentaciones empresariales, incluidos los Formularios 1120, 1120-S, 1065 y Schedule C."
+        "a": "Sí. Preparamos declaraciones personales (desde W-2 hasta ingresos complejos y autoempleo) y presentaciones empresariales, incluidos los Formularios 1120, 1120-S, 1065 y Schedule C."
       },
       {
         "q": "¿Con qué coberturas de seguro pueden ayudar?",

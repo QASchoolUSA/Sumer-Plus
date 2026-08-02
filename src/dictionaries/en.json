@@ -5,7 +5,7 @@
     "home_title": "SumerPlus | Integrated Tax, Accounting & Insurance",
     "home_description": "Stop paying for fragmented financial advice. SumerPlus unifies corporate taxation, bookkeeping, and independent risk underwriting into one defense shield.",
     "personal_tax_title": "Personal Tax Questionnaire | SumerPlus",
-    "personal_tax_description": "Start your personal tax intake with SumerPlus — accurate preparation for W-2 through complex investments and self-employment.",
+    "personal_tax_description": "Start your personal tax intake with SumerPlus — accurate preparation for W-2 through complex income and self-employment.",
     "corporate_tax_title": "Corporate Tax Questionnaire | SumerPlus",
     "corporate_tax_description": "Business tax intake for corporations, partnerships, and self-employed clients — Forms 1120, 1120-S, 1065, and Schedule C."
   },
@@ -81,7 +81,7 @@
   },
   "crossover": {
     "title": "The Cross-Over Advantage",
-    "subtitle": "We don't look at your investments or taxes in a vacuum. We align insurance policies to protect your tax structure.",
+    "subtitle": "We don't look at your taxes or insurance in a vacuum. We align insurance policies to protect your tax structure.",
     "items": [
       {
         "title": "Holistic Financial Oversight",
@@ -150,9 +150,9 @@
         "id": "personal-tax",
         "title": "Personal Tax Return",
         "subtitle": "Accurate personal tax preparation that maximizes your refund legally.",
-        "description": "Every return is prepared with thorough documentation and good-faith interpretation of tax law — from simple W-2 to complex investments and self-employment.",
+        "description": "Every return is prepared with thorough documentation and good-faith interpretation of tax law — from simple W-2 to complex income and self-employment.",
         "features": [
-          "W-2 through complex investments and self-employment",
+          "W-2 through complex income and self-employment",
           "Review for all deductions and credits",
           "Current with latest regulations",
           "Support with IRS or state notices"
@@ -392,7 +392,7 @@
       },
       {
         "q": "Do you handle both personal and business taxes?",
-        "a": "Yes. We prepare personal returns (W-2 through investments and self-employment) and business filings including Forms 1120, 1120-S, 1065, and Schedule C."
+        "a": "Yes. We prepare personal returns (W-2 through complex income and self-employment) and business filings including Forms 1120, 1120-S, 1065, and Schedule C."
       },
       {
         "q": "What insurance coverage can you help with?",
