@@ -2,7 +2,7 @@
 # https://sumerplus.com/llms.txt
 
 Name: SumerPlus
-Legal name: SumerPlus Business Services and Insurance Agency, Inc.
+Legal name: SumerPlus Business Services and Insurance Agency
 Website: https://sumerplus.com
 Email: info@sumerplus.com
 Phone: 321-353-1287

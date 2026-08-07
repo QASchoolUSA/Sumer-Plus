@@ -5,7 +5,7 @@ export const SITE_URL = "https://sumerplus.com";
 export const SITE = {
   url: SITE_URL,
   name: "SumerPlus",
-  legalName: "SumerPlus Business Services and Insurance Agency, Inc.",
+  legalName: "SumerPlus Business Services and Insurance Agency",
   email: "info@sumerplus.com",
   phone: "321-353-1287",
   phoneTel: "+13213531287",
