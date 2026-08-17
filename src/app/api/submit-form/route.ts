@@ -482,7 +482,7 @@ export async function POST(req: NextRequest) {
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: 'sumerplusacc@gmail.com',
+            to: 'sumerplusinc@protonmail.com',
             subject: `New ${type} Questionnaire Submission - Sumer Plus`,
             html: `
                 <!DOCTYPE html>

@@ -8,6 +8,7 @@ export default function BookingEmbed() {
         (async function () {
             const cal = await getCalApi();
             cal("ui", {
+                theme: "dark",
                 styles: { branding: { brandColor: "#D4AF37" } },
                 hideEventTypeDetails: true,
                 layout: "month_view",
@@ -17,9 +18,9 @@ export default function BookingEmbed() {
 
     return (
         <Cal
-            calLink="sumerplus" // REPLACE WITH YOUR CAL.COM LINK e.g., "sumer-plus/consultation"
+            calLink="sumerplusimc/30min"
             style={{ width: "100%", height: "100%", overflow: "hidden" }}
-            config={{ layout: "month_view" }}
+            config={{ layout: "month_view", theme: "dark" }}
         />
     );
 }
