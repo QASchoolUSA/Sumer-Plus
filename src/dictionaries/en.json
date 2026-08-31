@@ -404,9 +404,36 @@
       },
       {
         "q": "How can I contact SumerPlus or follow you online?",
-        "a": "Email sumerplusinc@protonmail.com, call 321-353-1287, visit 555 Winderley Place, Suite 300, Maitland, FL 32751, use the contact form on sumerplus.com, or follow us on Instagram at @sumer.plus."
+        "a": "Email info@sumerplus.com, call 321-353-1287, visit 555 Winderley Place, Suite 300, Maitland, FL 32751, use the contact form on sumerplus.com, or follow us on Instagram at @sumer.plus."
       }
     ]
+  },
+  "disclosures_page": {
+    "title": "Legal Disclosures",
+    "subtitle": "Important legal, licensing, tax, and insurance disclosure information.",
+    "intro_p1": "SUMERPLUS INSURANCE AGENCY LLC is an independent insurance agency. We are not a government agency and are not affiliated with, endorsed by, or sponsored by any federal or state government program, including Medicare, Medicaid, or the Health Insurance Marketplace.",
+    "intro_p2": "We represent and offer insurance products from multiple insurance carriers. We do not represent every insurance carrier or every insurance product available in the market. Product availability, benefits, premiums, eligibility, underwriting requirements, and coverage options vary by state, carrier, and individual or business circumstances.",
+    "licensing_title": "Licensing",
+    "licensing_body": "Insurance services are offered only in states where SUMERPLUS INSURANCE AGENCY LLC and its appropriately licensed insurance professionals are authorized to conduct insurance business.",
+    "licensing_items": [
+      { "label": "Producer NPN", "value": "22300323" },
+      { "label": "Florida Producer License", "value": "G358501" }
+    ],
+    "licensing_footer": "Additional state licenses and carrier appointments may apply. Licensing and appointment status may change.",
+    "quotes_title": "Quotes & Coverage",
+    "quotes_p1": "Quotes, rates, premiums, benefits, and illustrations provided through this website or through third-party platforms are estimates for informational purposes only and are not guarantees of coverage, eligibility, or final pricing.",
+    "quotes_p2": "Final premiums, coverage, policy terms, and issuance are determined by the applicable insurance carrier and may be subject to underwriting, verification, and carrier approval.",
+    "quotes_p3": "Submitting a request for information or a quote does not create insurance coverage. Coverage becomes effective only as provided by the applicable insurance carrier and policy documents.",
+    "tax_legal_title": "Tax & Legal Information",
+    "tax_legal_p1": "Information concerning life insurance, business insurance, executive bonus arrangements, Section 162 strategies, key-person insurance, buy-sell funding, or other business planning concepts is provided for educational purposes only.",
+    "tax_legal_p2": "Nothing on this website constitutes legal, tax, accounting, investment, medical, or other professional advice. Tax laws and regulations may change. Business owners should consult their own qualified CPA, tax attorney, attorney, or other appropriate professional before implementing any strategy.",
+    "third_party_title": "Third-Party Websites",
+    "third_party_body": "This website may contain links to insurance carriers, enrollment platforms, quoting systems, and other third-party websites. SUMERPLUS INSURANCE AGENCY LLC does not control and is not responsible for the content, availability, privacy practices, or policies of third-party websites.",
+    "privacy_title": "Privacy & Communications",
+    "privacy_p1": "Information submitted through this website may be used to respond to inquiries, provide insurance information, obtain quotes, and assist with applications, subject to our Privacy Policy and applicable law.",
+    "privacy_p2": "Where required, separate consent may be obtained for marketing communications, telephone calls, and text messages. Consent to receive marketing communications is not a condition of purchasing insurance.",
+    "important_title": "Important",
+    "important_body": "Insurance products and services are subject to applicable state laws, regulations, carrier requirements, eligibility rules, and policy terms. In the event of a conflict between information on this website and an insurance policy, the insurance policy and applicable carrier documents control."
   },
   "leakage_page": {
     "title": "Fiscal Leakage Calculator",
@@ -434,7 +461,9 @@
     "form_email": "Email",
     "form_message": "Message",
     "form_submit": "Send Message",
-    "success_message": "Thank you for your message! We will get back to you soon."
+    "form_submitting": "Sending…",
+    "success_message": "Thank you for your message! We will get back to you soon.",
+    "error_message": "Something went wrong. Please try again or email us directly."
   },
   "book_page": {
     "title": "Book a Consultation",

@@ -109,6 +109,27 @@
   width: 100%;
 }
 
+.statusSuccess,
+.statusError {
+  margin: 0 0 var(--spacing-md);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.statusSuccess {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.statusError {
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;

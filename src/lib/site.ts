@@ -6,7 +6,7 @@ export const SITE = {
   url: SITE_URL,
   name: "SumerPlus",
   legalName: "SumerPlus Business Services and Insurance Agency",
-  email: "sumerplusinc@protonmail.com",
+  email: "info@sumerplus.com",
   phone: "321-353-1287",
   phoneTel: "+13213531287",
   instagramUrl: "https://www.instagram.com/sumer.plus/",
@@ -50,6 +50,7 @@ export const SITE_PATHS = [
   "/calculator",
   "/leakage",
   "/faq",
+  "/disclosures",
   "/personal-tax",
   "/corporate-tax",
 ] as const;

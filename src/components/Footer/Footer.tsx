@@ -109,10 +109,28 @@ export default function Footer({ dict, nav, lang }: Props) {
           </div>
         </div>
 
-        <div className={styles.copyright}>
-          <p>
-            &copy; {new Date().getFullYear()} {dict.legal_name}. {dict.rights}
+        <div className={styles.legalSection}>
+          <p className={styles.legalDisclosure}>
+            SUMERPLUS INSURANCE AGENCY LLC is an independent insurance agency. Insurance products and services are offered only where the agency and its licensed insurance professionals are authorized to conduct business. We do not represent every carrier or every plan available in your area. Quotes and information are for informational purposes only and are not guarantees of coverage or final pricing. Coverage is subject to carrier approval, underwriting, policy terms, and applicable state law.
           </p>
+
+          <nav className={styles.legalNav} aria-label="Legal & Policy Links">
+            <Link href={`/${lang}/disclosures`}>Legal Disclosures</Link>
+            <span className={styles.dot} aria-hidden>·</span>
+            <Link href={`/${lang}/disclosures#privacy-communications`}>Privacy Policy</Link>
+            <span className={styles.dot} aria-hidden>·</span>
+            <Link href={`/${lang}/disclosures#tax-legal`}>Terms of Use</Link>
+            <span className={styles.dot} aria-hidden>·</span>
+            <Link href={`/${lang}/disclosures#licensing`}>Licensing</Link>
+            <span className={styles.dot} aria-hidden>·</span>
+            <Link href={`/${lang}/contact`}>{dict.contact || "Contact Us"}</Link>
+          </nav>
+
+          <div className={styles.copyright}>
+            <p>
+              &copy; {new Date().getFullYear()} SUMERPLUS INSURANCE AGENCY LLC. All Rights Reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import PDFDocument from 'pdfkit';
 import type { NextRequest } from 'next/server';
 import type PDFKit from 'pdfkit';
+import { SITE } from '@/lib/site';
 
 type FieldSchema = {
     key: string;
@@ -432,21 +433,94 @@ function createPDFBuffer(type: string, data: Record<string, unknown>, schema: Se
 
 
 
+function createMailTransporter() {
+    return nodemailer.createTransport({
+        host: "smtp.protonmail.ch",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+}
+
+function mailFromAddress() {
+    return process.env.EMAIL_USER || SITE.email;
+}
+
+async function sendContactEmail(data: {
+    name?: string;
+    email?: string;
+    message?: string;
+}) {
+    const name = typeof data.name === 'string' ? data.name.trim() : '';
+    const email = typeof data.email === 'string' ? data.email.trim() : '';
+    const message = typeof data.message === 'string' ? data.message.trim() : '';
+
+    if (!name || !email || !message) {
+        return NextResponse.json(
+            { message: 'Name, email, and message are required' },
+            { status: 400 }
+        );
+    }
+
+    const transporter = createMailTransporter();
+    await transporter.sendMail({
+        from: mailFromAddress(),
+        to: SITE.email,
+        replyTo: email,
+        subject: `New contact message from ${name} - Sumer Plus`,
+        html: `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Contact Message</title>
+            </head>
+            <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #334155; margin: 0; padding: 24px; background-color: #f1f5f9;">
+                <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden;">
+                    <div style="background-color: #0A2540; padding: 24px 20px; text-align: center;">
+                        <h1 style="color: #ffffff; margin: 0; font-size: 22px;">New Contact Message</h1>
+                        <p style="color: #94a3b8; margin: 4px 0 0 0; font-size: 13px;">${new Date().toLocaleString()}</p>
+                    </div>
+                    <div style="padding: 24px 20px;">
+                        <p style="margin: 0 0 12px 0;"><strong>Name:</strong> ${escapeHtml(name)}</p>
+                        <p style="margin: 0 0 12px 0;"><strong>Email:</strong> ${escapeHtml(email)}</p>
+                        <p style="margin: 0 0 8px 0;"><strong>Message:</strong></p>
+                        <p style="margin: 0; white-space: pre-wrap;">${escapeHtml(message)}</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `,
+    });
+
+    return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
+}
+
+function escapeHtml(value: string) {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { type, data } = body;
 
+        if (type === 'Contact') {
+            return await sendContactEmail(data ?? {});
+        }
+
         const schema = type === 'Corporate' ? CORPORATE_SCHEMA : PERSONAL_SCHEMA;
 
-        // Create a transporter
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
+        const transporter = createMailTransporter();
 
         // --- HTML Generation ---
         const sectionsHtml = schema.map(section => {
@@ -481,8 +555,8 @@ export async function POST(req: NextRequest) {
         const pdfBuffer = await createPDFBuffer(type, data, schema);
 
         const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: 'sumerplusinc@protonmail.com',
+            from: mailFromAddress(),
+            to: SITE.email,
             subject: `New ${type} Questionnaire Submission - Sumer Plus`,
             html: `
                 <!DOCTYPE html>

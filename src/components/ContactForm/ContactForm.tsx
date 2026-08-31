@@ -1,6 +1,6 @@
 "use client";
 
-import type { FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import Button from "../Button/Button";
 import styles from "../../app/[lang]/contact/page.module.css";
 import type { Dictionary } from "@/i18n/get-dictionary";
@@ -8,9 +8,41 @@ import type { Dictionary } from "@/i18n/get-dictionary";
 type Props = { dict: Dictionary["contact_page"] };
 
 export default function ContactForm({ dict }: Props) {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(dict.success_message || "Message sent!");
+    setSubmitting(true);
+    setStatus("idle");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+
+    try {
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "Contact",
+          data: { name, email, message },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -22,6 +54,7 @@ export default function ContactForm({ dict }: Props) {
           id="name"
           name="name"
           required
+          disabled={submitting}
           className={styles.input}
         />
       </div>
@@ -32,6 +65,7 @@ export default function ContactForm({ dict }: Props) {
           id="email"
           name="email"
           required
+          disabled={submitting}
           className={styles.input}
         />
       </div>
@@ -42,11 +76,27 @@ export default function ContactForm({ dict }: Props) {
           name="message"
           rows={5}
           required
+          disabled={submitting}
           className={styles.textarea}
         />
       </div>
-      <Button type="submit" variant="primary" className={styles.submitButton}>
-        {dict.form_submit}
+      {status === "success" && (
+        <p className={styles.statusSuccess} role="status">
+          {dict.success_message}
+        </p>
+      )}
+      {status === "error" && (
+        <p className={styles.statusError} role="alert">
+          {dict.error_message}
+        </p>
+      )}
+      <Button
+        type="submit"
+        variant="primary"
+        className={styles.submitButton}
+        disabled={submitting}
+      >
+        {submitting ? dict.form_submitting : dict.form_submit}
       </Button>
     </form>
   );

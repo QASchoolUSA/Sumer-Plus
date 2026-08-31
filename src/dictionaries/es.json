@@ -404,9 +404,36 @@
       },
       {
         "q": "¿Cómo puedo contactar a SumerPlus o seguirlos en línea?",
-        "a": "Escriba a sumerplusinc@protonmail.com, llame al 321-353-1287, visite 555 Winderley Place, Suite 300, Maitland, FL 32751, use el formulario de contacto en sumerplus.com o síganos en Instagram en @sumer.plus."
+        "a": "Escriba a info@sumerplus.com, llame al 321-353-1287, visite 555 Winderley Place, Suite 300, Maitland, FL 32751, use el formulario de contacto en sumerplus.com o síganos en Instagram en @sumer.plus."
       }
     ]
+  },
+  "disclosures_page": {
+    "title": "Avisos Legales y Divulgaciones",
+    "subtitle": "Información legal importante, licencias, impuestos y divulgación de seguros.",
+    "intro_p1": "SUMERPLUS INSURANCE AGENCY LLC es una agencia de seguros independiente. No somos una agencia gubernamental y no estamos afiliados, respaldados ni patrocinados por ningún programa del gobierno federal o estatal, incluidos Medicare, Medicaid o el Mercado de Seguros Médicos.",
+    "intro_p2": "Representamos y ofrecemos productos de seguros de múltiples compañías de seguros. No representamos a todas las compañías de seguros ni a todos los productos de seguros disponibles en el mercado. La disponibilidad de productos, beneficios, primas, elegibilidad, requisitos de suscripción y opciones de cobertura varían según el estado, la compañía aseguradora y las circunstancias individuales o comerciales.",
+    "licensing_title": "Licencias",
+    "licensing_body": "Los servicios de seguros se ofrecen únicamente en los estados donde SUMERPLUS INSURANCE AGENCY LLC y sus profesionales de seguros debidamente autorizados tienen licencia para realizar transacciones de seguros.",
+    "licensing_items": [
+      { "label": "NPN de Productor", "value": "22300323" },
+      { "label": "Licencia de Productor en Florida", "value": "G358501" }
+    ],
+    "licensing_footer": "Pueden aplicarse licencias estatales adicionales y nombramientos de aseguradoras. El estado de las licencias y nombramientos puede cambiar.",
+    "quotes_title": "Cotizaciones y Cobertura",
+    "quotes_p1": "Las cotizaciones, tarifas, primas, beneficios e ilustraciones proporcionadas a través de este sitio web o plataformas de terceros son estimaciones solo con fines informativos y no constituyen garantías de cobertura, elegibilidad o precio final.",
+    "quotes_p2": "Las primas finales, la cobertura, los términos de la póliza y la emisión son determinados por la compañía de seguros aplicable y pueden estar sujetos a suscripción, verificación y aprobación de la aseguradora.",
+    "quotes_p3": "Enviar una solicitud de información o cotización no crea una cobertura de seguro. La cobertura entra en vigor únicamente según lo dispuesto en los documentos de la póliza y la aseguradora aplicable.",
+    "tax_legal_title": "Información Fiscal y Legal",
+    "tax_legal_p1": "La información sobre seguros de vida, seguros comerciales, acuerdos de bonificación ejecutiva, estrategias de la Sección 162, seguros para personal clave, financiamiento de compraventa u otros conceptos de planificación empresarial se proporciona solo con fines educativos.",
+    "tax_legal_p2": "Nada en este sitio web constituye asesoramiento legal, fiscal, contable, de inversión, médico u otro asesoramiento profesional. Las leyes y regulaciones fiscales pueden cambiar. Los propietarios de empresas deben consultar a su propio CPA calificado, abogado fiscal o profesional apropiado antes de implementar cualquier estrategia.",
+    "third_party_title": "Sitios Web de Terceros",
+    "third_party_body": "Este sitio web puede contener enlaces a compañías de seguros, plataformas de inscripción, sistemas de cotización y otros sitios web de terceros. SUMERPLUS INSURANCE AGENCY LLC no controla y no es responsable del contenido, disponibilidad, prácticas de privacidad o políticas de sitios web de terceros.",
+    "privacy_title": "Privacidad y Comunicaciones",
+    "privacy_p1": "La información enviada a través de este sitio web se puede utilizar para responder a consultas, brindar información sobre seguros, obtener cotizaciones y ayudar con solicitudes, sujeto a nuestra Política de Privacidad y a la legislación aplicable.",
+    "privacy_p2": "Cuando sea necesario, se puede obtener un consentimiento por separado para comunicaciones de marketing, llamadas telefónicas y mensajes de texto. El consentimiento para recibir comunicaciones de marketing no es una condición para comprar un seguro.",
+    "important_title": "Importante",
+    "important_body": "Los productos y servicios de seguro están sujetos a las leyes estatales aplicables, regulaciones, requisitos de la aseguradora, reglas de elegibilidad y términos de la póliza. En caso de conflicto entre la información en este sitio web y una póliza de seguro, prevalecerán la póliza de seguro y los documentos del asegurador aplicable."
   },
   "leakage_page": {
     "title": "Calculadora de Fugas Fiscales",
@@ -434,7 +461,9 @@
     "form_email": "Correo electrónico",
     "form_message": "Mensaje",
     "form_submit": "Enviar Mensaje",
-    "success_message": "¡Gracias por su mensaje! Nos pondremos en contacto con usted pronto."
+    "form_submitting": "Enviando…",
+    "success_message": "¡Gracias por su mensaje! Nos pondremos en contacto con usted pronto.",
+    "error_message": "Algo salió mal. Inténtelo de nuevo o escríbanos por correo."
   },
   "book_page": {
     "title": "Reservar una Consulta",
