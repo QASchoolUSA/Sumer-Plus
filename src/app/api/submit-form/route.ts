@@ -471,26 +471,64 @@ async function sendContactEmail(data: {
         from: mailFromAddress(),
         to: SITE.email,
         replyTo: email,
-        subject: `New contact message from ${name} - Sumer Plus`,
+        subject: `New Contact Message from ${name} - SumerPlus`,
         html: `
             <!DOCTYPE html>
             <html>
             <head>
                 <meta charset="utf-8">
-                <title>Contact Message</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>New Contact Message - SumerPlus</title>
             </head>
-            <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #334155; margin: 0; padding: 24px; background-color: #f1f5f9;">
-                <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden;">
-                    <div style="background-color: #0A2540; padding: 24px 20px; text-align: center;">
-                        <h1 style="color: #ffffff; margin: 0; font-size: 22px;">New Contact Message</h1>
-                        <p style="color: #94a3b8; margin: 4px 0 0 0; font-size: 13px;">${new Date().toLocaleString()}</p>
+            <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; margin: 0; padding: 24px 12px; background-color: #0b131f;">
+                <div style="max-width: 640px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; border: 1px solid #d4af37; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    
+                    <!-- Header -->
+                    <div style="background-color: #0A2540; padding: 36px 24px; text-align: center; border-bottom: 3px solid #D4AF37;">
+                        <h1 style="color: #D4AF37; margin: 0 0 6px 0; font-size: 24px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">SUMERPLUS</h1>
+                        <p style="color: #94a3b8; margin: 0 0 16px 0; font-size: 12px; letter-spacing: 0.5px;">Business Services &amp; Insurance Agency</p>
+                        <div style="display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37; border-radius: 20px; padding: 4px 16px;">
+                            <span style="color: #ffffff; font-size: 12px; font-weight: 600; letter-spacing: 0.5px;">New Website Contact Inquiry</span>
+                        </div>
                     </div>
-                    <div style="padding: 24px 20px;">
-                        <p style="margin: 0 0 12px 0;"><strong>Name:</strong> ${escapeHtml(name)}</p>
-                        <p style="margin: 0 0 12px 0;"><strong>Email:</strong> ${escapeHtml(email)}</p>
-                        <p style="margin: 0 0 8px 0;"><strong>Message:</strong></p>
-                        <p style="margin: 0; white-space: pre-wrap;">${escapeHtml(message)}</p>
+
+                    <!-- Content -->
+                    <div style="padding: 32px 28px; background-color: #ffffff;">
+                        
+                        <div style="margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; color: #64748b; font-size: 13px;">
+                            Received: <strong>${new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}</strong>
+                        </div>
+
+                        <div style="margin-bottom: 16px; padding: 14px 18px; background-color: #f8fafc; border-radius: 8px; border-left: 4px solid #D4AF37;">
+                            <div style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;">Sender Name</div>
+                            <div style="font-size: 16px; color: #0A2540; font-weight: 600;">${escapeHtml(name)}</div>
+                        </div>
+
+                        <div style="margin-bottom: 24px; padding: 14px 18px; background-color: #f8fafc; border-radius: 8px; border-left: 4px solid #D4AF37;">
+                            <div style="font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;">Email Address</div>
+                            <div style="font-size: 16px; color: #0A2540; font-weight: 600;">
+                                <a href="mailto:${escapeHtml(email)}" style="color: #0A2540; text-decoration: none;">${escapeHtml(email)}</a>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 28px;">
+                            <div style="font-size: 12px; text-transform: uppercase; color: #0A2540; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px;">Message</div>
+                            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; color: #334155; font-size: 15px; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(message)}</div>
+                        </div>
+
+                        <div style="text-align: center; margin: 32px 0 12px 0;">
+                            <a href="mailto:${escapeHtml(email)}?subject=Re:%20Inquiry%20to%20SumerPlus" style="background-color: #0A2540; color: #D4AF37; font-size: 14px; font-weight: 700; text-decoration: none; padding: 14px 28px; border-radius: 6px; border: 1px solid #D4AF37; display: inline-block; letter-spacing: 0.5px;">Reply to ${escapeHtml(name)} &rarr;</a>
+                        </div>
+
                     </div>
+
+                    <!-- Footer -->
+                    <div style="background-color: #0A2540; padding: 24px 20px; text-align: center; border-top: 1px solid #1e293b;">
+                        <p style="color: #D4AF37; font-size: 13px; font-weight: 600; margin: 0 0 6px 0;">SumerPlus Business Services &amp; Insurance Agency</p>
+                        <p style="color: #94a3b8; font-size: 12px; margin: 0 0 12px 0;">555 Winderley Place, Suite 300, Maitland, FL 32751 | 321-353-1287</p>
+                        <p style="color: #64748b; font-size: 11px; margin: 0;">&copy; ${new Date().getFullYear()} SumerPlus. All rights reserved.</p>
+                    </div>
+
                 </div>
             </body>
             </html>
@@ -530,10 +568,10 @@ export async function POST(req: NextRequest) {
 
                 return `
                     <tr>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f1f5f9; color: #475569; font-weight: 600; width: 50%; vertical-align: middle;">
+                        <td style="padding: 10px 12px; border-bottom: 1px solid #f1f5f9; color: #475569; font-weight: 600; width: 50%; vertical-align: middle;">
                             ${field.label}
                         </td>
-                        <td style="padding: 10px 8px; border-bottom: 1px solid #f1f5f9; color: #1e293b; width: 50%; vertical-align: middle;">
+                        <td style="padding: 10px 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b; width: 50%; vertical-align: middle;">
                             ${showEmpty}
                         </td>
                     </tr>
@@ -542,7 +580,7 @@ export async function POST(req: NextRequest) {
 
             return `
                 <div style="margin-bottom: 24px; background-color: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden;">
-                    <div style="background-color: #f8fafc; padding: 10px 16px; border-bottom: 1px solid #e2e8f0;">
+                    <div style="background-color: #f8fafc; padding: 12px 16px; border-bottom: 1px solid #e2e8f0; border-left: 4px solid #D4AF37;">
                         <h3 style="margin: 0; color: #0A2540; font-size: 15px; font-weight: 700;">${section.title}</h3>
                     </div>
                     <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
@@ -557,7 +595,7 @@ export async function POST(req: NextRequest) {
         const mailOptions = {
             from: mailFromAddress(),
             to: SITE.email,
-            subject: `New ${type} Questionnaire Submission - Sumer Plus`,
+            subject: `New ${type} Tax Questionnaire Submission - SumerPlus`,
             html: `
                 <!DOCTYPE html>
                 <html>
@@ -566,23 +604,31 @@ export async function POST(req: NextRequest) {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>${type} Tax Questionnaire</title>
                 </head>
-                <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #334155; margin: 0; padding: 0; background-color: #f1f5f9;">
-                    <div style="max-width: 680px; margin: 0 auto;">
+                <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; margin: 0; padding: 24px 12px; background-color: #0b131f;">
+                    <div style="max-width: 680px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; border: 1px solid #d4af37; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
                         
                         <!-- Header -->
-                        <div style="background-color: #0A2540; padding: 32px 20px; text-align: center; border-radius: 0 0 8px 8px;">
-                            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">${type} Tax Questionnaire</h1>
-                            <p style="color: #94a3b8; margin: 4px 0 0 0; font-size: 13px;">Submission Date: ${new Date().toLocaleDateString()}</p>
+                        <div style="background-color: #0A2540; padding: 36px 24px; text-align: center; border-bottom: 3px solid #D4AF37;">
+                            <h1 style="color: #D4AF37; margin: 0 0 6px 0; font-size: 24px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">SUMERPLUS</h1>
+                            <p style="color: #94a3b8; margin: 0 0 16px 0; font-size: 12px; letter-spacing: 0.5px;">Business Services &amp; Insurance Agency</p>
+                            <div style="display: inline-block; background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37; border-radius: 20px; padding: 4px 16px;">
+                                <span style="color: #ffffff; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">${type} Tax Questionnaire Submission</span>
+                            </div>
                         </div>
 
                         <!-- Content -->
-                        <div style="padding: 32px 16px;">
+                        <div style="padding: 32px 24px; background-color: #ffffff;">
+                            <div style="margin-bottom: 24px; color: #64748b; font-size: 13px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+                                Submission Date: <strong>${new Date().toLocaleDateString('en-US', { dateStyle: 'long' })}</strong>
+                            </div>
                             ${sectionsHtml}
                         </div>
 
                         <!-- Footer -->
-                        <div style="background-color: #ffffff; border-top: 1px solid #e2e8f0; padding: 24px 20px; text-align: center; color: #94a3b8; font-size: 11px; border-radius: 8px 8px 0 0;">
-                            <p style="margin: 0;">© ${new Date().getFullYear()} Sumer Plus. Automated email.</p>
+                        <div style="background-color: #0A2540; padding: 24px 20px; text-align: center; border-top: 1px solid #1e293b;">
+                            <p style="color: #D4AF37; font-size: 13px; font-weight: 600; margin: 0 0 6px 0;">SumerPlus Business Services &amp; Insurance Agency</p>
+                            <p style="color: #94a3b8; font-size: 12px; margin: 0 0 12px 0;">555 Winderley Place, Suite 300, Maitland, FL 32751 | 321-353-1287</p>
+                            <p style="color: #64748b; font-size: 11px; margin: 0;">&copy; ${new Date().getFullYear()} SumerPlus. Automated notification.</p>
                         </div>
 
                     </div>
