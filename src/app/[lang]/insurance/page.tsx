@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { getDictionary } from "../../../i18n/get-dictionary";
 import Button from "@/components/Button/Button";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, ExternalLink } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 import styles from "./page.module.css";
 import type { PageProps } from "@/types/pages";
 
@@ -30,9 +31,46 @@ export default async function InsurancePage({ params }: PageProps) {
           <p className={styles.subtitle}>{page.subtitle}</p>
           <p className={styles.definition}>{page.definition}</p>
           <p className={styles.intro}>{page.intro}</p>
-          <Button href={`/${lang}/book`} variant="primary">
-            {page.book_cta}
-          </Button>
+
+          <div className={styles.spotlightCard}>
+            <div className={styles.spotlightGlow} aria-hidden="true" />
+            <span className={styles.spotlightBadge}>
+              {page.instant_portal.eyebrow}
+            </span>
+            <h2 className={styles.spotlightTitle}>{page.instant_portal.tagline}</h2>
+            <p className={styles.spotlightDesc}>
+              {page.instant_portal.description}
+            </p>
+            <div className={styles.spotlightPills}>
+              {page.instant_portal.badges.map((b, i) => (
+                <span key={i} className={styles.spotlightPill}>
+                  <CheckCircle2 className={styles.pillCheck} aria-hidden />
+                  {b}
+                </span>
+              ))}
+            </div>
+            <div className={styles.spotlightCtaWrap}>
+              <Button
+                href={SITE.insurancePortalUrl}
+                external
+                variant="primary"
+                className={styles.spotlightCta}
+              >
+                <span>{page.instant_portal.button}</span>
+                <ExternalLink className={styles.extIcon} aria-hidden />
+              </Button>
+              <Button
+                href={`/${lang}/book`}
+                variant="outline"
+                className={styles.spotlightSecondaryCta}
+              >
+                {page.book_cta}
+              </Button>
+            </div>
+            <p className={styles.spotlightAgentNote}>
+              Licensed Agent: {SITE.agentName} • {SITE.agentLicense}
+            </p>
+          </div>
         </div>
       </header>
 
@@ -70,11 +108,20 @@ export default async function InsurancePage({ params }: PageProps) {
         </section>
 
         <div className={styles.actions}>
-          <Button href={`/${lang}/book`} variant="primary">
+          <Button
+            href={SITE.insurancePortalUrl}
+            external
+            variant="primary"
+            className={styles.portalActionBtn}
+          >
+            <span>{page.instant_portal.button}</span>
+            <ExternalLink className={styles.extIcon} aria-hidden />
+          </Button>
+          <Button href={`/${lang}/book`} variant="secondary">
             {page.book_cta}
             <ArrowRight className={styles.arrow} />
           </Button>
-          <Button href={`/${lang}/leakage`} variant="secondary">
+          <Button href={`/${lang}/leakage`} variant="outline">
             {dict.navigation.leakage}
           </Button>
           <Button href={`/${lang}/services`} variant="outline">

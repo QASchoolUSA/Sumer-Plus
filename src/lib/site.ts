@@ -20,6 +20,9 @@ export const SITE = {
     postalCode: "32751",
     addressCountry: "US",
   },
+  insurancePortalUrl: "https://insuremenowdirect.com/agent/elena-martynenko/",
+  agentName: "Elena Martynenko",
+  agentLicense: "Florida 2-15 Life & Health",
   locales: i18n.locales,
   defaultLocale: i18n.defaultLocale,
 } as const;

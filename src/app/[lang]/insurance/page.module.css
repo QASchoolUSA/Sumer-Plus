@@ -150,6 +150,135 @@
   height: 1rem;
 }
 
+.spotlightCard {
+  position: relative;
+  background: linear-gradient(180deg, rgba(30, 27, 22, 0.95) 0%, rgba(18, 18, 18, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.08);
+  overflow: hidden;
+}
+
+.spotlightGlow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.spotlightBadge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-primary);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.spotlightTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--spacing-sm);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.spotlightDesc {
+  color: var(--color-text-main);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 660px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.spotlightPills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.spotlightPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-main);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+.pillCheck {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--color-primary);
+}
+
+.spotlightCtaWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.spotlightCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 600;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+  transition: all var(--transition-normal);
+}
+
+.spotlightCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.5);
+}
+
+.spotlightSecondaryCta {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.spotlightAgentNote {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.extIcon {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.portalActionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 @media (max-width: 640px) {
   .features {
     grid-template-columns: 1fr;
@@ -157,5 +286,19 @@
 
   .proof {
     padding: var(--spacing-md);
+  }
+
+  .spotlightCard {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .spotlightCtaWrap {
+    flex-direction: column;
+  }
+
+  .spotlightCta,
+  .spotlightSecondaryCta {
+    width: 100%;
+    justify-content: center;
   }
 }

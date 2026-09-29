@@ -1,6 +1,7 @@
 import { getDictionary } from "../../../i18n/get-dictionary";
 import Button from "@/components/Button/Button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
+import { SITE } from "@/lib/site";
 import styles from "./page.module.css";
 import type { PageProps } from "@/types/pages";
 
@@ -53,10 +54,26 @@ export default async function ServicesPage({ params }: PageProps) {
         ))}
 
         <div className={styles.insuranceBanner}>
-          <p>{dict.insurance_page.subtitle}</p>
-          <Button href={`/${lang}/insurance`} variant="secondary">
-            {page.insurance_cta}
-          </Button>
+          <p className={styles.insuranceBannerTag}>
+            {dict.insurance_page.instant_portal.tagline}
+          </p>
+          <p className={styles.insuranceBannerSub}>
+            {dict.insurance_page.subtitle}
+          </p>
+          <div className={styles.insuranceBannerActions}>
+            <Button
+              href={SITE.insurancePortalUrl}
+              external
+              variant="primary"
+              className={styles.insuranceBannerQuoteBtn}
+            >
+              <span>{page.instant_quote_cta}</span>
+              <span aria-hidden>↗</span>
+            </Button>
+            <Button href={`/${lang}/insurance`} variant="outline">
+              {page.insurance_cta}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

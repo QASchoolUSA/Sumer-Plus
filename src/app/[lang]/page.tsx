@@ -9,6 +9,7 @@ import ValueAdvantage from "@/components/ValueAdvantage/ValueAdvantage";
 import CTASection from "@/components/CTASection/CTASection";
 import Button from "@/components/Button/Button";
 import { buildPageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 import styles from "./page.module.css";
 import type { PageProps } from "@/types/pages";
 
@@ -47,6 +48,15 @@ export default async function Home({ params }: PageProps) {
             ))}
           </div>
           <div className={styles.crossCta}>
+            <Button
+              href={SITE.insurancePortalUrl}
+              external
+              variant="primary"
+              className={styles.crossQuoteBtn}
+            >
+              <span>{dict.crossover.instant_quote_cta}</span>
+              <span aria-hidden>↗</span>
+            </Button>
             <Button href={`/${lang}/insurance`} variant="secondary">
               {dict.navigation.insurance}
             </Button>

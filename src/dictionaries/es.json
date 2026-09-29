@@ -20,6 +20,7 @@
     "calculator": "Calculadora de Precios",
     "leakage": "Calculadora de Fugas Fiscales",
     "book": "Reservar",
+    "instant_quote": "Cotizar al Instante",
     "personal_tax": "Cuestionario de Impuestos Personales",
     "corporate_tax": "Cuestionario de Impuestos Corporativos"
   },
@@ -95,7 +96,8 @@
         "title": "Eliminación de Puntos Ciegos",
         "description": "Protección del cliente frente a la pérdida de activos por crisis de salud, demandas o pasivos imprevistos."
       }
-    ]
+    ],
+    "instant_quote_cta": "¡Cotice, Solicite y Obtenga Cobertura al Instante!"
   },
   "about_us": {
     "title": "Por Qué SumerPlus",
@@ -137,6 +139,7 @@
     "leakage": "Calculadora de Fugas",
     "book": "Reservar",
     "instagram": "Instagram",
+    "insurance_portal": "Portal de Cotización y Solicitud al Instante",
     "rights": "Todos los derechos reservados."
   },
   "services_page": {
@@ -145,6 +148,7 @@
     "definition": "SumerPlus ofrece preparación de impuestos personales y empresariales, contabilidad, nómina, constitución de entidades y planificación fiscal durante todo el año para personas y empresas en Estados Unidos.",
     "book_cta": "Reservar Consulta",
     "insurance_cta": "Explorar Soluciones de Seguros",
+    "instant_quote_cta": "Cotizar y Solicitar al Instante",
     "items": [
       {
         "id": "personal-tax",
@@ -274,6 +278,17 @@
     "definition": "SumerPlus es una correduría independiente Florida 2-15 (Vida y Salud) que diseña beneficios grupales, vida, incapacidad y estrategias de patrimonio alineadas a impuestos sin cuotas de aseguradora.",
     "intro": "Como agencia independiente, evaluamos todo el mercado para diseñar carteras que sirvan a sus intereses fiscales y financieros — no a la cuota de una sola aseguradora.",
     "book_cta": "Reservar Consulta de Seguros Gratuita",
+    "instant_portal": {
+      "eyebrow": "Mercado Digital Multiaegurador",
+      "tagline": "¡Cotice, Solicite y Obtenga Cobertura al Instante!",
+      "description": "Acceda a nuestra plataforma directa multiaeguradora para comparar tarifas en tiempo real, solicitar y obtener aprobación en línea con la agente licenciada Elena Martynenko.",
+      "button": "Acceder al Portal de Cotización",
+      "badges": [
+        "Decisión digital al instante",
+        "Opciones sin examen médico",
+        "Aseguradoras líderes nacionales"
+      ]
+    },
     "sections": [
       {
         "id": "group-benefits",

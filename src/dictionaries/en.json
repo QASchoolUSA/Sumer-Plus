@@ -20,6 +20,7 @@
     "calculator": "Pricing Calculator",
     "leakage": "Fiscal Leakage Calculator",
     "book": "Book Now",
+    "instant_quote": "Instant Quote",
     "personal_tax": "Personal Tax Questionnaire",
     "corporate_tax": "Corporate Tax Questionnaire"
   },
@@ -95,7 +96,8 @@
         "title": "Eliminating Blind Spots",
         "description": "Protecting clients from losing assets to health crises, lawsuits, or unplanned liabilities."
       }
-    ]
+    ],
+    "instant_quote_cta": "Instantly Quote, Apply, & Get Covered!"
   },
   "about_us": {
     "title": "Why SumerPlus",
@@ -137,6 +139,7 @@
     "leakage": "Leakage Calculator",
     "book": "Book",
     "instagram": "Instagram",
+    "insurance_portal": "Instant Quote & Application Portal",
     "rights": "All rights reserved."
   },
   "services_page": {
@@ -145,6 +148,7 @@
     "definition": "SumerPlus provides personal and business tax preparation, bookkeeping, payroll, entity formation, and year-round tax planning for individuals and companies in the United States.",
     "book_cta": "Book Consultation",
     "insurance_cta": "Explore Insurance Solutions",
+    "instant_quote_cta": "Instant Quote & Apply",
     "items": [
       {
         "id": "personal-tax",
@@ -274,6 +278,17 @@
     "definition": "SumerPlus is an independent Florida 2-15 (Life & Health) brokerage that designs group benefits, life, disability, and tax-aligned wealth strategies without carrier quotas.",
     "intro": "As an independent agency, we shop the entire market to design portfolios that serve your tax and financial interests — not a single carrier's quota.",
     "book_cta": "Book a Free Insurance Consultation",
+    "instant_portal": {
+      "eyebrow": "Direct Multi-Carrier Marketplace",
+      "tagline": "Instantly Quote, Apply, & Get Covered!",
+      "description": "Access our direct multi-carrier platform to quote, compare real-time rates, and bind coverage online in minutes with licensed agent Elena Martynenko.",
+      "button": "Launch Instant Quote Portal",
+      "badges": [
+        "Instant Online Decisions",
+        "No-Exam Options Available",
+        "Top-Rated National Carriers"
+      ]
+    },
     "sections": [
       {
         "id": "group-benefits",

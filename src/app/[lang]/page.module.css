@@ -56,8 +56,26 @@
   justify-content: center;
 }
 
+.crossQuoteBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 @media (max-width: 768px) {
   .crossGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .crossCta {
+    flex-direction: column;
+  }
+
+  .crossCta a,
+  .crossCta button {
+    width: 100%;
+    justify-content: center;
   }
 }

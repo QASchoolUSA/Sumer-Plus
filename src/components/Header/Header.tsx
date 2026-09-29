@@ -8,6 +8,7 @@ import Button from "../Button/Button";
 import styles from "./Header.module.css";
 import { i18n, type Locale } from "../../i18n-config";
 import type { Dictionary } from "@/i18n/get-dictionary";
+import { SITE } from "@/lib/site";
 
 type Props = {
   dict: Dictionary["navigation"];
@@ -159,10 +160,23 @@ export default function Header({ dict, lang }: Props) {
                 ))}
               </div>
             </li>
-            <li>
+            <li className={styles.quoteItem}>
+              <Button
+                href={SITE.insurancePortalUrl}
+                external
+                variant="outline"
+                className={styles.quoteButton}
+                onClick={close}
+              >
+                <span>{dict.instant_quote}</span>
+                <span className={styles.quoteArrow} aria-hidden>↗</span>
+              </Button>
+            </li>
+            <li className={styles.bookItem}>
               <Button
                 href={`/${lang}/book`}
                 variant="primary"
+                className={styles.bookButton}
                 onClick={close}
               >
                 {dict.book}

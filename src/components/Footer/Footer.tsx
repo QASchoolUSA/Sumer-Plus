@@ -81,6 +81,17 @@ export default function Footer({ dict, nav, lang }: Props) {
                   {nav?.corporate_tax || "Corporate Tax"}
                 </Link>
               </li>
+              <li>
+                <a
+                  href={SITE.insurancePortalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.portalLink}
+                >
+                  <span>{dict.insurance_portal || "Instant Insurance Portal"}</span>
+                  <span aria-hidden>↗</span>
+                </a>
+              </li>
             </ul>
           </div>
 

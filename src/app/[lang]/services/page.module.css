@@ -112,21 +112,52 @@
   padding: var(--spacing-xl);
   text-align: center;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-top: 2px solid var(--color-primary);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
-.insuranceBanner p {
+.insuranceBannerTag {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.insuranceBannerSub {
   color: var(--color-text-muted);
-  margin: 0 0 var(--spacing-md);
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--spacing-md);
+  margin: 0 auto var(--spacing-md);
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+.insuranceBannerActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.insuranceBannerQuoteBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 @media (max-width: 640px) {
   .features {
     grid-template-columns: 1fr;
+  }
+
+  .insuranceBannerActions {
+    flex-direction: column;
+  }
+
+  .insuranceBannerActions a,
+  .insuranceBannerActions button {
+    width: 100%;
+    justify-content: center;
   }
 }
